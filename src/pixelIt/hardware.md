@@ -12,7 +12,7 @@
  
 
 ## Aufbau
-![](/wiring_diagram.png) 
+![](/wiring_diagram.jpg) 
 
 ## 3D Druck Dateien
 ![](/cover.jpg) 
