@@ -9,7 +9,7 @@
   },
   "repository": "o0shojo0o/doc/doc",
   "scripts": {
-    "dev": "vuepress dev src",
+    "dev": "vuepress dev src --temp .temp",
     "build": "vuepress build src"
   },
   "license": "MIT",
