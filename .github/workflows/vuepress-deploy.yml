@@ -14,4 +14,4 @@ jobs:
         TARGET_REPO: o0shojo0o/o0shojo0o.github.io
         TARGET_BRANCH: master
         BUILD_SCRIPT: yarn && yarn build
-        BUILD_DIR: docu/.vuepress/dist/
+        BUILD_DIR: src/.vuepress/dist/
