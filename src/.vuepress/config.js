@@ -4,11 +4,11 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'Bastelbunkers Dokumentation',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: description,
+  description:  'Bastelbunkers Dokumentation',
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -27,37 +27,31 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
-    editLinks: false,
-    docsDir: '',
-    editLinkText: '',
-    lastUpdated: false,
-    nav: [
+    //repo: '',
+    //editLinks: false,
+    //docsDir: '',
+    //editLinkText: '',
+    //lastUpdated: true,
+    //nav: [],
+    sidebar: [
+      //{
+      //  title: 'Home',   // required
+      //  path: '/',      // optional, link of the title, which should be an absolute path and must exist
+      //  collapsable: false, // optional, defaults to true
+      //  sidebarDepth: 0,    // optional, defaults to 1       
+      //},
       {
-        text: 'Guide',
-        link: '/guide/',
-      },
-      {
-        text: 'Config',
-        link: '/config/'
-      },
-      {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
+        title: 'Pixel It',   // required
+        path: '/pixelIt',      // optional, link of the title, which should be an absolute path and must exist
+        collapsable: false, // optional, defaults to true
+        sidebarDepth: 1,    // optional, defaults to 1
+        children: [
+          '/pixelIt/software',
+          '/pixelIt/hardware',
+          '/pixelIt/api',
+        ]
       }
-    ],
-    sidebar: {
-      '/guide/': [
-        {
-          title: 'Guide',
-          collapsable: false,
-          children: [
-            '',
-            'using-vue',
-          ]
-        }
-      ],
-    }
+    ]
   },
 
   /**
@@ -68,3 +62,4 @@ module.exports = {
     '@vuepress/plugin-medium-zoom',
   ]
 }
+

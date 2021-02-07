@@ -9,38 +9,6 @@ import GlobalLayout from "C:\\Users\\Dennis\\Documents\\GitHub\\doc\\node_module
 injectComponentOption(GlobalLayout, 'mixins', rootMixins)
 export const routes = [
   {
-    name: "v-3e4af544",
-    path: "/config/",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-3e4af544").then(next)
-    },
-  },
-  {
-    path: "/config/index.html",
-    redirect: "/config/"
-  },
-  {
-    name: "v-d6e137e4",
-    path: "/guide/",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-d6e137e4").then(next)
-    },
-  },
-  {
-    path: "/guide/index.html",
-    redirect: "/guide/"
-  },
-  {
-    name: "v-01361333",
-    path: "/guide/using-vue.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-01361333").then(next)
-    },
-  },
-  {
     name: "v-043dc38e",
     path: "/",
     component: GlobalLayout,
@@ -51,6 +19,42 @@ export const routes = [
   {
     path: "/index.html",
     redirect: "/"
+  },
+  {
+    name: "v-32596d55",
+    path: "/pixelIt/software.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-32596d55").then(next)
+    },
+  },
+  {
+    name: "v-1c320f9a",
+    path: "/pixelIt/api.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-1c320f9a").then(next)
+    },
+  },
+  {
+    name: "v-63b1a36c",
+    path: "/pixelIt/",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-63b1a36c").then(next)
+    },
+  },
+  {
+    path: "/pixelIt/index.html",
+    redirect: "/pixelIt/"
+  },
+  {
+    name: "v-52588093",
+    path: "/pixelIt/hardware.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-52588093").then(next)
+    },
   },
   {
     path: '*',
