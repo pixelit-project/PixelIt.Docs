@@ -1,4 +1,5 @@
 # Einleitung
+![](/pixelit_pic.jpeg)
 
 ## Vorteile
 * RESTAPI
