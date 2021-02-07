@@ -25,7 +25,7 @@ Jetzt muss man nur noch auf den Button Flash drücken und etwas warten.
 ## Nach dem Flashen
 Du hast erfolgreich geflasht? Dann lass uns direkt weiter machen.  
 
-Nachdem du erfolgreich geflasht hast und nun den ESP startest baut dieser ein eigenes WLAN auf. Nun musst du dich mit diesem WLAN verbinden und auf die ip Adresse des ESP mit einem Browser verbinden.     
+Jetzt sollte der ESP ein eigenes WLAN aufbauen. Mit dem du dich verbinden sollst.     
 Ab dann sollte der Rest Selbstverständlich sein.  
 
 Wenn alles geklappt hat und die Uhr sich mit dem WLAN und dahinter liegendem Internet verbinden konnte zeigt sie auch schon eine Uhrzeit an.  
