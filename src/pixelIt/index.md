@@ -2,7 +2,7 @@
 
 ## Vorteile
 * RESTAPI
-* Node-Red Node (https://flows.nodered.org/node/node-red-contrib-pixelit)
+* [Node-Red Node](https://flows.nodered.org/node/node-red-contrib-pixelit)
 * Erweiterbar
 * Anpassbar
 * Kostengünstig
