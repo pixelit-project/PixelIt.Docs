@@ -1,7 +1,8 @@
 ---
 home: true
-heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: 
+heroImage: /hero.png
+heroText: 
+tagline: Die Dokumentationen
 actionText: <- Pixel It Doku ->
 actionLink: /pixelit/
 #features:
