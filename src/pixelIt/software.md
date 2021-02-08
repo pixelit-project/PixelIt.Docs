@@ -17,7 +17,7 @@ Hier muss der Port gewählt werden wo ihr euren Wemos D1 mini (oder der gleichen
 
 #### Firmware: 
 Hier haben wir nun zwei Punkte die CleanFlash.bin und PixelIt.bin.  
-CleanFlash.bin: Hat die Aufgaben den kompletten Flash den ESP´s zu nullen, was sehr hilfreich sein kann wen der ESP schon für andere Projekte genutzt wurde und Probleme mit den aktuellen Projekt macht  (z.B. macht kein Hotspot auf)
+CleanFlash.bin: Hat die Aufgabe den kompletten Flash den ESP´s zu nullen, was sehr hilfreich sein kann wen der ESP schon für andere Projekte genutzt wurde und Probleme mit den aktuellen Projekt macht  (z.B. macht kein Hotspot auf)
 PixelIt.bin: ist die Firmware der Pixel It :)  
 
 Jetzt muss man nur noch auf den Button Flash drücken und etwas warten.   
