@@ -2,7 +2,7 @@
 home: true
 heroImage: https://v1.vuepress.vuejs.org/hero.png
 tagline: 
-actionText: Pixel It
+actionText: <- Pixel It Doku ->
 actionLink: /pixelit/
 #features:
 #- title: Feature 1 Title
