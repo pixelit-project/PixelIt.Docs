@@ -9,7 +9,7 @@ Zum flashen des ESP8266 nutzen wir der Einfachheit zur liebe den ESPEasy Flasher
 es muss nach den Entpacken der ESPEasy_Flasher.zip nur noch die aktuelle PixelIt.bin in den Order des ESPEasy Flashers kopiert werden.  
   
 Nun haben wir nach den starten der FlashESP8266.exe zwei Dropdown-Menüs:
-![An image](/flash_esp8266.png)
+![](/flash_esp8266.png)
 
 
 #### COM-Port:
@@ -33,3 +33,24 @@ Wenn alles geklappt hat und die Uhr sich mit dem WLAN und dahinter liegendem Int
 Als nächstes geht es dann weiter mit Node-Red. Hier ein Link zur Installation: [Node-Red - Get Started](https://nodered.org/#get-started)
  
 Wenn Node-Red installiert ist hat IdleBit einen netten Einsteiger Flow erstellt den man importieren kann: [Einsteiger Beispiel Flow](https://wiki.dietru.de/books/pixel-it/page/der-einsteiger-beispiel-flow)
+
+
+## Webinterface 
+Das Webinterface stellt Dir Punkte [Dashboard](/pixelIt/software.html#webinterface), [Options](/pixelIt/software.html#webinterface), [Test Area](/pixelIt/software.html#test-area) und Update bereit.
+
+### Dashboard
+![](/webinterface_main.png)
+### Options
+![](/webinterface_config.png)
+### Test Area
+![](/webinterface_test.png)
+
+## Pixel  Creator
+Mit den Pixel Creator kannst Du deine eigene Bilder (aka BPM) erstellen und auch in der Pixel Gallery speichern.  
+![](/pixel_creator.png)
+
+
+## Pixel Gallery
+Der Pixel Gallery die Sammelstelle der BMP (PixelArt Bilder), die BMPs die sich in der Pixel Gallery befinden sind auch über die API zu erreichen.  
+So sind diese auch über die Pixel Gallery ID in den [Bitmap Node](/pixelIt/nodered_nodes.html#bitmap) und  [Bitmap Animation Node](/pixelIt/nodered_nodes.html#bitmap-animation) verfügbar.
+![](/pixel_gallery.png)
