@@ -11,6 +11,19 @@ sidebarDepth: 2
 ::: tip MQTT Topic
 MasterTopic/setScreen
 :::
+<br>
+
+Es können / **müssen** alle Element im einen Aufruf kombeniert werden, die als ein Screen dargestellt werden sollen.
+
+Ein Beispiel Aufruf:
+::: details Beispiel Aufruf
+``` json
+{
+   // ToDo
+}
+```
+:::
+
 ### Text
 ___
 ``` json
@@ -169,6 +182,10 @@ ___
 ### Sound
 ___
 #### Option 1
+Diese Option ermöglicht das nutzen von mehreren Ordnern hat allerdings die Einschränkungen,  
+das die Controls **next** und **previous** wegfallen.  
+Folgende Ordnungsstruktur vorausgesetzt :
+`sd:\01\001.mp3`
 ``` json
 {
     // [Optional] Option 1 siehe Info!   
@@ -181,6 +198,9 @@ ___
 }
 ```
 #### Option 2
+Diese Option ermöglicht auch die Controls **next** und **previous**,  
+es wird folgende Ordnungsstruktur vorausgesetzt :
+`sd:\MP3\0001.mp3`
 ``` json
 {
     // [Optional] Option 2 siehe Info! 
@@ -189,5 +209,113 @@ ___
         "control": "play", // play, pause, next, previous
         "file": 1 // 1 - 3000
     }
+}
+```
+
+
+## Lux Sensor
+
+::: tip HTTP Endpoint [GET]
+/api/luxsensor
+:::
+::: tip MQTT Topic
+MasterTopic/luxsensor
+:::
+
+Der Response (Antwort) ist folgender Struktur aufgebaut:
+
+```json
+{
+    "lux": 107.0217
+}
+```
+
+## DHT Hum / Temp Sensor
+
+::: tip HTTP Endpoint [GET]
+/api/dhtsensor
+:::
+::: tip MQTT Topic
+MasterTopic/dhtsensor
+:::
+
+Der Response (Antwort) ist folgender Struktur aufgebaut:
+
+```json
+{
+	"humidity": 40,
+	"temperature": 21.5
+}
+```
+
+## Matrix Infomation
+
+::: tip HTTP Endpoint [GET]
+/api/matrixinfo
+:::
+
+Der Response (Antwort) ist folgender Struktur aufgebaut:
+
+```json
+{
+	"pixelitVersion": "1910272052",
+	"sketchSize": 451360,
+	"freeSketchSpace": 593920,
+	"wifiRSSI": "-73",
+	"wifiQuality": 54,
+	"wifiSSID": "Home-Wlan",
+	"ipAddress": "192.168.0.137",
+	"freeHeap": 30680,
+	"chipID": 13668362,
+	"cpuFreqMHz": 80,
+	"sleepMode": false
+}
+```
+
+## Matrix Config
+
+::: tip HTTP Endpoint [GET]
+/api/config
+:::
+
+Der Response (Antwort) ist folgender Struktur aufgebaut:
+
+```json
+{
+  "matrixtBrightness": 85,
+  "matrixType": 2,
+  "matrixTempCorrection": "typicalsmd5050",
+  "ntpServer": "de.pool.ntp.org",
+  "clockTimeZone": 1,
+  "scrollTextDefaultDelay": 110,
+  "bootScreenAktiv": false,
+  "mqttAktiv": true,
+  "mqttUser": "",
+  "mqttPassword": "",
+  "mqttServer": "192.168.0.251",
+  "mqttMasterTopic": "Haus/PixelIt/",
+  "mqttPort": 1883
+}
+```
+
+::: tip HTTP Endpoint [Post]
+/api/config
+:::
+
+Zum setzen der Konifuration ist folgende Struktur einzuhalten:
+
+```json
+{
+    "matrixtBrightness": [0 - 255],
+  	"matrixType": [1,2], // <Type 1 = NEO_MATRIX_COLUMNS , Type 2 =  NEO_MATRIX_ROWS>
+  	"matrixTempCorrection": "default", // <tungsten40w (2600 Kelvin) | tungsten100w (2850 Kelvin) | halogen (3200 Kelvin) | carbonarc (5200 Kelvin) | highnoonsun (5400 Kelvin) | directsunlight (6000 Kelvin) | overcastsky (7000 Kelvin) | clearbluesky (20000 Kelvin)......>
+  	"ntpServer" : "de.pool.ntp.org" // <or IP-Address>
+    "clockTimeZone" : 1, // <Berlin (Germany - Berlin) UTC + 1>
+    "scrollTextDefaultDelay": 100 // <millis>
+	"bootScreenAktiv": [ true , false ],
+    "mqttAktiv": [ true , false ],
+    "mqttServer": "<IP>",
+    "mqttMasterTopic": "Haus/PixelIt/",
+    "mqttPort": <PORT>
 }
 ```
