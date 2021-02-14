@@ -17,9 +17,61 @@ Es können / **müssen** alle Element im einen Aufruf kombeniert werden, die als
 
 Ein Beispiel Aufruf:
 ::: details Beispiel Aufruf
+#### Aufruf der internen Uhr mit einer Fade Animation:
 ``` json
 {
-   // ToDo
+   "switchAnimation":{
+      "aktiv":true,
+      "animation":"fade"
+   },
+   "clock":{
+      "show":true,
+      "switchAktiv":true,
+      "withSeconds":false,
+      "switchSec":6,
+      "color":{
+         "r":255,
+         "g":255,
+         "b":255
+      }
+   }
+}
+```
+
+#### Aufruf Fade Animation, Bild und Text:
+``` json
+{
+   "switchAnimation":{
+      "aktiv":true,
+      "animation":"fade"
+   },
+   "bitmap":{    
+        "data":[0,0,0,21855,0,0,0,0,0,0,0,21855,0,0,0,0,0,0,21855,21855,21855,0,0,0,0,0,21855,21855,21855,0,0,0,0,693,1055,1055,65535,44735,0,0,0,693,1055,65535,65535,44735,0,0,0,693,1055,1055,65535,21855,0,0,0,0,693,1055,21855,0,0,0],
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": 8,
+            "height": 8
+        }
+   },
+   "text":{
+      "textString":"59%",
+      "bigFont":false,
+      "scrollText":false,
+      "scrollTextDelay":0,
+      "centerText":true,
+      "position":{
+         "x":7,
+         "y":1
+      },
+      "color":{
+         "r":255,
+         "g":255,
+         "b":255
+      }
+   }
 }
 ```
 :::

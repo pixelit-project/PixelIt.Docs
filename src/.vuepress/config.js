@@ -49,6 +49,7 @@ module.exports = {
           '/pixelIt/software',
           '/pixelIt/hardware',
           '/pixelIt/api',
+          '/pixelIt/nodered_nodes',
         ]
       }
     ]
