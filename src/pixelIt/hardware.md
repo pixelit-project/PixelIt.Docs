@@ -27,4 +27,4 @@ by PlastikJunkies
 
 #### Download:
 * [Thingiverse](https://www.thingiverse.com/thing:3559014)  
-* [Hier:](https://wiki.dietru.de/attachments/16)
+* [Hier: Pixel It Case.zip](/pixel_it_case.zip)
