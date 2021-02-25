@@ -32,7 +32,7 @@ Wenn alles geklappt hat und die Uhr sich mit dem WLAN und dahinter liegendem Int
 
 Als nächstes geht es dann weiter mit Node-Red. Hier ein Link zur Installation: [Node-Red - Get Started](https://nodered.org/#get-started)
  
-Wenn Node-Red installiert ist hat IdleBit einen netten Einsteiger Flow erstellt den man importieren kann: [Einsteiger Beispiel Flow](https://wiki.dietru.de/books/pixel-it/page/der-einsteiger-beispiel-flow)
+Wenn Node-Red installiert ist hat IdleBit einen netten Einsteiger Flow erstellt den man importieren kann: [Einsteiger Beispiel Flow](https://forum.bastelbunker.de/d/29-der-einsteiger-beispiel-flow)
 
 
 ## Webinterface 
