@@ -46,10 +46,11 @@ module.exports = {
         collapsable: false, // optional, defaults to true
         sidebarDepth: 1,    // optional, defaults to 1
         children: [
-          '/pixelIt/software',
+          '/pixelIt/firmware',
           '/pixelIt/hardware',
+          '/pixelIt/webinterface',
           '/pixelIt/api',
-          '/pixelIt/nodered_nodes',
+          '/pixelIt/tools',
         ]
       }
     ]
