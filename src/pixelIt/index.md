@@ -3,7 +3,7 @@
 
 ## Vorteile
 * RESTAPI
-* [Node-Red Node](https://flows.nodered.org/node/node-red-contrib-pixelit)
+* [Node-Red Node](/pixelIt/tools.html#node-red)
 * Erweiterbar
 * Anpassbar
 * Kostengünstig
@@ -17,5 +17,5 @@
 * Kondensator
 
 ::: tip
-[Teileliste](./hardware.html#teileliste)
+[Teileliste](/hardware.html#teileliste)
 :::
