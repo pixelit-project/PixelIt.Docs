@@ -64,5 +64,6 @@ module.exports = {
     '@vuepress/plugin-medium-zoom',
     'vuepress-plugin-smooth-scroll',
     '@vuepress/back-to-top',
+    ['vuepress-plugin-code-copy', {staticIcon: true}],
   ]
 }
