@@ -8,7 +8,7 @@ Mit den [Pixel Creator](https://pixelit.bastelbunker.de/PixelCreator) kannst Du 
 ::: tip Tipp
 Um die Funktion von **LiveDraw active** sowie **Show on Pixel It** nutzen zu können,  
 muss man **Zulassen von gemischtem Inhalt** im Browser aktivieren.  
-Es eine da eine gute [Anleitung von Adobe](https://experienceleague.adobe.com/docs/target/using/experiences/vec/troubleshoot-composer/mixed-content.html?lang=de#task_FF297A08F66E47A588C14FD67C037B3A) für.
+Es gibt da eine gute [Anleitung von Adobe](https://experienceleague.adobe.com/docs/target/using/experiences/vec/troubleshoot-composer/mixed-content.html?lang=de#task_FF297A08F66E47A588C14FD67C037B3A) für.
 ::::
 ![](/pixel_creator.png)
 
