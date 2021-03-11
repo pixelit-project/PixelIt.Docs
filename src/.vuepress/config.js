@@ -36,16 +36,16 @@ module.exports = {
     sidebar: [
       {
         title: 'Pixel It',   // required
-        path: '/pixelIt',      // optional, link of the title, which should be an absolute path and must exist
+        path: '/pixelit',      // optional, link of the title, which should be an absolute path and must exist
         collapsable: true, // optional, defaults to true
         sidebarDepth: 1,    // optional, defaults to 1
         children: [
-          '/pixelIt/',
-          '/pixelIt/firmware',
-          '/pixelIt/hardware',
-          '/pixelIt/webinterface',
-          '/pixelIt/api',
-          '/pixelIt/tools',
+          '/pixelit/',
+          '/pixelit/firmware',
+          '/pixelit/hardware',
+          '/pixelit/webinterface',
+          '/pixelit/api',
+          '/pixelit/tools',
         ]
       },
       {
