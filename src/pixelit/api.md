@@ -4,6 +4,7 @@ sidebarDepth: 2
 ---
 
 # API
+
 ## Screen
 ::: tip HTTP Endpoint [POST]
 /api/screen
