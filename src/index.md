@@ -27,7 +27,7 @@ tagline: Die Dokumentationen
 </style>
 
 <p style="text-align:center">    
-    <a href="/pixelit/" class="mybutton">
+    <a href="/pixelit" class="mybutton">
         Pixel It
     </a>  
 </p>
