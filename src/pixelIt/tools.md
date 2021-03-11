@@ -17,6 +17,9 @@ Die [Pixel Gallery](https://pixelit.bastelbunker.de/PixelGallery) ist die Sammel
 So sind diese auch über die Pixel Gallery ID in den [Bitmap Node](#bitmap) und  [Bitmap Animation Node](#bitmap-animation) verfügbar.
 ![](/pixel_gallery.png)
 
+## ioBroker
+Für ioBroker gibt es auch einen [Adapter](/ioBroker_pixelit/).
+
 ## Node-Red
 Es gibt ein recht umfangreiches [Pixel It Node](https://flows.nodered.org/node/node-red-contrib-pixelit) für das Node-Red.  
 Dies hilft Dir auf recht einfache Weise die Screens für die Pixel It zu erstellen, auch eine [Playlist](#playlist) der Screens wurde hier realisiert.   

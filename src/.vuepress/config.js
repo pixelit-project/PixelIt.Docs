@@ -34,25 +34,47 @@ module.exports = {
     lastUpdated: false,
     //nav: [],
     sidebar: [
-      //{
-      //  title: 'Home',   // required
-      //  path: '/',      // optional, link of the title, which should be an absolute path and must exist
-      //  collapsable: false, // optional, defaults to true
-      //  sidebarDepth: 0,    // optional, defaults to 1       
-      //},
       {
         title: 'Pixel It',   // required
         path: '/pixelIt',      // optional, link of the title, which should be an absolute path and must exist
-        collapsable: false, // optional, defaults to true
+        collapsable: true, // optional, defaults to true
         sidebarDepth: 1,    // optional, defaults to 1
         children: [
+          '/pixelIt/',
           '/pixelIt/firmware',
           '/pixelIt/hardware',
           '/pixelIt/webinterface',
           '/pixelIt/api',
           '/pixelIt/tools',
         ]
-      }
+      },
+      {
+        title: 'ioBroker PixelIt',   // required
+        path: '/ioBroker_pixelit',      // optional, link of the title, which should be an absolute path and must exist
+        collapsable: true, // optional, defaults to true
+        sidebarDepth: 1,    // optional, defaults to 1
+        children: [      
+          'ioBroker_pixelit/',           
+        ]
+      },
+      {
+        title: 'ioBroker Seq',   // required
+        path: '/ioBroker_seq',      // optional, link of the title, which should be an absolute path and must exist
+        collapsable: true, // optional, defaults to true
+        sidebarDepth: 1,    // optional, defaults to 1
+        children: [
+          '/ioBroker_seq/',          
+        ]
+      },
+      {
+        title: 'ioBroker Traccar',   // required
+        path: '/ioBroker_traccar',      // optional, link of the title, which should be an absolute path and must exist
+        collapsable: true, // optional, defaults to true
+        sidebarDepth: 1,    // optional, defaults to 1
+        children: [
+          '/ioBroker_traccar/',          
+        ]
+      },
     ]
   },
 
