@@ -5,5 +5,5 @@
 ## Filter Tab
 ![](/iobroker_seq_filter.png)
 ::: warning ToDo
- [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelIt/nodered_nodes.md)
+ [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/nodered_nodes.md)
 :::

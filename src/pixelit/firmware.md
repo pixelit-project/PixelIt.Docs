@@ -27,6 +27,6 @@ Nach dem Falshen sollte nun die Pixel It ein eigenes WLAN aufspannen.
 Wenn man sich mit diesem verbunden hat, kann man dort die WLAN Daten seinses Netzwerkes eingeben und Speichern.  
 Wenn alles funktioniert hat und die Pixel It mit dem WLAN und dem liegendem Internet verbunden ist, sollte nun eine Uhrzeit zu sehen sein.  
   
-Nun kann man sich mit dem [Webinterface](/pixelIt/webinterface.html) was über die IP-Adresse der Pixel It verbinden, um in den Breiche [Options](/pixelIt/webinterface.html#options) die restliche Einrichtung abzuschließen.  
+Nun kann man sich mit dem [Webinterface](/pixelit/webinterface.html) was über die IP-Adresse der Pixel It verbinden, um in den Breiche [Options](/pixelit/webinterface.html#options) die restliche Einrichtung abzuschließen.  
   
-Nun sollte der nächte Schritt sein, sich den [Tools Bereich](/pixelIt/tools.html) anzusehen, um die vorhanden Möglichkeiten der Erstellung von Anzeigen (*hier meiste Screens genannt*) zu sichten.
+Nun sollte der nächte Schritt sein, sich den [Tools Bereich](/pixelit/tools.html) anzusehen, um die vorhanden Möglichkeiten der Erstellung von Anzeigen (*hier meiste Screens genannt*) zu sichten.

@@ -248,7 +248,7 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ![]()   
   
 ::: warning ToDo
- [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelIt/nodered_nodes.md)
+ [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/nodered_nodes.md)
 :::
 
 #### Die Aufgaben:
@@ -267,7 +267,7 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ![]()   
   
 ::: warning ToDo
- [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelIt/nodered_nodes.md)
+ [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/nodered_nodes.md)
 :::
 
 #### Die Aufgaben:
@@ -286,7 +286,7 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ![]()   
   
 ::: warning ToDo
- [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelIt/nodered_nodes.md)
+ [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/nodered_nodes.md)
 :::
 
 #### Die Aufgaben:
@@ -305,7 +305,7 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ![]()   
   
 ::: warning ToDo
- [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelIt/nodered_nodes.md)
+ [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/nodered_nodes.md)
 :::
 
 #### Die Aufgaben:
