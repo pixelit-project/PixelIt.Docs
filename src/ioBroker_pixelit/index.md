@@ -1,5 +1,6 @@
 # Einleitung
+
 ![](/iobroker_pixelit.png)
-::: warning ToDo
- [Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/ioBroker_pixelit/index.md)
-:::
+
+Dieser Adapter ermöglicht es dir, von ioBroker aus Screen zu der [Pixel It](/pixelit/) zu senden.  
+Es werden die optionalen Sensoren von [Pixel It](/pixelit/) abgefragt, sowie die API der [Pixelgalerie](/pixelit/tools.html#pixel-gallery) ist im Adapter implementiert.

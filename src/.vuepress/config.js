@@ -54,7 +54,8 @@ module.exports = {
         collapsable: true, // optional, defaults to true
         sidebarDepth: 1,    // optional, defaults to 1
         children: [      
-          'ioBroker_pixelit/',           
+          'ioBroker_pixelit/',
+          'ioBroker_pixelit/options',             
         ]
       },
       {
