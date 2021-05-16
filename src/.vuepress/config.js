@@ -90,6 +90,6 @@ module.exports = {
     '@vuepress/back-to-top',
     ['vuepress-plugin-code-copy', {staticIcon: true}],
     //['vuepress-plugin-matomo', {'siteId': 8,'trackerUrl': "https://matomo.dietru.de/"}
-    ],
+    //],
   ]
 }
