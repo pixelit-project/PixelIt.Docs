@@ -6,6 +6,7 @@ sidebarDepth: 2
 # API
 
 ## Screen
+
 ::: tip HTTP Endpoint [POST]
 /api/screen
 :::
@@ -18,36 +19,100 @@ Es können / **müssen** alle Element im einen Aufruf kombeniert werden, die als
 
 Ein Beispiel Aufruf:
 ::: details Beispiel Aufruf
+
 #### Aufruf der internen Uhr mit einer Fade Animation:
-``` json
+
+```json
 {
-   "switchAnimation":{
-      "aktiv":true,
-      "animation":"fade"
-   },
-   "clock":{
-      "show":true,
-      "switchAktiv":true,
-      "withSeconds":false,
-      "switchSec":6,
-      "color":{
-         "r":255,
-         "g":255,
-         "b":255
-      }
-   }
+    "switchAnimation": {
+        "aktiv": true,
+        "animation": "fade"
+    },
+    "clock": {
+        "show": true,
+        "switchAktiv": true,
+        "withSeconds": false,
+        "switchSec": 6,
+        "hexColor": "#1E00FF"
+    }
 }
 ```
 
 #### Aufruf Fade Animation, Bild und Text:
-``` json
+
+```json
 {
-   "switchAnimation":{
-      "aktiv":true,
-      "animation":"fade"
-   },
-   "bitmap":{    
-        "data":[0,0,0,21855,0,0,0,0,0,0,0,21855,0,0,0,0,0,0,21855,21855,21855,0,0,0,0,0,21855,21855,21855,0,0,0,0,693,1055,1055,65535,44735,0,0,0,693,1055,65535,65535,44735,0,0,0,693,1055,1055,65535,21855,0,0,0,0,693,1055,21855,0,0,0],
+    "switchAnimation": {
+        "aktiv": true,
+        "animation": "fade"
+    },
+    "bitmap": {
+        "data": [
+            0,
+            0,
+            0,
+            21855,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            21855,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            21855,
+            21855,
+            21855,
+            0,
+            0,
+            0,
+            0,
+            0,
+            21855,
+            21855,
+            21855,
+            0,
+            0,
+            0,
+            0,
+            693,
+            1055,
+            1055,
+            65535,
+            44735,
+            0,
+            0,
+            0,
+            693,
+            1055,
+            65535,
+            65535,
+            44735,
+            0,
+            0,
+            0,
+            693,
+            1055,
+            1055,
+            65535,
+            21855,
+            0,
+            0,
+            0,
+            0,
+            693,
+            1055,
+            21855,
+            0,
+            0,
+            0
+        ],
         "position": {
             "x": 0,
             "y": 0
@@ -56,30 +121,29 @@ Ein Beispiel Aufruf:
             "width": 8,
             "height": 8
         }
-   },
-   "text":{
-      "textString":"59%",
-      "bigFont":false,
-      "scrollText":false,
-      "scrollTextDelay":0,
-      "centerText":true,
-      "position":{
-         "x":7,
-         "y":1
-      },
-      "color":{
-         "r":255,
-         "g":255,
-         "b":255
-      }
-   }
+    },
+    "text": {
+        "textString": "59%",
+        "bigFont": false,
+        "scrollText": false,
+        "scrollTextDelay": 0,
+        "centerText": true,
+        "position": {
+            "x": 7,
+            "y": 1
+        },
+        "hexColor": "#1E00FF"
+    }
 }
 ```
+
 :::
 
 ### Text
-___
-``` json
+
+---
+
+```json
 {
     "text": {
         "textString": "Test It :D",
@@ -92,36 +156,38 @@ ___
             "x": 8,
             "y": 1
         },
-        "color": {
-            "r": 255, // [0 - 255]
-            "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]   
-        }
+        "hexColor": "#FFFFFF"
     }
 }
 ```
 
 ### Sleep Mode
-___
-``` json
+
+---
+
+```json
 {
     // [Optional]
-    "sleepMode": false, // [ true | false ]
+    "sleepMode": false // [ true | false ]
 }
 ```
 
 ### Brightness
-___
-``` json
+
+---
+
+```json
 {
     // [Optional]
-    "brightness": 125, // [0 - 255], [Optional]
+    "brightness": 125 // [0 - 255], [Optional]
 }
 ```
 
 ### Switch Animation
-___
-``` json
+
+---
+
+```json
 {
     "switchAnimation": {
         "aktiv": true, // [ true | false ]
@@ -131,8 +197,10 @@ ___
 ```
 
 ### Clock
-___
-``` json
+
+---
+
+```json
 {
     // [Optional]
     "clock": {
@@ -145,15 +213,19 @@ ___
         "color": {
             "r": 255, // [0 - 255]
             "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]        
-        }
+            "b": 255 // [0 - 255]
+        },
+        // [Alternativ zu color] ab v0.3.2
+        "hexColor": "#FFFFFF"
     }
 }
 ```
 
 ### Bitmap
-___
-``` json
+
+---
+
+```json
 {
     // [Optional]
     "bitmap": {
@@ -171,8 +243,10 @@ ___
 ```
 
 ### Bitmap Animation
-___
-``` json
+
+---
+
+```json
 {
     // [Optional] [Es werden hier nur 8x8 BMPs unterstützt!]
     "bitmapAnimation": {
@@ -191,8 +265,10 @@ ___
 ```
 
 ### Bar
-___
-``` json
+
+---
+
+```json
 {
     // [Optional]
     "bar": {
@@ -205,43 +281,55 @@ ___
         "color": {
             "r": 255, // [0 - 255]
             "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]   
-        }
+            "b": 255 // [0 - 255]
+        },
+        // [Alternativ zu color] ab v0.3.2
+        "hexColor": "#FFFFFF"
     }
 }
 ```
 
 ### Bars
-___
-``` json
+
+---
+
+```json
 {
     // [Optional]
-    "bars": [{
-        "position": {
-            "x": 0,
-            "y": 0,
-            "x2": 0,
-            "y2": 0
-        },
-        "color": {
-            "r": 255, // [0 - 255]
-            "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]   
+    "bars": [
+        {
+            "position": {
+                "x": 0,
+                "y": 0,
+                "x2": 0,
+                "y2": 0
+            },
+            "color": {
+                "r": 255, // [0 - 255]
+                "g": 255, // [0 - 255]
+                "b": 255 // [0 - 255]
+            },
+            // [Alternativ zu color] ab v0.3.2
+            "hexColor": "#FFFFFF"
         }
-    }]
+    ]
 }
-``` 
+```
 
 ### Sound
-___
+
+---
+
 #### Option 1
+
 Diese Option ermöglicht das nutzen von mehreren Ordnern hat allerdings die Einschränkungen,  
 das die Controls **next** und **previous** wegfallen.  
 Folgende Ordnungsstruktur vorausgesetzt :
 `sd:\01\001.mp3`
-``` json
+
+```json
 {
-    // [Optional] Option 1 siehe Info!   
+    // [Optional] Option 1 siehe Info!
     "sound": {
         "volume": 20, // 0 - 30
         "control": "play", // play, pause
@@ -250,13 +338,16 @@ Folgende Ordnungsstruktur vorausgesetzt :
     }
 }
 ```
+
 #### Option 2
+
 Diese Option ermöglicht auch die Controls **next** und **previous**,  
 es wird folgende Ordnungsstruktur vorausgesetzt :
 `sd:\MP3\0001.mp3`
-``` json
+
+```json
 {
-    // [Optional] Option 2 siehe Info! 
+    // [Optional] Option 2 siehe Info!
     "sound": {
         "volume": 20, // 0 - 30
         "control": "play", // play, pause, next, previous
@@ -264,7 +355,6 @@ es wird folgende Ordnungsstruktur vorausgesetzt :
     }
 }
 ```
-
 
 ## Lux Sensor
 
@@ -296,8 +386,8 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 
 ```json
 {
-	"humidity": 40,
-	"temperature": 21.5
+    "humidity": 40,
+    "temperature": 21.5
 }
 ```
 
@@ -311,17 +401,17 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 
 ```json
 {
-	"pixelitVersion": "1910272052",
-	"sketchSize": 451360,
-	"freeSketchSpace": 593920,
-	"wifiRSSI": "-73",
-	"wifiQuality": 54,
-	"wifiSSID": "Home-Wlan",
-	"ipAddress": "192.168.0.137",
-	"freeHeap": 30680,
-	"chipID": 13668362,
-	"cpuFreqMHz": 80,
-	"sleepMode": false
+    "pixelitVersion": "1910272052",
+    "sketchSize": 451360,
+    "freeSketchSpace": 593920,
+    "wifiRSSI": "-73",
+    "wifiQuality": 54,
+    "wifiSSID": "Home-Wlan",
+    "ipAddress": "192.168.0.137",
+    "freeHeap": 30680,
+    "chipID": 13668362,
+    "cpuFreqMHz": 80,
+    "sleepMode": false
 }
 ```
 
@@ -335,19 +425,19 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 
 ```json
 {
-  "matrixtBrightness": 85,
-  "matrixType": 2,
-  "matrixTempCorrection": "typicalsmd5050",
-  "ntpServer": "de.pool.ntp.org",
-  "clockTimeZone": 1,
-  "scrollTextDefaultDelay": 110,
-  "bootScreenAktiv": false,
-  "mqttAktiv": true,
-  "mqttUser": "",
-  "mqttPassword": "",
-  "mqttServer": "192.168.0.251",
-  "mqttMasterTopic": "Haus/PixelIt/",
-  "mqttPort": 1883
+    "matrixtBrightness": 85,
+    "matrixType": 2,
+    "matrixTempCorrection": "typicalsmd5050",
+    "ntpServer": "de.pool.ntp.org",
+    "clockTimeZone": 1,
+    "scrollTextDefaultDelay": 110,
+    "bootScreenAktiv": false,
+    "mqttAktiv": true,
+    "mqttUser": "",
+    "mqttPassword": "",
+    "mqttServer": "192.168.0.251",
+    "mqttMasterTopic": "Haus/PixelIt/",
+    "mqttPort": 1883
 }
 ```
 
