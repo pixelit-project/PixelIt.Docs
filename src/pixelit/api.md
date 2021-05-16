@@ -156,6 +156,13 @@ Ein Beispiel Aufruf:
             "x": 8,
             "y": 1
         },
+        // [Optional]
+        "color": {
+            "r": 255, // [0 - 255]
+            "g": 255, // [0 - 255]
+            "b": 255 // [0 - 255]
+        },
+        // [Alternativ zu color] ab v0.3.2
         "hexColor": "#FFFFFF"
     }
 }
