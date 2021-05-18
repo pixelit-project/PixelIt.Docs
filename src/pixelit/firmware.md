@@ -2,7 +2,7 @@
 ## Flashen
 
 ### Downloads:
-* [PixelIt Firmware](https://www.bastelbunker.de/wp-content/uploads/PixelIt.zip)
+* [PixelIt Firmware](https://github.com/o0shojo0o/PixelIt/releases)
 * [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
 
 Zum flashen des ESP8266 nutzen wir der Einfachheit zur liebe den ESPEasy Flasher,  
