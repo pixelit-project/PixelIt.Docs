@@ -174,7 +174,6 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional]
     "sleepMode": false // [ true | false ]
 }
 ```
@@ -185,7 +184,6 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional]
     "brightness": 125 // [0 - 255], [Optional]
 }
 ```
@@ -209,7 +207,6 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional]
     "clock": {
         "show": true, // [ true | false ]
         "switchAktiv": true, //[ true | false ]
@@ -234,7 +231,6 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional]
     "bitmap": {
         "data": [0, 0, 0, 0, 0, 0], //[ 0,0,0......]
         "position": {
@@ -255,7 +251,7 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional] [Es werden hier nur 8x8 BMPs unterstützt!]
+    // [Es werden hier nur 8x8 BMPs unterstützt!]
     "bitmapAnimation": {
         "data": [
             [0, 0, 0, 0, 0, 0],
@@ -277,7 +273,6 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional]
     "bar": {
         "position": {
             "x": 0,
@@ -302,7 +297,6 @@ Ein Beispiel Aufruf:
 
 ```json
 {
-    // [Optional]
     "bars": [
         {
             "position": {
@@ -323,6 +317,28 @@ Ein Beispiel Aufruf:
 }
 ```
 
+### Set GPIO
+
+---
+
+Mit dieser Option kann ab **v0.3.5** ein GPIO von ESP angesteuert werden.
+
+-   **gpio**: GPIO des ESPs.
+-   **set**: State der gesetzt werden soll.
+    -   an: true
+    -   aus: false
+-   **duration**: werden die Millisekunden angeben bis der GPIO wieder auf false gesetzt werden soll.
+
+```json
+{
+    "setGpio": {
+        "gpio": 14,
+        "set": true,
+        "duration": 500 // Optional
+    }
+}
+```
+
 ### Sound
 
 ---
@@ -336,7 +352,6 @@ Folgende Ordnungsstruktur vorausgesetzt :
 
 ```json
 {
-    // [Optional] Option 1 siehe Info!
     "sound": {
         "volume": 20, // 0 - 30
         "control": "play", // play, pause
@@ -354,7 +369,6 @@ es wird folgende Ordnungsstruktur vorausgesetzt :
 
 ```json
 {
-    // [Optional] Option 2 siehe Info!
     "sound": {
         "volume": 20, // 0 - 30
         "control": "play", // play, pause, next, previous
@@ -408,14 +422,16 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 
 ```json
 {
-    "pixelitVersion": "1910272052",
-    "sketchSize": 451360,
-    "freeSketchSpace": 593920,
-    "wifiRSSI": "-73",
-    "wifiQuality": 54,
-    "wifiSSID": "Home-Wlan",
+    "pixelitVersion": "0.3.4",
+    "note": "",
+    "hostname": "PixelIt",
+    "freeSketchSpace": 2695168,
+    "wifiRSSI": -58,
+    "wifiQuality": 84,
+    "wifiSSID": "Wlan",
     "ipAddress": "192.168.0.137",
-    "freeHeap": 30680,
+    "freeHeap": 29976,
+    "sketchSize": 447424,
     "chipID": 13668362,
     "cpuFreqMHz": 80,
     "sleepMode": false
@@ -432,17 +448,28 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 
 ```json
 {
-    "matrixtBrightness": 85,
+    "matrixBrightnessAutomatic": true,
+    "mbaDimMin": 20,
+    "mbaDimMax": 255,
+    "mbaLuxMin": 0,
+    "mbaLuxMax": 250,
+    "matrixBrightness": 127,
     "matrixType": 2,
-    "matrixTempCorrection": "typicalsmd5050",
+    "note": "",
+    "hostname": "PixelIt",
+    "matrixTempCorrection": "default",
     "ntpServer": "de.pool.ntp.org",
     "clockTimeZone": 1,
-    "scrollTextDefaultDelay": 110,
+    "clockColor": "#FFFFFF",
+    "clockSwitchAktiv": true,
+    "clockSwitchSec": 7,
+    "clockWithSeconds": false,
+    "scrollTextDefaultDelay": 100,
     "bootScreenAktiv": false,
-    "mqttAktiv": true,
+    "mqttAktiv": false,
     "mqttUser": "",
     "mqttPassword": "",
-    "mqttServer": "192.168.0.251",
+    "mqttServer": "0.0.0.0",
     "mqttMasterTopic": "Haus/PixelIt/",
     "mqttPort": 1883
 }
@@ -452,20 +479,4 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 /api/config
 :::
 
-Zum setzen der Konifuration ist folgende Struktur einzuhalten:
-
-```json
-{
-    "matrixtBrightness": [0 - 255],
-  	"matrixType": [1,2], // <Type 1 = NEO_MATRIX_COLUMNS , Type 2 =  NEO_MATRIX_ROWS>
-  	"matrixTempCorrection": "default", // <tungsten40w (2600 Kelvin) | tungsten100w (2850 Kelvin) | halogen (3200 Kelvin) | carbonarc (5200 Kelvin) | highnoonsun (5400 Kelvin) | directsunlight (6000 Kelvin) | overcastsky (7000 Kelvin) | clearbluesky (20000 Kelvin)......>
-  	"ntpServer" : "de.pool.ntp.org" // <or IP-Address>
-    "clockTimeZone" : 1, // <Berlin (Germany - Berlin) UTC + 1>
-    "scrollTextDefaultDelay": 100 // <millis>
-	"bootScreenAktiv": [ true , false ],
-    "mqttAktiv": [ true , false ],
-    "mqttServer": "<IP>",
-    "mqttMasterTopic": "Haus/PixelIt/",
-    "mqttPort": <PORT>
-}
-```
+Zum setzen der Konifuration ist die obere Struktur einzuhalten.
