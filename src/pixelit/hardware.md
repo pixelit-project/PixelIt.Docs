@@ -29,11 +29,11 @@
 
 ![](/hardware_dht22.png)
 
-#### BMP280 Sensor Upgrade (Temperatur, Luftfeuchte & Luftdruck)
+#### BME280 Sensor Upgrade (Temperatur, Luftfeuchte & Luftdruck)
 
 | **Menge** | **Name** |               **Link**                |
 | :-------: | -------- | :-----------------------------------: |
-|     1     | BMP280   | [click here](https://amzn.to/3pow7uq) |
+|     1     | BMP280   | [click here](https://amzn.to/2Ta89Hy) |
 
 ![](/hardware_bme280.png)
 
