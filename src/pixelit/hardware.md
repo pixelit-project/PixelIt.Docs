@@ -33,7 +33,7 @@
 
 | **Menge** | **Name** |               **Link**                |
 | :-------: | -------- | :-----------------------------------: |
-|     1     | BMP280   | [click here](https://amzn.to/2Ta89Hy) |
+|     1     | BME280   | [click here](https://amzn.to/2Ta89Hy) |
 
 ![](/hardware_bme280.png)
 
