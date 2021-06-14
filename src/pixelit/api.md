@@ -377,6 +377,21 @@ es wird folgende Ordnungsstruktur vorausgesetzt :
 }
 ```
 
+## Current Brightness
+
+::: tip HTTP Endpoint [GET]
+/api/brightness
+:::
+
+Der Response (Antwort) ist folgender Struktur aufgebaut:
+
+```json
+{
+    "brightness_255": 20,
+    "brightness": 7
+}
+```
+
 ## Lux Sensor
 
 ::: tip HTTP Endpoint [GET]
