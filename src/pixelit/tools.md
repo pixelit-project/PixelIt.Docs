@@ -42,6 +42,8 @@ und etwas daran rumwerkeln und probieren.
 ![](/einsteiger_flow.png)  
 Abhängigkeit / dependence: [Is online Node](https://flows.nodered.org/node/node-red-contrib-isonline)
 
+::: details Hier aufklappen!
+
 ```json
 [
     {
@@ -472,6 +474,8 @@ Abhängigkeit / dependence: [Is online Node](https://flows.nodered.org/node/node
 ]
 ```
 
+::::
+
 ### Core
 
 ---
@@ -695,9 +699,9 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ### Text
 
 ---
-Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargetsellt werden.  
-`ú = ↑`  
-`ù = ↓`  
+
+Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargestellt werden.  
+`ú = ↑` `ù = ↓`
 
 ![]()
 

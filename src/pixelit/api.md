@@ -142,9 +142,10 @@ Ein Beispiel Aufruf:
 ### Text
 
 ---
-Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargetsellt werden.  
-`ú = ↑`  
-`ù = ↓`  
+
+Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargestellt werden.  
+`ú = ↑` `ù = ↓`
+
 ```json
 {
     "text": {
@@ -384,7 +385,7 @@ es wird folgende Ordnungsstruktur vorausgesetzt :
 ::: tip HTTP Endpoint [GET]
 /api/brightness
 :::  
-Mit dieser Option kann ab **v0.3.6** die aktuelle Brightness der PixelIt abgefragt werden.  
+Mit dieser Option kann ab **v0.3.6** die aktuelle Brightness der PixelIt abgefragt werden.
 
 Der Response (Antwort) ist folgender Struktur aufgebaut:
 
