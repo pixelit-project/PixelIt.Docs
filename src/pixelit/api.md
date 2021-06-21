@@ -142,7 +142,9 @@ Ein Beispiel Aufruf:
 ### Text
 
 ---
-
+Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargetsellt werden.  
+`ú = ↑`  
+`ù = ↓`  
 ```json
 {
     "text": {
