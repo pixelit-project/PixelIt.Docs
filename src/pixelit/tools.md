@@ -695,6 +695,9 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ### Text
 
 ---
+Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargetsellt werden.  
+`ú = ↑`  
+`ù = ↓`  
 
 ![]()
 
