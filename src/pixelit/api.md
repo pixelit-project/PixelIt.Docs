@@ -143,8 +143,8 @@ Ein Beispiel Aufruf:
 
 ---
 
-Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargestellt werden.  
-`ú = ↑` `ù = ↓`
+Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
+`€  ←  ↑  →  ↓ ★  📁 ♥ ↧ 🚗  😀` 
 
 ```json
 {
