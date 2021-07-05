@@ -144,7 +144,8 @@ Ein Beispiel Aufruf:
 ---
 
 Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
-`€  ←  ↑  →  ↓ ★  📁 ♥ ↧ 🚗  😀` 
+`€ ← ↑ → ↓ ★ 📁 ♥ ↧ 🚗 😀`
+![](/special_characters.png)
 
 ```json
 {
