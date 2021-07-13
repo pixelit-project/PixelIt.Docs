@@ -4,6 +4,7 @@
 
 ## Vorteile
 
+-   [Webinterface](/pixelit/webinterface.html)
 -   [RESTAPI](/pixelit/api.html)
 -   [Node-Red Node](/pixelit/tools.html#node-red)
 -   [Pixel Creator](/pixelit/tools.html#pixel-creator)
