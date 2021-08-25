@@ -15,7 +15,7 @@ MasterTopic/setScreen
 :::
 <br>
 
-Es können / **müssen** alle Element im einen Aufruf kombeniert werden, die als ein Screen dargestellt werden sollen.
+Es **müssen** alle Element im einen Aufruf kombeniert werden, die als ein Screen dargestellt werden sollen.
 
 Ein Beispiel Aufruf:
 ::: details Beispiel Aufruf
