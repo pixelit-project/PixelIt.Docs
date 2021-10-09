@@ -155,7 +155,7 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
         "scrollText": "auto", // [ true | false | "auto"]
         "scrollTextDelay": 20, // [1 - 9999],
         // [Optional] nur verwendbar wenn scrollText = false !
-        "centerText": true, // [true | false],
+        "centerText": false, // [true | false],
         "position": {
             "x": 8,
             "y": 1
