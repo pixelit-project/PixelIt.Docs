@@ -38,6 +38,14 @@
 
 ![](/hardware_bme280.png)
 
+#### BME680 Sensor Upgrade (Temperatur, Luftfeuchte, Luftdruck & Gas)
+
+| **Menge** | **Name** |               **Link**                |
+| :-------: | -------- | :-----------------------------------: |
+|     1     | BME680   | [click here](https://amzn.to/3GfOHMA) |
+
+![](/hardware_bme280.png)
+
 #### DFPlayer Mini Upgrade (MP3 Player)
 
 | **Menge** | **Name**                 |               **Link**                |
