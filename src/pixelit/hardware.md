@@ -4,12 +4,12 @@
 
 #### Minimalaufbau (Basis)
 
-| **Menge** | **Name**                        |               **Link**                |     **Hinweis**    |
-| :-------: | ------------------------------- | :-----------------------------------: | :----------------: |
-|     1     | WS2812B LED Matrix 8x32         | [click here](https://amzn.to/2UQGo2l) | <- eins von beiden |
-|     4     | WS2812B LED Matrix CJMCU 8x8    | [click here](https://amzn.to/3v1RDqe) | <- eins von beiden |
-|     1     | Wemos D1 Mini (oder Clone)      | [click here](https://amzn.to/2Df5v7M) |                    |
-|     1     | Kondensator 1000uF              | [click here](https://amzn.to/2DktrGV) |                    |
+| **Menge** | **Name**                     |               **Link**                |    **Hinweis**     |
+| :-------: | ---------------------------- | :-----------------------------------: | :----------------: |
+|     1     | WS2812B LED Matrix 8x32      | [click here](https://amzn.to/2UQGo2l) | <- eins von beiden |
+|     4     | WS2812B LED Matrix CJMCU 8x8 | [click here](https://amzn.to/3v1RDqe) | <- eins von beiden |
+|     1     | Wemos D1 Mini (oder Clone)   | [click here](https://amzn.to/2Df5v7M) |                    |
+|     1     | Kondensator 1000uF           | [click here](https://amzn.to/2DktrGV) |                    |
 
 ![](/hardware_basis.png)
 
@@ -44,7 +44,7 @@
 | :-------: | -------- | :-----------------------------------: |
 |     1     | BME680   | [click here](https://amzn.to/3GfOHMA) |
 
-![](/hardware_bme280.png)
+![](/hardware_bme680.png)
 
 #### DFPlayer Mini Upgrade (MP3 Player)
 
