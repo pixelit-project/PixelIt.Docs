@@ -921,8 +921,9 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 
 ---
 
-Es gibt bei den Text 2 besonder Buchstaben die als Pfeil dargestellt werden.  
-`ú = ↑` `ù = ↓`
+Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
+`€ ← ↑ → ↓ ★ 📁 ♥ ↧ 🚗 😀`
+![](/special_characters.png)
 
 ![]()
 
