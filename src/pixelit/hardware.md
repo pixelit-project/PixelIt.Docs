@@ -18,7 +18,7 @@
 | **Menge** | **Name**           |               **Link**                |
 | :-------: | ------------------ | :-----------------------------------: |
 |     1     | LDR GL5516         | [click here](https://amzn.to/2DlQjWb) |
-|     1     | Widerstand 10k Ohm | [click here](https://amzn.to/2GfY982) |
+|     1     | Widerstand 10k Ohm | [click here](https://amzn.to/3p6oOsQ) |
 
 ![](/hardware_gl5516.png)
 
