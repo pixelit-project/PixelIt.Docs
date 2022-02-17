@@ -6,7 +6,7 @@
 * [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
 
 Zum flashen des ESP8266 nutzen wir der Einfachheit zur liebe den ESPEasy Flasher,  
-es muss nach den Entpacken der ESPEasy_Flasher.zip nur noch die aktuelle PixelIt.bin in den Order des ESPEasy Flashers kopiert werden.  
+es muss nach den Entpacken der ESPEasy_Flasher.zip nur noch die aktuelle firmware_XXX.bin in den Order des ESPEasy Flashers kopiert werden.  
   
 Nun haben wir nach den starten der FlashESP8266.exe zwei Dropdown-Menüs:
 ![](/flash_esp8266.png)
@@ -16,9 +16,9 @@ Nun haben wir nach den starten der FlashESP8266.exe zwei Dropdown-Menüs:
 Hier muss der Port gewählt werden wo ihr euren Wemos D1 mini (oder der gleichen) anschossen habt.  
 
 #### Firmware: 
-Hier haben wir nun zwei Punkte die CleanFlash.bin und PixelIt.bin.  
+Hier haben wir nun zwei Punkte die CleanFlash.bin und firmware_XXX.bin.  
 CleanFlash.bin: Hat die Aufgabe den kompletten Flash des ESP´s zu nullen, was sehr hilfreich sein kann wen der ESP schon für andere Projekte genutzt wurde und Probleme mit den aktuellen Projekt macht  (z.B. macht kein Hotspot auf)
-PixelIt.bin: ist die Firmware der Pixel It :)  
+firmware_XXX.bin: ist die Firmware der Pixel It :)  
 
 Jetzt muss man nur noch auf den Button Flash drücken und etwas warten.   
 
