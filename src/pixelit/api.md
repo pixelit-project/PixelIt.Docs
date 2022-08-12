@@ -231,7 +231,7 @@ The following special characters are supported as of v0.3.7:
 | Parameter             | Type               | Values                                                                       |Description                                                |   
 | :----                 | :----              | :----                                                                        | :----                                                     |
 | `aktiv`               | `Boolean`          | `true / false`                                                               |                                                           |
-| `animation`           | `String`           | `"fade" / "coloredBarWipe / "zigzagWipe" / "bitmapWipe" / "random"`          |[bitmapWipe call example](./#call-bitmapwipe-example)                |
+| `animation`           | `String`           | `"fade" / "coloredBarWipe / "zigzagWipe" / "bitmapWipe" / "random"`          |[bitmapWipe call example](api.html#call-bitmapwipe-example)|
 | `data`                | `Integer Array`    | `[0, 0, 0, 0, 0, 0]`                                                         |**Required for bitmapWipe**                                |
 | `width`               | `Integer`          | `1 - 32`                                                                     |**Required for bitmapWipe** height always needs to be 8    |
 
