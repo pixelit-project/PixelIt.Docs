@@ -15,12 +15,12 @@ MasterTopic/setScreen
 :::
 <br>
 
-Es **müssen** alle Element im einen Aufruf kombeniert werden, die als ein Screen dargestellt werden sollen.
+You **must** combine all elements in one call that are to be displayed as one screen.
 
-Ein Beispiel Aufruf:
-::: details Beispiel Aufruf
+Example call:
+::: details Example call:
 
-#### Aufruf der internen Uhr mit einer Fade Animation:
+#### Calling the internal clock with a fade animation:
 
 ```json
 {
@@ -38,7 +38,7 @@ Ein Beispiel Aufruf:
 }
 ```
 
-#### Aufruf Fade Animation, Bild und Text:
+#### Call fade animation, image and text:
 
 ```json
 {
@@ -143,7 +143,7 @@ Ein Beispiel Aufruf:
 
 ---
 
-Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
+The following special characters are supported as of v0.3.7:
 `€ ← ↑ → ↓ ★ 📁 ♥ ↧ 🚗 😀`
 ![](/special_characters.png)
 
@@ -151,26 +151,32 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 {
     "text": {
         "textString": "Test It :D",
-        "bigFont": false, // [true | false]
-        "scrollText": "auto", // [ true | false | "auto"]
-        "scrollTextDelay": 20, // [1 - 9999],
-        // [Optional] nur verwendbar wenn scrollText = false !
-        "centerText": false, // [true | false],
+        "bigFont": false, 
+        "scrollText": "auto", 
+        "scrollTextDelay": 20, 
+        "centerText": false, 
         "position": {
             "x": 8,
             "y": 1
-        },
-        // [Optional]
+        },       
         "color": {
-            "r": 255, // [0 - 255]
-            "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]
-        },
-        // [Alternativ zu color] ab v0.3.2
+            "r": 255, 
+            "g": 255, 
+            "b": 255 
+        },        
         "hexColor": "#FFFFFF"
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                |
+| :----                 | :----              | :----                            | :----                                     |
+| `textString`          | `String`           |                                  |**Required**. Displayed Text               |
+| `scrollText`          | `Boolean / String` | `true / false / "auto"`          |**Required** Big front                     |
+| `scrollTextDelay`     | `Integer`          | `1 - 9999`                       |**Required (when scrollText is used)**     |
+| `centerText`          | `Boolean`          | `true / false`                   |**Required**                               |
+| `position`            | `JSON`             | `{"x":8, "y":1}`                 |**Required**                               |
+| `color`               | `JSON`             | `{"r":255, "g":255, "b":255},`   |**Required**  (or hexColor)                |
+| `hexColor`            | `String`           | `#FFFFFF`                        |**since v0.3.2**  Alternatively to color   |
 
 ### Sleep Mode
 
@@ -178,9 +184,13 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 
 ```json
 {
-    "sleepMode": false // [ true | false ]
+    "sleepMode": false
 }
 ```
+| Parameter             | Type               | Values                           |Description                                |
+| :----                 | :----              | :----                            | :----                                     |
+| `sleepMode`           | `Boolean`          | `true / false`                   |Sets the PixelIt into a kind of sleep mode |
+
 
 ### Brightness
 
@@ -188,9 +198,12 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 
 ```json
 {
-    "brightness": 125 // [0 - 255], [Optional]
+    "brightness": 125
 }
 ```
+| Parameter             | Type               | Values                           |Description                                |
+| :----                 | :----              | :----                            | :----                                     |
+| `brightness`          | `Integer`          | `0 - 255`                        |Sets the brightness                        |
 
 ### Switch Animation
 
@@ -199,11 +212,30 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ```json
 {
     "switchAnimation": {
-        "aktiv": true, // [ true | false ]
-        "animation": "fade" // [ "fade" | "coloredBarWipe" ]
+        "aktiv": true,
+        "animation": "fade"
     }
 }
 ```
+#### Call bitmapWipe example
+```json
+{
+    "switchAnimation": {
+        "aktiv": true,
+        "animation": "fade",
+        "data": [0, 0, 0, 0, 0, 0],
+        "width": 8
+    }
+}
+```
+| Parameter             | Type               | Values                                                                       |Description                                |
+| :----                 | :----              | :----                                                                        | :----                                     |
+| `aktiv`               | `Boolean`          | `true / false`                                                               |                                           |
+| `animation`           | `String`           | `"fade" / "coloredBarWipe / "zigzagWipe" / "bitmapWipe" / "random"`          |                                           |
+| `data`                | `Integer Array`    | `[0, 0, 0, 0, 0, 0]`                                                         |                                           |
+| `width`               | `Integer`          | `1 - 32`                                                                     |height always needs to be 8                |
+
+
 
 ### Clock
 
@@ -212,22 +244,28 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ```json
 {
     "clock": {
-        "show": true, // [ true | false ]
-        "switchAktiv": true, //[ true | false ]
-        "withSeconds": true, //[ true | false ]
-        "switchSec": 5, // [ 1 - 9999 ]
-        "drawWeekDays": true, //[ true | false ] ab v1.1.0
-        // [Optional]
+        "show": true, 
+        "switchAktiv": true, 
+        "withSeconds": true, 
+        "switchSec": 5, 
+        "drawWeekDays": true,       
         "color": {
-            "r": 255, // [0 - 255]
-            "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]
+            "r": 255,
+            "g": 255, 
+            "b": 255 
         },
-        // [Alternativ zu color] ab v0.3.2
         "hexColor": "#FFFFFF"
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                                                |
+| :----                 | :----              | :----                            | :----                                                                     |
+| `show`                | `Boolean`          | `true / false`                   |**Required**                                                               |
+| `switchAktiv`         | `Boolean`          | `true / false`                   |Switch clock/date                                                          |
+| `switchSec`           | `Integer`          | `1 - 9999`                       |**Required (when Switch clock/date is used)** Switch clock/date in seconds |
+| `drawWeekDays`        | `Boolean`          | `true / false`                   |**since v1.1.0** Draw weekdays                                             |
+| `color`               | `JSON`             | `{"r":255, "g":255, "b":255},`   |Color of Clock (or hexColor)                                               |
+| `hexColor`            | `String`           | `#FFFFFF`                        |**since v0.3.2**  Alternatively to color                                   |
 
 ### Bitmap
 
@@ -236,7 +274,7 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ```json
 {
     "bitmap": {
-        "data": [0, 0, 0, 0, 0, 0], //[ 0,0,0......]
+        "data": [0, 0, 0, 0, 0, 0], 
         "position": {
             "x": 0,
             "y": 0
@@ -248,6 +286,11 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                |
+| :----                 | :----              | :----                            | :----                                     |
+| `data`                | `Integer Array`    | `[0, 0, 0, 0, 0, 0]`             |**Required**                               |
+| `position`            | `JSON`             | `{"x":0, "y":0}`                 |**Required**                               |
+| `size`                | `JSON`             | `{"width":8, "height":8}`        |**Required**                               |
 
 ### Bitmap Animation
 
@@ -255,21 +298,24 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 
 ```json
 {
-    // [Es werden hier nur 8x8 BMPs unterstützt!]
     "bitmapAnimation": {
         "data": [
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0]
-        ], // [[ 0,0,0......],[ 0,0,0......],[ 0,0,0......],[ 0,0,0......]]
-        "animationDelay": 20, // Millisekunden
-        // [Optional]
-        "rubberbanding": false, // [true | false]
-        // [Optional]
-        "limitLoops": 0 // < 0 = No Limit >
+        ],
+        "animationDelay": 20,
+        "rubberbanding": false,
+        "limitLoops": 0
     }
 }
 ```
+| Parameter             | Type                      | Values                                    |Description                                            |
+| :----                 | :----                     | :----                                     | :----                                                 |
+| `data`                | `Array of Integer Arrays` | `[[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]]` |**Required** Only 8x8 BMPs are supported here!         |
+| `animationDelay`      | `Integer`                 | `0 - 99999`                               |**Required** Higher is a slower animation              |
+| `rubberbanding`       | `Boolean`                 | `true / false`                            | Should the animation run back and forth               |
+| `limitLoops`          | `Integer`                 | `{"width":8, "height":8}`                 |If the repetition is to be limited                     |
 
 ### Bar
 
@@ -285,20 +331,24 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
             "y2": 0
         },
         "color": {
-            "r": 255, // [0 - 255]
-            "g": 255, // [0 - 255]
-            "b": 255 // [0 - 255]
+            "r": 255,
+            "g": 255,
+            "b": 255
         },
-        // [Alternativ zu color] ab v0.3.2
         "hexColor": "#FFFFFF"
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                                                |
+| :----                 | :----              | :----                            | :----                                                                     |
+| `position`            | `JSON`             | `{"x":0, "y":0,"x2":1, "y2":10}` |**Required**                                                               |
+| `color`               | `JSON`             | `{"r":255, "g":255, "b":255},`   |Color of Clock (or hexColor)                                               |
+| `hexColor`            | `String`           | `#FFFFFF`                        |**since v0.3.2**  Alternatively to color                                   |
 
 ### Bars
 
 ---
-
+Here you can pass an array of bars to draw several on one screen.
 ```json
 {
     "bars": [
@@ -310,38 +360,39 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
                 "y2": 0
             },
             "color": {
-                "r": 255, // [0 - 255]
-                "g": 255, // [0 - 255]
-                "b": 255 // [0 - 255]
+                "r": 255,
+                "g": 255, 
+                "b": 255
             },
-            // [Alternativ zu color] ab v0.3.2
             "hexColor": "#FFFFFF"
         }
     ]
 }
 ```
+| Parameter             | Type               | Values                           |Description                                                                |
+| :----                 | :----              | :----                            | :----                                                                     |
+| `position`            | `JSON`             | `{"x":0, "y":0,"x2":1, "y2":10}` |**Required**                                                               |
+| `color`               | `JSON`             | `{"r":255, "g":255, "b":255},`   |Color of Clock (or hexColor)                                               |
+| `hexColor`            | `String`           | `#FFFFFF`                        |**since v0.3.2**  Alternatively to color                                   |
 
 ### Set GPIO
 
 ---
-
-Mit dieser Option kann ab **v0.3.5** ein GPIO von ESP angesteuert werden.
-
--   **gpio**: GPIO des ESPs.
--   **set**: State der gesetzt werden soll.
-    -   an: true
-    -   aus: false
--   **duration**: werden die Millisekunden angeben bis der GPIO wieder auf false gesetzt werden soll.
-
+**Since v0.3.5!**
 ```json
 {
     "setGpio": {
         "gpio": 14,
         "set": true,
-        "duration": 500 // Optional
+        "duration": 500
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                    |
+| :----                 | :----              | :----                            | :----                                         |
+| `gpio`                | `Integer`          | `E.g. 14`                        |**Required** GPIO of the ESP                   |
+| `set`                 | `Boolean`          | `true / false`                   |**Required**                                   |
+| `duration`            | `Integer`          | `1 - 99999999`                   |Automatic fall back to false in milliseconds   |
 
 ### Sound
 
