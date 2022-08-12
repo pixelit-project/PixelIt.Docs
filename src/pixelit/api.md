@@ -216,7 +216,7 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
         "switchAktiv": true, //[ true | false ]
         "withSeconds": true, //[ true | false ]
         "switchSec": 5, // [ 1 - 9999 ]
-
+        "drawWeekDays": true, //[ true | false ]
         // [Optional]
         "color": {
             "r": 255, // [0 - 255]
