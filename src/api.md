@@ -189,7 +189,7 @@ The following special characters are supported as of v0.3.7:
 ```
 | Parameter             | Type               | Values                           |Description                                |
 | :----                 | :----              | :----                            | :----                                     |
-| `sleepMode`           | `Boolean`          | `true / false`                   |Sets the PixelIt into a kind of sleep mode |
+| `sleepMode`           | `Boolean`          | `true / false`                   |Sets PixelIt into a kind of sleep mode |
 
 
 ### Brightness
@@ -400,10 +400,9 @@ Here you can pass an array of bars to draw several on one screen.
 
 #### Option 1
 
-Diese Option ermöglicht das nutzen von mehreren Ordnern hat allerdings die Einschränkungen,  
-das die Controls **next** und **previous** wegfallen.  
-Folgende Ordnungsstruktur vorausgesetzt :
-`sd:\01\001.mp3`
+This option allows the use of multiple folders, but has the limitations, that the controls **next** and **previous** are omitted.  
+
+The following folders structure must be provided: `sd:\01\001.mp3`
 
 ```json
 {
@@ -418,9 +417,7 @@ Folgende Ordnungsstruktur vorausgesetzt :
 
 #### Option 2
 
-Diese Option ermöglicht auch die Controls **next** und **previous**,  
-es wird folgende Ordnungsstruktur vorausgesetzt :
-`sd:\MP3\0001.mp3`
+This option also enables the controls **next** and **previous**, but the following order structure must be provided: `sd:\MP3\0001.mp3`
 
 ```json
 {
@@ -437,9 +434,9 @@ es wird folgende Ordnungsstruktur vorausgesetzt :
 ::: tip HTTP Endpoint [GET]
 /api/brightness
 :::  
-Mit dieser Option kann ab **v0.3.6** die aktuelle Brightness der PixelIt abgefragt werden.
+This option can be used to query the current brightness of PixelIt as of **v0.3.6**.
 
-Der Response (Antwort) ist folgender Struktur aufgebaut:
+The response has the following structure:
 
 ```json
 {
@@ -457,7 +454,7 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 MasterTopic/luxsensor
 :::
 
-Der Response (Antwort) ist folgender Struktur aufgebaut:
+The response has the following structure:
 
 ```json
 {
@@ -465,7 +462,7 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 }
 ```
 
-## DHT Hum / Temp Sensor
+## DHT Humidity/Temperatur Sensor
 
 ::: tip HTTP Endpoint [GET]
 /api/dhtsensor
@@ -474,7 +471,7 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 MasterTopic/dhtsensor
 :::
 
-Der Response (Antwort) ist folgender Struktur aufgebaut:
+The response has the following structure:
 
 ```json
 {
@@ -489,7 +486,7 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 /api/matrixinfo
 :::
 
-Der Response (Antwort) ist folgender Struktur aufgebaut:
+The response has the following structure:
 
 ```json
 {
@@ -515,7 +512,7 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 /api/config
 :::
 
-Der Response (Antwort) ist folgender Struktur aufgebaut:
+The response has the following structure:
 
 ```json
 {
@@ -550,4 +547,4 @@ Der Response (Antwort) ist folgender Struktur aufgebaut:
 /api/config
 :::
 
-Zum setzen der Konifuration ist die obere Struktur einzuhalten.
+To set the configuration, the upper structure must be followed.

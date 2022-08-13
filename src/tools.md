@@ -6,16 +6,17 @@ sidebarDepth: 2
 
 ## Pixel Creator
 
-Mit den [Pixel Creator](https://pixelit.bastelbunker.de/PixelCreator) kannst Du deine eigene Bilder (aka BPM) erstellen und auch in der Pixel Gallery speichern.  
+With the [Pixel Creator](https://pixelit.bastelbunker.de/PixelCreator) you can create your own images (aka BPM) and upload them in the Pixel Gallery. It will then be available to you and all other users.  
 ::: tip Tipp
-Um die Funktion von **LiveDraw active** sowie **Show on Pixel It** nutzen zu können,  
-muss man **Zulassen von gemischtem Inhalt** im Browser aktivieren.  
-Es gibt da eine gute [Anleitung von Adobe](https://experienceleague.adobe.com/docs/target/using/experiences/vec/troubleshoot-composer/mixed-content.html?lang=de#task_FF297A08F66E47A588C14FD67C037B3A) für.
+To use the function of **LiveDraw active** as well as **Show on PixelIt**, you must enable **Allow mixed content** in the browser. 
+There is a good [manual from Adobe](https://experienceleague.adobe.com/docs/target/using/experiences/vec/troubleshoot-composer/mixed-content.html?lang=en#task_FF297A08F66E47A588C14FD67C037B3A).
 ::::
 ![](/pixel_creator.png)
 
 ## Pixel Gallery
 
-Die [Pixel Gallery](https://pixelit.bastelbunker.de/PixelGallery) ist die Sammelstelle der BMP (PixelArt Bilder), die BMPs die sich in der Pixel Gallery befinden sind auch über die API zu erreichen.  
-So sind diese auch über die Pixel Gallery ID in den [Bitmap Node](#bitmap), [Bitmap Animation Node](#bitmap-animation) und auch in den [Adapter ioBroker](/ioBroker_pixelit/) verfügbar.
+The [Pixel Gallery](https://pixelit.bastelbunker.de/PixelGallery) is the collection point of the BMP (PixelArt images), the BMPs that are in the Pixel Gallery are also accessible via the API.  
+
+Sie sind also auch über die Pixel Gallery ID in der [Bitmap Node](nodered/#bitmap), [Bitmap Animation Node](nodered/#bitmap-animation) and also in the  [Adapter ioBroker](iobroker/) available.
+
 ![](/pixel_gallery.png)
