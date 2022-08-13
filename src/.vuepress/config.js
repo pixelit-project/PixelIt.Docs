@@ -38,7 +38,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: 'https://github.com/o0shojo0o/doc',
+    repo: 'https://github.com/pixelit-project/Docs',
     editLinks: true,
     docsDir: 'src',
     //editLinkText: '',
