@@ -1,60 +1,61 @@
 # Hardware
 
-## Teileliste
+## Parts list
 
-#### Minimalaufbau (Basis)
+#### Minimal setup (Basis)
 
-| **Menge** | **Name**                     |               **Link**                |    **Hinweis**     |
-| :-------: | ---------------------------- | :-----------------------------------: | :----------------: |
-|     1     | WS2812B LED Matrix 8x32      | [click here](https://amzn.to/3tEpc4u) | <- eins von beiden |
-|     4     | WS2812B LED Matrix CJMCU 8x8 | [click here](https://amzn.to/3v1RDqe) | <- eins von beiden |
-|     1     | Wemos D1 Mini (oder Clone)   | [click here](https://amzn.to/2Df5v7M) |                    |
-|     1     | Kondensator 1000uF           | [click here](https://amzn.to/2DktrGV) |                    |
+| **Quantity**  | **Name**                          |               **Link**                                |    **Notice**                 |
+| :-------:     | ----------------------------      | :-----------------------------------:                 | :----------------:            |
+|     1         | WS2812B LED Matrix 8x32           | [Amazon](https://amzn.to/3tEpc4u)                     |                               |
+|     4         | WS2812B LED Matrix CJMCU 8x8      | [Amazon](https://amzn.to/3v1RDqe)                     | alternative                   |
+|     4         | MicroMatrix by foorschtbar 8x8    | [GitHub](https://github.com/foorschtbar/MicroMatrix)  | alternative (really micro)    |
+|     1         | Wemos D1 Mini (or Clone)          | [Amazon](https://amzn.to/2Df5v7M)                     |                               |
+|     1         | Kondensator 1000uF                | [Amazon](https://amzn.to/2DktrGV)                     |                               |
 
 ![](/hardware_basis.png)
 
-#### LDR GL5516 Sensor Upgrade (Helligkeit Lux)
+#### LDR GL5516 Sensor upgrade (brightness lux)
 
-| **Menge** | **Name**           |               **Link**                |
-| :-------: | ------------------ | :-----------------------------------: |
-|     1     | LDR GL5516         | [click here](https://amzn.to/2DlQjWb) |
-|     1     | Widerstand 10k Ohm | [click here](https://amzn.to/3p6oOsQ) |
+| **Quantity**  | **Name**           |               **Link**                   |
+| :-------:     | ------------------ | :-----------------------------------:    |
+|     1         | LDR GL5516         | [Amazon](https://amzn.to/2DlQjWb)        |
+|     1         | Widerstand 10k Ohm | [Amazon](https://amzn.to/3p6oOsQ)        |
 
 ![](/hardware_gl5516.png)
 
-#### DHT22 Sensor Upgrade (Temperatur & Luftfeuchte)
+#### DHT22 Sensor upgrade (Temperature & Humidity)
 
-| **Menge** | **Name**     |               **Link**                |
-| :-------: | ------------ | :-----------------------------------: |
-|     1     | DHT22 AM2302 | [click here](https://amzn.to/2Po21Hx) |
+| **Quantity**  | **Name**     |               **Link**                 |
+| :-------:     | ------------ | :-----------------------------------:  |
+|     1         | DHT22 AM2302 | [Amazon](https://amzn.to/2Po21Hx)      |
 
 ![](/hardware_dht22.png)
 
-#### BME280 Sensor Upgrade (Temperatur, Luftfeuchte & Luftdruck)
+#### BME280 Sensor upgrade (Temperature, Humidity & Pressure)
 
-| **Menge** | **Name** |               **Link**                |
-| :-------: | -------- | :-----------------------------------: |
-|     1     | BME280   | [click here](https://amzn.to/2Ta89Hy) |
+| **Quantity**  | **Name** |               **Link**                 |
+| :-------:     | -------- | :-----------------------------------:  |
+|     1         | BME280   | [Amazon](https://amzn.to/2Ta89Hy)      |
 
 ![](/hardware_bme280.png)
 
-#### BME680 Sensor Upgrade (Temperatur, Luftfeuchte, Luftdruck & Gas)
+#### BME680 Sensor upgrade (Temperature, Humidity, Pressure & Gas)
 
-| **Menge** | **Name** |               **Link**                |
-| :-------: | -------- | :-----------------------------------: |
-|     1     | BME680   | [click here](https://amzn.to/3GfOHMA) |
+| **Quantity**  | **Name** |               **Link**                 |
+| :-------:     | -------- | :-----------------------------------:  |
+|     1         | BME680   | [Amazon](https://amzn.to/3GfOHMA)      |
 
 ![](/hardware_bme680.png)
 
-#### DFPlayer Mini Upgrade (MP3 Player)
+#### DFPlayer Mini upgrade (MP3 Player)
 
-| **Menge** | **Name**                 |               **Link**                |
-| :-------: | ------------------------ | :-----------------------------------: |
-|     1     | DFPlayer Mini MP3 Player | [click here](https://amzn.to/3jcbmz7) |
+| **Quantity**  | **Name**                 |               **Link**                 |
+| :-------:     | ------------------------ | :-----------------------------------:  |
+|     1         | DFPlayer Mini MP3 Player | [Amazon](https://amzn.to/3jcbmz7)      |
 
 ![](/hardware_dfplayer.png)
 
-## 3D Druck Dateien
+## 3D Printing Files
 
 ![](/cover.jpg)
 by PlastikJunkies
@@ -62,4 +63,4 @@ by PlastikJunkies
 #### Download:
 
 -   [Thingiverse](https://www.thingiverse.com/thing:3559014)
--   [Hier: Pixel It Case.zip](/pixel_it_case.zip)
+-   [Local download](/pixel_it_case.zip)
