@@ -25,9 +25,10 @@
   -   [Pixelmatrix (CJMCU)(4x 8x8)](hardware.html#minimalaufbau-basis)
   -   [MicroMatrix by foorschtbar (4x 8x8)](hardware.html#minimalaufbau-basis)
 - Extensions
-  -   [LDR GL5516](hardware.html#ldr-gl5516-sensor-upgrade-helligkeit-lux)
-  -   [DHT22](hardware.html#dht22-sensor-upgrade-temperatur-luftfeuchte)
-  -   [BMP280](hardware.html#bmp280-sensor-upgrade-temperatur-luftfeuchte-luftdruck)
+  -   [LDR GL5516](hardware.html#ldr-gl5516-sensor-upgrade-brightness-lux)
+  -   [DHT22](hardware.html#dht22-sensor-upgrade-temperature-humidity)
+  -   [BMP280](hardware.html#bme280-sensor-upgrade-temperature-humidity-pressure)
+  -   [BME680](hardware.html#bme680-sensor-upgrade-temperature-humidity-pressure-gas)
   -   [DFPlayer Mini](hardware.html#dfplayer-mini-upgrade-mp3-player)
 
 ::: tip
