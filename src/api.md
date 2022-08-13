@@ -171,7 +171,7 @@ The following special characters are supported as of v0.3.7:
 | Parameter             | Type               | Values                           |Description                                |
 | :----                 | :----              | :----                            | :----                                     |
 | `textString`          | `String`           |                                  |**Required**. Displayed Text               |
-| `scrollText`          | `Boolean / String` | `true / false / "auto"`          |**Required** Big front                     |
+| `scrollText`          | `Boolean / String` | `true / false / auto`            |**Required** Big front                     |
 | `scrollTextDelay`     | `Integer`          | `1 - 9999`                       |**Required (when scrollText is used)**     |
 | `centerText`          | `Boolean`          | `true / false`                   |**Required**                               |
 | `position`            | `JSON`             | `{"x":8, "y":1}`                 |**Required**                               |
@@ -231,7 +231,7 @@ The following special characters are supported as of v0.3.7:
 | Parameter             | Type               | Values                                                                       |Description                                                |   
 | :----                 | :----              | :----                                                                        | :----                                                     |
 | `aktiv`               | `Boolean`          | `true / false`                                                               |                                                           |
-| `animation`           | `String`           | `"fade" / "coloredBarWipe / "zigzagWipe" / "bitmapWipe" / "random"`          |[bitmapWipe call example](api.html#call-bitmapwipe-example)|
+| `animation`           | `String`           | `fade / coloredBarWipe / zigzagWipe / bitmapWipe / random`                   |[bitmapWipe call example](api.html#call-bitmapwipe-example)|
 | `data`                | `Integer Array`    | `[0, 0, 0, 0, 0, 0]`                                                         |**Required for bitmapWipe**                                |
 | `width`               | `Integer`          | `1 - 32`                                                                     |**Required for bitmapWipe** height always needs to be 8    |
 
@@ -407,13 +407,19 @@ The following folders structure must be provided: `sd:\01\001.mp3`
 ```json
 {
     "sound": {
-        "volume": 20, // 0 - 30
-        "control": "play", // play, pause
-        "folder": 1, // 1 - 99
-        "file": 1 // 1 - 255
+        "volume": 20,
+        "control": "play",
+        "folder": 1,
+        "file": 1
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                    |
+| :----                 | :----              | :----                            | :----                                         |
+| `volume`              | `Integer`          | `0 - 30`                         |**Required**                                   |
+| `control`             | `String`           | `play / pause`                   |**Required**                                   |
+| `folder`              | `Integer`          | `1 - 99`                         |**Required**                                   |
+| `file`                | `Integer`          | `1 - 255`                        |**Required**                                   |
 
 #### Option 2
 
@@ -422,12 +428,17 @@ This option also enables the controls **next** and **previous**, but the followi
 ```json
 {
     "sound": {
-        "volume": 20, // 0 - 30
-        "control": "play", // play, pause, next, previous
-        "file": 1 // 1 - 3000
+        "volume": 20,
+        "control": "play",
+        "file": 1
     }
 }
 ```
+| Parameter             | Type               | Values                           |Description                                    |
+| :----                 | :----              | :----                            | :----                                         |
+| `volume`              | `Integer`          | `0 - 30`                         |**Required**                                   |
+| `control`             | `String`           | `play / pause / next / previous` |**Required**                                   |
+| `file`                | `Integer`          | `1 - 3000`                       |**Required**                                   |
 
 ## Current Brightness
 
