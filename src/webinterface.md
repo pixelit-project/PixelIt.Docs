@@ -1,5 +1,5 @@
 # Webinterface 
-Das Webinterface stellt Dir Punkte [Dashboard](#webinterface), [Options](#webinterface), [Test Area](#test-area) und Update bereit.
+The web interface provides you with items [Dashboard](#webinterface), [Options](#webinterface), [Test Area](#test-area) and Update.
 
 ### Dashboard
 ![](/webinterface_main.png)

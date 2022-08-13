@@ -2,29 +2,7 @@
 sidebarDepth: 2
 ---
 
-# Tools
-
-## Pixel Creator
-
-Mit den [Pixel Creator](https://pixelit.bastelbunker.de/PixelCreator) kannst Du deine eigene Bilder (aka BPM) erstellen und auch in der Pixel Gallery speichern.  
-::: tip Tipp
-Um die Funktion von **LiveDraw active** sowie **Show on Pixel It** nutzen zu können,  
-muss man **Zulassen von gemischtem Inhalt** im Browser aktivieren.  
-Es gibt da eine gute [Anleitung von Adobe](https://experienceleague.adobe.com/docs/target/using/experiences/vec/troubleshoot-composer/mixed-content.html?lang=de#task_FF297A08F66E47A588C14FD67C037B3A) für.
-::::
-![](/pixel_creator.png)
-
-## Pixel Gallery
-
-Die [Pixel Gallery](https://pixelit.bastelbunker.de/PixelGallery) ist die Sammelstelle der BMP (PixelArt Bilder), die BMPs die sich in der Pixel Gallery befinden sind auch über die API zu erreichen.  
-So sind diese auch über die Pixel Gallery ID in den [Bitmap Node](#bitmap), [Bitmap Animation Node](#bitmap-animation) und auch in den [Adapter ioBroker](/ioBroker_pixelit/) verfügbar.
-![](/pixel_gallery.png)
-
-## ioBroker
-
-Für ioBroker gibt es auch einen [Adapter](/ioBroker_pixelit/).
-
-## Node-Red
+# Node-Red
 
 Es gibt ein recht umfangreiches [Pixel It Node](https://flows.nodered.org/node/node-red-contrib-pixelit) für das Node-Red.  
 Dies hilft Dir auf recht einfache Weise die Screens für die Pixel It zu erstellen, auch eine [Playlist](#playlist) der Screens wurde hier realisiert.
@@ -33,7 +11,7 @@ Es gibt auch einen Einsteiger Flow den man importieren kann: [Einsteiger Beispie
 
 Wer noch kein Node-Red am laufen hat sollte hier einmal reinschauen [Node-Red - Get Started](https://nodered.org/#get-started).
 
-### Einsteiger Flow
+## Einsteiger Flow
 
 ---
 
@@ -697,7 +675,7 @@ und etwas daran rumwerkeln und probieren.
 
 ::::
 
-### Core
+## Core
 
 ---
 
@@ -705,7 +683,7 @@ und etwas daran rumwerkeln und probieren.
 
 Der Core Node ist das Herzstück von der Pixel It Node-RED Erweiterung.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Das entgegen nehmen und speichern / updaten von Screens.
 -   Das Handling der Alerts.
@@ -718,7 +696,7 @@ Der Core Node ist das Herzstück von der Pixel It Node-RED Erweiterung.
 -   Der Aufbau des JSON.
 -   Die Kommunikation mit der Pixel It.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/core_node_config.png)
 
@@ -726,7 +704,7 @@ Der Core Node ist das Herzstück von der Pixel It Node-RED Erweiterung.
 **IP-Address**: Hier kann die Ip-Adresse der Pixel It eingetragen werden um direkt die HTTP-API zu nutzen.  
 **Master-Topic**: Hier kann der Master-Topic eingetragen werden um den MQTT-Tpoic zu generieren, dieser wird dann in der "msg.topic" weitergegeben
 
-### Alert Screen
+## Alert Screen
 
 ---
 
@@ -734,17 +712,17 @@ Der Core Node ist das Herzstück von der Pixel It Node-RED Erweiterung.
 
 Alert Screen Node ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Den ankommenden Screen als Alert Tagen so das der Core Node weiß damit umzugehen.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/alert_screen_node_config.png)
 
 **Name**: Dieser ist frei wählbar.
 
-### Screen Data Update
+## Screen Data Update
 
 ---
 
@@ -752,11 +730,11 @@ Alert Screen Node ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 Screen Data Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Den ankommenden Screen als Data Update für einen Screen Tagen so das der Core Node weiß damit umzugehen.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ---
 
@@ -764,24 +742,24 @@ Screen Data Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 **Name**: Dieser ist frei wählbar.
 
-### Matrix Control
+## Matrix Control
 
 ---
 
 ![](/matrix_control_node.png)  
 Matrix Control ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Den ankommenden Datenstrom als Matrix Steuerbefehle Tagen so das der Core Node weiß damit umzugehen.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/matrix_control_node_config.png)
 
 **Name**: Dieser ist frei wählbar.
 
-### Playlist Update
+## Playlist Update
 
 ---
 
@@ -789,17 +767,17 @@ Matrix Control ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 Playlist Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Den ankommenden Datenstrom als Playlist Tagen so das der Core Node weiß damit umzugehen.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/playlist_update_node_config.png)
 
 **Name**: Dieser ist frei wählbar.
 
-### Playlist
+## Playlist
 
 ---
 
@@ -807,30 +785,30 @@ Playlist Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 Die Playlist wird als ein Json erstellt, diese die Namen beinhaltet die zuvor in der [Screen Init Node](#screen-init) festgelegt wurden.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Abspielreihenfolge festlegen.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 **Name**: Dieser ist frei wählbar.
 
-### Matrix Config <Badge text="Obsolete" type="warning"/>
+## Matrix Config <Badge text="Obsolete" type="warning"/>
 
 ---
 
 ![](/matrix_control_node.png)  
 ::: warning Veraltet!
-Diese Node ist veraltet und wurde durch das [Webinterface](/pixelit/webinterface.html#options) ersetzt!
+Diese Node ist veraltet und wurde durch das [Webinterface](webinterface.html#options) ersetzt!
 :::
 Matrix Config ist ein der Node um die Configuration der Pixel It über die Node-RED Erweiterung zu setzten.
 Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt verarbeiten kann.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Konfiguration der Pixel It.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/matrix_control_node_config_0.png)  
 **Name**: Dieser ist frei wählbar.
@@ -866,7 +844,7 @@ Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt vera
 ![](/matrix_control_node_config_13.png)  
 **MQTT MasterTopic**: Dies ist der Topic auf den die Pixel It lauscht bzw. Sendet
 
-### Screen Init
+## Screen Init
 
 ---
 
@@ -875,12 +853,12 @@ Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt vera
 Matrix Config ist ein der Node um die Configuration der Pixel It über die Node-RED Erweiterung zu setzten.
 Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt verarbeiten kann.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Benennen des Screen z.B. für die Playlist
 -   Anzeigedauer
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/screen_init_config_0.png)  
 **Name**: Dieser ist frei wählbar.
@@ -893,7 +871,7 @@ Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt vera
 **Duration**: Die Anzeigedauer des Alerts / Screens in Sekunden, dieser Wert kann auch dynamisch übergeben werden in den man die passende Message-Val mit doppelt Geschweifte Klammern übergibt z.B.`{{payload}}`
 :::
 
-### Switch Animation
+## Switch Animation
 
 ---
 
@@ -901,12 +879,12 @@ Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt vera
 
 Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -   Aktiver oder deaktiviert die Übergangsanimation.
 -   Art der Übergangsanimation festlegen.
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![](/switch_animation_node_config_0.png)  
 **Name**: Dieser ist frei wählbar.
@@ -917,7 +895,7 @@ Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
 ![](/switch_animation_node_config_2.png)  
 **Animation style**: Hier kann die Art der Übergangsanimation festgelegt werden.
 
-### Text
+## Text
 
 ---
 
@@ -928,90 +906,90 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/tools.md)
+[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
 :::
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![]()  
 **Name**: Dieser ist frei wählbar.
 
-### Bitmap
+## Bitmap
 
 ---
 
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/tools.md)
+[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
 :::
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![]()  
 **Name**: Dieser ist frei wählbar.
 
-### Bitmap Animation
+## Bitmap Animation
 
 ---
 
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/tools.md)
+[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
 :::
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![]()  
 **Name**: Dieser ist frei wählbar.
 
-### Clock
+## Clock
 
 ---
 
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/tools.md)
+[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
 :::
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![]()  
 **Name**: Dieser ist frei wählbar.
 
-### GPIO Control
+## GPIO Control
 
 ---
 
 ![](/gpio_control_node.png)
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/src/pixelit/tools.md)
+[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
 :::
 
-#### Die Aufgaben:
+### Die Aufgaben:
 
 -
 
-#### Die Konfiguration:
+### Die Konfiguration:
 
 ![]()  
 **Name**: Dieser ist frei wählbar.
