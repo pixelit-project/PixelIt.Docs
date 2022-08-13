@@ -9,7 +9,7 @@
 -   [Node-Red Node](tools.html#node-red)
 -   [Pixel Creator](tools.html#pixel-creator)
 -   [Pixel Gallery](tools.html#pixel-gallery)
--   [ioBroker Adapter](tools.html#iobroker)
+-   [ioBroker Adapter](iobroker.html)
 -   Expandable
 -   Customizable
 -   Inexpensive
@@ -18,12 +18,12 @@
 ## Supported hardware
 
 - MCU
-  -   [Wemos D1 mini](hardware.html#minimalaufbau-basis)
+  -   [Wemos D1 mini](hardware.html#minimal-setup-basis)
   -   ESP32 (Experimental)
 - Matrix
-  -   [Pixelmatrix (8x32)](hardware.html#minimalaufbau-basis)
-  -   [Pixelmatrix (CJMCU)(4x 8x8)](hardware.html#minimalaufbau-basis)
-  -   [MicroMatrix by foorschtbar (4x 8x8)](hardware.html#minimalaufbau-basis)
+  -   [Pixelmatrix (8x32)](hardware.html#minimal-setup-basis)
+  -   [Pixelmatrix (CJMCU)(4x 8x8)](hardware.html#minimal-setup-basis)
+  -   [MicroMatrix by foorschtbar (4x 8x8)](hardware.html#minimal-setup-basis)
 - Extensions
   -   [LDR GL5516](hardware.html#ldr-gl5516-sensor-upgrade-brightness-lux)
   -   [DHT22](hardware.html#dht22-sensor-upgrade-temperature-humidity)
@@ -32,7 +32,7 @@
   -   [DFPlayer Mini](hardware.html#dfplayer-mini-upgrade-mp3-player)
 
 ::: tip
-Checkout the [Parts list](hardware.html#teileliste).
+Checkout the [Parts list](hardware.html#parts-list).
 :::
 
 ## Support
