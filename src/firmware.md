@@ -5,7 +5,7 @@
 * [PixelIt Firmware](https://github.com/o0shojo0o/PixelIt/releases)
 * [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
 
-To flash the Wemos D! Mini (or simillar ESP8266 board) we use the ESPEasy Flasher for simplicity. After unpacking the ESPEasy_Flasher.zip only the current `firmware_XXX.bin` must be copied into the folder of the ESPEasy Flasher.  
+To flash the Wemos D1 Mini (or simillar ESP8266 board) we use the ESPEasy Flasher for simplicity. After unpacking the ESPEasy_Flasher.zip only the current `firmware_XXX.bin` must be copied into the folder of the ESPEasy Flasher.  
   
 Now we have two dropdown menus after starting the FlashESP8266.exe:
 ![](/flash_esp8266.png)
