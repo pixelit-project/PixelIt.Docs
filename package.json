@@ -19,6 +19,7 @@
     "vuepress-plugin-code-copy": "^1.0.6"
   },
   "dependencies": {
-    "vuepress-plugin-matomo": "^1.0.2"
+    "vuepress-plugin-matomo": "^1.0.2",
+    "vuepress-theme-default-prefers-color-scheme": "^2.0.0"
   }
 }
