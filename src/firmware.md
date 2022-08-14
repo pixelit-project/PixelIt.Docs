@@ -2,7 +2,7 @@
 ## Flashing
 
 ### Downloads
-* [PixelIt Firmware](https://github.com/o0shojo0o/PixelIt/releases)
+* [PixelIt Firmware](https://github.com/pixelit-project/PixelIt/releases)
 * [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
 
 To flash the Wemos D1 Mini (or simillar ESP8266 board) we use the ESPEasy Flasher for simplicity. After unpacking the ESPEasy_Flasher.zip only the current `firmware_XXX.bin` must be copied into the folder of the ESPEasy Flasher.  
