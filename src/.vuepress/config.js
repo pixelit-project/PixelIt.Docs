@@ -18,6 +18,10 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
+    ['link', {
+      rel: 'icon',
+      href: '/logo.png'
+    }],
     ['meta', {
       name: 'theme-color',
       content: '#3eaf7c'
@@ -40,6 +44,7 @@ module.exports = {
   theme: 'default-prefers-color-scheme',
   themeConfig: {
     overrideTheme: 'dark',
+    logo: '/logo.png',
     repo: 'https://github.com/pixelit-project/Docs',
     editLinks: true,
     docsDir: 'src',
