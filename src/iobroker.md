@@ -23,11 +23,11 @@ This adapter allows you to send screen to the [Pixel It]() from ioBroker. It que
 - **brightness_255**:
   - Here the brightness is specified in steps from 0 - 255.
 - **ext_message**:
-  - Hier kann man einen komplexen Screen in Form eines [JSON von diesen Aufbau](api.html#screen) übergeben.
-  - Es werden nur Kommands von den Endpunkt `/api/screen` akzeptiert!
+  - Here you can pass a complex screen in the form of a [JSON from this build](api.html#screen).
+  - Only commands from the endpoint `/api/screen` are accepted!
 - **message**:
-  - Hier kann sehr einfach ein simpler Screen übergeben werden.
-  - Der Aufbau sie z.B. so aus `Miau!;255,255,255;387`
-    - **_Miau!_**: Dein Text
-    - **_255,255,255_**: Farbe des Textes [RGB](https://www.w3schools.com/colors/colors_picker.asp)
-    - **_387_**: BMP ID von der [Pixel Gallery](tools.html#pixel-gallery)
+  - Here you can easily pass a simple screen.
+  - The structure looks like this `Miau!;255,255,255;387`.
+    - **_Miau!_**: Your text
+    - **_255,255,255_**: Color of the text [RGB](https://www.w3schools.com/colors/colors_picker.asp)
+    - **_387_**: BMP ID from the [Pixel Gallery](tools.html#pixel-gallery)
