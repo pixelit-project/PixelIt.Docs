@@ -13,7 +13,7 @@
 -   Expandable
 -   Customizable
 -   Inexpensive
--   Open-Source :heart:
+-   [Open-Source](https://github.com/pixelit-project) :heart:
 
 ## Supported hardware
 
