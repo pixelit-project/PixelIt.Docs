@@ -4,22 +4,21 @@ sidebarDepth: 2
 
 # Node-Red
 
-Es gibt ein recht umfangreiches [Pixel It Node](https://flows.nodered.org/node/node-red-contrib-pixelit) für das Node-Red.  
-Dies hilft Dir auf recht einfache Weise die Screens für die Pixel It zu erstellen, auch eine [Playlist](#playlist) der Screens wurde hier realisiert.
+There is a quite extensive [PixelIt Node](https://flows.nodered.org/node/node-red-contrib-pixelit) for [Node-Red](https://nodered.org/).  
+This helps you in a quite simple way to create the screens for PixelIt, also a [Playlist](#playlist) of the screens was realized here.
 
-Es gibt auch einen Einsteiger Flow den man importieren kann: [Einsteiger Beispiel Flow](#einsteiger-flow) um die erste Hürde zu meistern.
+There is also a beginner flow that you can import: [beginner example flow](#beginner-flow) to master the first hurdle.
 
-Wer noch kein Node-Red am laufen hat sollte hier einmal reinschauen [Node-Red - Get Started](https://nodered.org/#get-started).
+If you don't have Node-Red running yet you should have a look here [Node-Red - Get Started](https://nodered.org/#get-started).
 
-## Einsteiger Flow
+## Beginner Flow
 
 ---
 
-Um die erste Hürde etwas abzuflachen, kann man sich diesen Flow mal importieren,
-und etwas daran rumwerkeln und probieren.
+To flatten the first hurdle a bit, you can import this flow, and tinker with it a bit and try it out.
 ![](/einsteiger_flow.png)  
 
-::: details Hier aufklappen!
+::: details Expand here!
 
 ```json
 [
@@ -192,7 +191,7 @@ und etwas daran rumwerkeln und probieren.
         "id": "ab30e681.56e698",
         "type": "comment",
         "z": "6cea977d.420938",
-        "name": "Internal Pixel It Clock [internal_clock]",
+        "name": "Internal PixelIt Clock [internal_clock]",
         "info": "",
         "x": 180,
         "y": 160,
@@ -681,28 +680,28 @@ und etwas daran rumwerkeln und probieren.
 
 ![](/core_node.png)
 
-Der Core Node ist das Herzstück von der Pixel It Node-RED Erweiterung.
+The Core Node is the heart of PixelIt Node-RED extension.
 
-### Die Aufgaben:
+### The tasks
 
--   Das entgegen nehmen und speichern / updaten von Screens.
--   Das Handling der Alerts.
--   Das entgegen nehmen von den Playlisten.
--   Das abspielen der Playlisten.
--   Das entgegen nehmen der Konfiguration der Pixel It.
--   Das entgegen nehmen von Controls.
--   Die optionale Kommunikation mit dem Webservice um die Bitmap-IDs abzufragen.
--   Dieser werden dann auch im RAM Cache vorgehalten.
--   Der Aufbau des JSON.
--   Die Kommunikation mit der Pixel It.
+- Receiving and saving/updating screens.
+- The handling of the alerts.
+- Receiving the playlists.
+- The playback of the playlists.
+- Receiving the configuration of PixelIt.
+- The receiving of controls.
+- The optional communication with the web service to query the bitmap IDs.
+- These are then also kept in the RAM cache.
+- The structure of the JSON.
+- The communication with PixelIt.
 
-### Die Konfiguration:
+### The configuration
 
 ![](/core_node_config.png)
 
-**Name**: Dieser ist frei wählbar.  
-**IP-Address**: Hier kann die Ip-Adresse der Pixel It eingetragen werden um direkt die HTTP-API zu nutzen.  
-**Master-Topic**: Hier kann der Master-Topic eingetragen werden um den MQTT-Tpoic zu generieren, dieser wird dann in der "msg.topic" weitergegeben
+**Name**: This value can be chosen as you like.  
+**IP-Address**: The Ip address of PixelIt can be entered here to directly use the HTTP API.  
+**Master-Topic**: Here the master topic can be entered to generate the MQTT-Tpoic, this is then passed on in the "msg.topic".
 
 ## Alert Screen
 
@@ -710,17 +709,16 @@ Der Core Node ist das Herzstück von der Pixel It Node-RED Erweiterung.
 
 ![](/alert_screen_node.png)
 
-Alert Screen Node ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
+Alert Screen Node is a small helper from PixelIt Node-RED extension.
+### The tasks
 
-### Die Aufgaben:
+- The incoming screen as alert days so that the core node knows how to deal with it.
 
--   Den ankommenden Screen als Alert Tagen so das der Core Node weiß damit umzugehen.
-
-### Die Konfiguration:
+### The configuration
 
 ![](/alert_screen_node_config.png)
 
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Screen Data Update
 
@@ -728,36 +726,34 @@ Alert Screen Node ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 ![](/screen_data_update_node.png)
 
-Screen Data Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
-
-### Die Aufgaben:
+Screen Data Update is a small helper from PixelIt Node-RED extension.
+### The tasks
 
 -   Den ankommenden Screen als Data Update für einen Screen Tagen so das der Core Node weiß damit umzugehen.
 
-### Die Konfiguration:
+### The configuration
 
 ---
 
 ![](/screen_data_update_node_config.png)
 
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Matrix Control
 
 ---
 
 ![](/matrix_control_node.png)  
-Matrix Control ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
+Matrix Control is a small helper from PixelIt Node-RED extension.
 
-### Die Aufgaben:
+### The tasks
 
--   Den ankommenden Datenstrom als Matrix Steuerbefehle Tagen so das der Core Node weiß damit umzugehen.
-
-### Die Konfiguration:
+- The incoming data stream as matrix control commands days so that the core node knows how to deal with it.
+### The configuration
 
 ![](/matrix_control_node_config.png)
 
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Playlist Update
 
@@ -765,17 +761,17 @@ Matrix Control ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 ![](/playlist_update_node.png)
 
-Playlist Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
+Playlist Update is a little helper from PixelIt Node-RED extension.
 
-### Die Aufgaben:
+### The tasks
 
--   Den ankommenden Datenstrom als Playlist Tagen so das der Core Node weiß damit umzugehen.
+- Tag the incoming data stream as a playlist so that the core node knows how to handle it.
 
-### Die Konfiguration:
+- ### The configuration
 
 ![](/playlist_update_node_config.png)
 
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Playlist
 
@@ -783,92 +779,90 @@ Playlist Update ist ein kleiner Helfer von der Pixel It Node-RED Erweiterung.
 
 ![](/)
 
-Die Playlist wird als ein Json erstellt, diese die Namen beinhaltet die zuvor in der [Screen Init Node](#screen-init) festgelegt wurden.
+The playlist is created as a json containing the names previously specified in the [Screen Init Node](#screen-init).
 
-### Die Aufgaben:
+### The tasks
 
--   Abspielreihenfolge festlegen.
+- Set playback order.
+- 
+### The configuration
 
-### Die Konfiguration:
-
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Matrix Config <Badge text="Obsolete" type="warning"/>
 
 ---
 
 ![](/matrix_control_node.png)  
-::: warning Veraltet!
-Diese Node ist veraltet und wurde durch das [Webinterface](webinterface.html#options) ersetzt!
+::: warning Outdated!
+This node is obsolete and has been replaced by the [webinterface](webinterface.html#options)!
 :::
-Matrix Config ist ein der Node um die Configuration der Pixel It über die Node-RED Erweiterung zu setzten.
-Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt verarbeiten kann.
+Matrix Config is the node to set the configuration of PixelIt via the Node-RED extension.
+This node is bound directly to the core node because the core node can process the node directly.
 
-### Die Aufgaben:
+### The tasks
 
--   Konfiguration der Pixel It.
-
-### Die Konfiguration:
+- Configuration of PixelIt.
+### The configuration
 
 ![](/matrix_control_node_config_0.png)  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ![](/matrix_control_node_config_1.png)
-**Matrix Brightness**: Stellt die Standard Helligkeit der Pixel It ein. (0 - 255)
+**Matrix Brightness**: Sets the default brightness of PixelIt. (0 - 255)
 
 ![](/matrix_control_node_config_2.png)  
-**Matrix Type**: Stellt den Type der der verwendeten Matrix ein. (Info)
+**Matrix Type**: Sets the type of the matrix used. (info)
 
 ![](/matrix_control_node_config_3.png)  
-**Matrix Correction**: Hier kann eine Farbkorrektur vorgenommen werden. (Info)
+**Matrix Correction**: Color correction can be applied here. (info)
 
 ![](/matrix_control_node_config_4.png)
-**NTP Server**: Hier kann der Domain oder IP-Adresse des NTP Servers übergeben werden
+**NTP Server**: Here the domain or IP address of the NTP server can be passed.
 
 ![](/matrix_control_node_config_5.png)  
-**Clock offset**: Hier wird der UTC Offset angeben (https://en.wikipedia.org/wiki/List_of_UTC_time_offsets)
+**Clock offset**: Here the UTC offset is specified (https://en.wikipedia.org/wiki/List_of_UTC_time_offsets)
 
 ![](/matrix_control_node_config_6.png)  
-**Scroll Text Default Delay**: Hier wird der Default Delay für den Scrolltext eingestellt. (ms)
+**Scroll Text Default Delay**: Sets the default delay for the scroll text. (ms)
 
 ![](/matrix_control_node_config_7.png)  
-**Bootscreen aktiv**: Schaltet den Bootscreen ein oder aus.
+**Bootscreen active**: Switches the boot screen on or off.
 
 ![](/matrix_control_node_config_8.png)  
-**MQTT aktiv**: Schaltet den MQTT Client ein oder aus.
+**MQTT active**: Switches the MQTT client on or off.
 
 ![](/matrix_control_node_config_9.png)  
 ![](/matrix_control_node_config_10.png)  
 ![](/matrix_control_node_config_11.png)  
 ![](/matrix_control_node_config_12.png)  
 ![](/matrix_control_node_config_13.png)  
-**MQTT MasterTopic**: Dies ist der Topic auf den die Pixel It lauscht bzw. Sendet
-
+**MQTT MasterTopic**: This is the topic on which the PixelIt listens or transmits
 ## Screen Init
 
 ---
 
 ![](/screen_init.png)
 
-Matrix Config ist ein der Node um die Configuration der Pixel It über die Node-RED Erweiterung zu setzten.
-Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt verarbeiten kann.
+Matrix Config is the node to set the configuration of the PixelIt via the Node-RED extension.
+This node is bound directly to the core node because the core node can process the node directly.
 
-### Die Aufgaben:
+### The tasks
 
--   Benennen des Screen z.B. für die Playlist
--   Anzeigedauer
+- Naming the screen e.g. for the playlist
+- Display duration
 
-### Die Konfiguration:
+### The configuration
 
 ![](/screen_init_config_0.png)  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ![](/screen_init_config_1.png)  
-**Screen Name**: Für Alerts nicht von Bedeutung, aber für Screens wichtig da dieser Name in der Playlist angeben wird.
+**Screen Name**: Not relevant for alerts, but important for screens as this name is used in the playlist.
 
 ![](/screen_init_config_2.png)  
 ::: v-pre
-**Duration**: Die Anzeigedauer des Alerts / Screens in Sekunden, dieser Wert kann auch dynamisch übergeben werden in den man die passende Message-Val mit doppelt Geschweifte Klammern übergibt z.B.`{{payload}}`
+**Duration**: The duration of the alert / screen in seconds, this value can also be passed dynamically by passing the appropriate message-val with double braces e.g. `{payload}}`.
 :::
 
 ## Switch Animation
@@ -877,46 +871,45 @@ Dieser Node wird direkt an den Core Node gebunden da dieser den Node direkt vera
 
 ![](/switch_animation_node.png)
 
-Switch Animation ist ein der Node um eine Übergangsanimation zu setzten.
+Switch Animation is the node to set a transition animation.
 
-### Die Aufgaben:
+### The tasks
 
--   Aktiver oder deaktiviert die Übergangsanimation.
--   Art der Übergangsanimation festlegen.
+- Enables or disables the transition animation.
+- Set the type of transition animation.
 
-### Die Konfiguration:
+### The configuration
 
 ![](/switch_animation_node_config_0.png)  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ![](/switch_animation_node_config_1.png)  
-**Animation aktiv**: Aktiver oder deaktiviert die Übergangsanimation.
+**Animation active**: Enables or disables the transition animation.
 
 ![](/switch_animation_node_config_2.png)  
-**Animation style**: Hier kann die Art der Übergangsanimation festgelegt werden.
-
+**Animation style**: Here you can set the style of the transition animation.
 ## Text
 
 ---
 
-Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
+The following special characters are supported as of v0.3.7:
 `€ ← ↑ → ↓ ★ 📁 ♥ ↧ 🚗 😀`
 ![](/special_characters.png)
 
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
+[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
 :::
 
-### Die Aufgaben:
+### The tasks
 
 -
 
-### Die Konfiguration:
+### The configuration
 
 ![]()  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Bitmap
 
@@ -925,17 +918,17 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
+[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
 :::
 
-### Die Aufgaben:
+### The tasks
 
 -
 
-### Die Konfiguration:
+### The configuration
 
 ![]()  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Bitmap Animation
 
@@ -944,17 +937,17 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
+[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
 :::
 
-### Die Aufgaben:
+### The tasks
 
 -
 
-### Die Konfiguration:
+### The configuration
 
 ![]()  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## Clock
 
@@ -963,17 +956,17 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ![]()
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
+[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
 :::
 
-### Die Aufgaben:
+### The tasks
 
 -
 
-### Die Konfiguration:
+### The configuration
 
 ![]()  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
 
 ## GPIO Control
 
@@ -982,14 +975,14 @@ Es werden ab v0.3.7 folgende Sonderzeichen unterstützt:
 ![](/gpio_control_node.png)
 
 ::: warning ToDo
-[Edit this page](https://github.com/o0shojo0o/doc/edit/master/srctools.md)
+[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
 :::
 
-### Die Aufgaben:
+### The tasks
 
 -
 
-### Die Konfiguration:
+### The configuration
 
 ![]()  
-**Name**: Dieser ist frei wählbar.
+**Name**: This value can be chosen as you like.  
