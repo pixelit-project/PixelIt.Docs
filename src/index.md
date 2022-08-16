@@ -41,6 +41,6 @@ Checkout the [Parts list](hardware.html#parts-list).
 Stell need help? You can get help in the forum or the Telegram and Discord group. Check it out:
 :::
 
-- [GitHub Discussions ![](https://img.shields.io/github/discussions/pixelit-project/PixelIt)](https://github.com/pixelit-project/PixelIt/discussions)
-- [Telegram Channel ![](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fpixelitdisplay)](https://t.me/pixelitdisplay)
-- [Discord Channel ![](https://img.shields.io/discord/558849582377861122?logo=discord)](https://discord.gg/JHE9P9zczW)
+- [![](https://img.shields.io/github/discussions/pixelit-project/PixelIt?&logo=github&label=GitHub%20Discussions&style=for-the-badge)](https://github.com/pixelit-project/PixelIt/discussions)
+- [![](https://img.shields.io/endpoint?label=Telegram&style=for-the-badge&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fpixelitdisplay)](https://t.me/pixelitdisplay)
+- [![](https://img.shields.io/discord/558849582377861122?logo=discord&label=Discrod&style=for-the-badge)](https://discord.gg/JHE9P9zczW)
