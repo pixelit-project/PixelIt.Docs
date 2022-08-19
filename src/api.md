@@ -292,6 +292,68 @@ The following special characters are supported as of v0.3.7:
 | `position`            | `JSON`             | `{"x":0, "y":0}`                 |**Required**                               |
 | `size`                | `JSON`             | `{"width":8, "height":8}`        |**Required**                               |
 
+### Bitmaps
+
+---
+How to display multiple bitmaps on one screen.
+::: warning Limitations
+When displaying multiple bitmaps, animated bitmaps, scrolling or text are not supported!
+:::
+```json
+{
+    "bitmaps": [{
+        "data": [0, 0, 0, 0, 0, 0], 
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": 8,
+            "height": 8
+        }
+    },
+    {
+        "data": [0, 0, 0, 0, 0, 0], 
+        "position": {
+            "x": 8,
+            "y": 0
+        },
+        "size": {
+            "width": 8,
+            "height": 8
+        }
+    },
+    {
+        "data": [0, 0, 0, 0, 0, 0], 
+        "position": {
+            "x": 16,
+            "y": 0
+        },
+        "size": {
+            "width": 8,
+            "height": 8
+        }
+    },
+    {
+        "data": [0, 0, 0, 0, 0, 0], 
+        "position": {
+            "x": 24,
+            "y": 0
+        },
+        "size": {
+            "width": 8,
+            "height": 8
+        }
+    }]
+}
+```
+| Parameter             | Type               | Values                           |Description                                |
+| :----                 | :----              | :----                            | :----                                     |
+| `data`                | `Integer Array`    | `[0, 0, 0, 0, 0, 0]`             |**Required**                               |
+| `position`            | `JSON`             | `{"x":0, "y":0}`                 |**Required**                               |
+| `size`                | `JSON`             | `{"width":8, "height":8}`        |**Required**                               |
+
+
 ### Bitmap Animation
 
 ---
