@@ -12,7 +12,6 @@ This adapter allows you to send screen to the [Pixel It]() from ioBroker. It que
 ![](/iobroker_pixelIt_config.png)
 
 - IP address: IP address of the PixelIt.
-- Polling interval (sec): Specifies the polling interval of the sensors.
 
 ## Data points
 
@@ -31,3 +30,7 @@ This adapter allows you to send screen to the [Pixel It]() from ioBroker. It que
     - **_Miau!_**: Your text
     - **_255,255,255_**: Color of the text [RGB](https://www.w3schools.com/colors/colors_picker.asp)
     - **_387_**: BMP ID from the [Pixel Gallery](tools.html#pixel-gallery)
+- **show_clock**:
+  - Shows the clock screen.
+- **sleep_mode**:
+  - Activates or deactivates the [Sleep Mode](api.html#sleep-mode).
