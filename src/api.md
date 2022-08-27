@@ -182,14 +182,21 @@ The following special characters are supported as of v0.3.7:
 
 ---
 
+`sleepMode` dimms down the matrix to `brightness: 0`.
+Additionally while `sleepMode` is active the `/api/screen`-endpoint and `MasterTopic/setScreeen`-topic are not fully evaluated. Only when `sleepMode` previously or within the same message-body is set to `false` , the requested screen will be displayed.
+
+:::warning Disclaimer
+Enabeling `sleepMode` does not enable power saving features on the MCU itself, like e.g. deep sleep functionality of an ESP8266.
+:::
+
 ```json
 {
     "sleepMode": false
 }
 ```
-| Parameter             | Type               | Values                           |Description                                |
-| :----                 | :----              | :----                            | :----                                     |
-| `sleepMode`           | `Boolean`          | `true / false`                   |Sets PixelIt into a kind of sleep mode |
+| Parameter             | Type               | Values                           | Description                                                   |
+| :----                 | :----              | :----                            | :----                                                         |
+| `sleepMode`           | `Boolean`          | `true / false`                   | When acitve `sleepMode` disables the rendering of new screens |
 
 
 ### Brightness
