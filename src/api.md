@@ -143,8 +143,8 @@ Example call:
 
 ---
 
-The following special characters are supported as of v0.3.7:
-`€ ← ↑ → ↓ ★ 📁 ♥ ↧ 🚗 😀`
+The following special characters are supported:
+`€ ← ↑ → ↓ ★ ♥ ↧ 🚗 😀 📁 📄`
 ![](/special_characters.png)
 
 ```json
