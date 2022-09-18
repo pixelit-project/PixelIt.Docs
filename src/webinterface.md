@@ -2,6 +2,8 @@
 
 The web interface provides you with items [Dashboard](#dashboard), [Options](#options), [Sensor & Buttons](#sensor-buttons), [Test Area](#test-area), [Pixel Gallery](#pixel-gallery) and [Update](#update).
 
+### [WebUi Demo](https://pixelit-project.github.io/PixelIt/webui/)
+
 ### Dashboard
 
 ![](/webinterface_main.png)
