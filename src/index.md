@@ -38,7 +38,7 @@ Checkout the [Parts list](hardware.html#parts-list).
 ## Support
 
 ::: tip
-Stell need help? You can get help in the forum or the Telegram and Discord group. Check it out:
+Still need help? You can get help in the forum or the Telegram and Discord group. Check it out:
 :::
 
 - [![](https://img.shields.io/github/discussions/pixelit-project/PixelIt?&logo=github&label=GitHub%20Discussions&style=for-the-badge)](https://github.com/pixelit-project/PixelIt/discussions)
