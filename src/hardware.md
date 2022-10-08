@@ -14,6 +14,11 @@
 
 ![](/hardware_basis.png)
 
+::: tip
+For quick setup and a little testing it should be enough to just power everything via USB (at least a MacBook Pro seem to provide enough power).  
+However for normal operation it is recommended to use a dedicated power supply. 20W (5V/4A) should be sufficient.
+:::
+
 #### LDR GL5516 Sensor upgrade (brightness lux)
 
 | **Quantity**  | **Name**           |               **Link**                   |
@@ -60,7 +65,12 @@
 ![](/cover.jpg)
 by PlastikJunkies
 
-#### Download:
+#### Downloads
 
 -   [Thingiverse](https://www.thingiverse.com/thing:3559014)
 -   [Local download](/pixel_it_case.zip)
+
+#### Makes
+
+Make sure to check out this discussion page for some inspiration (german).  
+-    [Meine PixelIt](https://github.com/pixelit-project/PixelIt/discussions/48)
