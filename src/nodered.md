@@ -986,3 +986,7 @@ The following special characters are supported as of v0.3.7:
 
 ![]()  
 **Name**: This value can be chosen as you like.  
+
+## Troubleshooting
+
+See [Troubleshooting](troubleshooting.html).

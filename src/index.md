@@ -31,16 +31,17 @@
   -   [BME680](hardware.html#bme680-sensor-upgrade-temperature-humidity-pressure-gas)
   -   [DFPlayer Mini](hardware.html#dfplayer-mini-upgrade-mp3-player)
 
-::: tip
-Checkout the [Parts list](hardware.html#parts-list).
-:::
+## Getting started
+
+* Start with the [hardware](hardware.html) and checkout the [parts list](hardware.html#parts-list). 
+* Then you can flash the [firmware](firmware.html) and setup the matrix in the [webinterface](webinterface.html). 
+* At last step, you send your own screens to the [API](api.html) or use [Node-RED](nodered.html) (recommanded) or [ioBroker](iobroker.html) to create and send your own screens to your PixelIt.
+
 
 ## Support
 
-::: tip
-Still need help? You can get help in the forum or the Telegram and Discord group. Check it out:
-:::
+Any problems? Checkout the [Troubleshooting](troubleshooting.html) section. If you still need help or just connect to other PixelIt users, checkout your forum or the Telegram and Discord groups.
 
-- [![](https://img.shields.io/github/discussions/pixelit-project/PixelIt?&logo=github&label=GitHub%20Discussions&style=for-the-badge)](https://github.com/pixelit-project/PixelIt/discussions)
-- [![](https://img.shields.io/endpoint?label=Telegram&style=for-the-badge&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fpixelitdisplay)](https://t.me/pixelitdisplay)
-- [![](https://img.shields.io/discord/558849582377861122?logo=discord&label=Discrod&style=for-the-badge)](https://discord.gg/JHE9P9zczW)
+* [![](https://img.shields.io/github/discussions/pixelit-project/PixelIt?&logo=github&label=GitHub%20Discussions&style=for-the-badge)](https://github.com/pixelit-project/PixelIt/discussions)
+* [![](https://img.shields.io/endpoint?label=Telegram&style=for-the-badge&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fpixelitdisplay)](https://t.me/pixelitdisplay)
+* [![](https://img.shields.io/discord/558849582377861122?logo=discord&label=Discrod&style=for-the-badge)](https://discord.gg/JHE9P9zczW)

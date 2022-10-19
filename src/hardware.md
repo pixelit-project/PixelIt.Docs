@@ -10,13 +10,17 @@
 |     4         | WS2812B LED Matrix CJMCU 8x8      | [Amazon](https://amzn.to/3v1RDqe)                     | alternative                   |
 |     4         | MicroMatrix by foorschtbar 8x8    | [GitHub](https://github.com/foorschtbar/MicroMatrix)  | alternative (really micro)    |
 |     1         | Wemos D1 Mini (or Clone)          | [Amazon](https://amzn.to/2Df5v7M)                     |                               |
-|     1         | Kondensator 1000uF                | [Amazon](https://amzn.to/2DktrGV)                     |                               |
+|     1         | Capacitor 1000uF/6.3V or higher   | [Amazon](https://amzn.to/2DktrGV)                     |                               |
 
 ![](/hardware_basis.png)
 
 ::: tip
-For quick setup and a little testing it should be enough to just power everything via USB (at least a MacBook Pro seem to provide enough power).  
-However for normal operation it is recommended to use a dedicated power supply. 20W (5V/4A) should be sufficient.
+If you reduce the brightness of the matrix, powering everything via USB should be sufficient for testing.
+However, it is recommended to use a high-quality power supply for normal operation. A 20W (5V/4A) power supply is sufficient for this.
+:::
+
+::: tip
+The 1000uF capacitor prevents the initial onrush of current from damaging the pixels. It also provides a small power reservoir for abrupt changes in brightness that the power source might not otherwise handle. Otherwise it can happen that the microcontroller restarts or it comes to gliches in the matrix.
 :::
 
 #### LDR GL5516 Sensor upgrade (brightness lux)
@@ -74,3 +78,7 @@ by PlastikJunkies
 
 Make sure to check out this discussion page for some inspiration (german).  
 -    [Meine PixelIt](https://github.com/pixelit-project/PixelIt/discussions/48)
+
+## Troubleshooting
+
+See [Troubleshooting](troubleshooting.html).

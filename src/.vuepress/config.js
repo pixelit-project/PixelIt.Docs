@@ -1,16 +1,14 @@
-const {
-  description
-} = require('../../package')
+const { description } = require("../../package");
 
 module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'PixelIt Documentation',
+  title: "PixelIt Documentation",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: 'PixelIt Documentation',
+  description: "PixelIt Documentation",
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -18,22 +16,34 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
-    ['link', {
-      rel: 'icon',
-      href: '/logo.png'
-    }],
-    ['meta', {
-      name: 'theme-color',
-      content: '#3eaf7c'
-    }],
-    ['meta', {
-      name: 'apple-mobile-web-app-capable',
-      content: 'yes'
-    }],
-    ['meta', {
-      name: 'apple-mobile-web-app-status-bar-style',
-      content: 'black'
-    }]
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "/logo.png",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "theme-color",
+        content: "#3eaf7c",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "apple-mobile-web-app-capable",
+        content: "yes",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "apple-mobile-web-app-status-bar-style",
+        content: "black",
+      },
+    ],
   ],
 
   /**
@@ -41,48 +51,57 @@ module.exports = {
    *
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
-  theme: 'default-prefers-color-scheme',
+  theme: "default-prefers-color-scheme",
   themeConfig: {
-    overrideTheme: 'dark',
-    logo: '/logo.png',
-    repo: 'https://github.com/pixelit-project/Docs',
+    overrideTheme: "dark",
+    logo: "/logo.png",
+    repo: "https://github.com/pixelit-project/Docs",
     editLinks: true,
-    docsDir: 'src',
+    docsDir: "src",
     //editLinkText: '',
     lastUpdated: false,
     //nav: [],
-    sidebar: [{
-      title: 'PixelIt', // required
-      path: '/', // optional, link of the title, which should be an absolute path and must exist
-      collapsable: true, // optional, defaults to true
-      sidebarDepth: 1, // optional, defaults to 1
-      children: [
-        '/',
-        '/firmware',
-        '/hardware',
-        '/webinterface',
-        '/api',
-        '/tools',
-        '/nodered',
-        '/iobroker',
-      ]
-    }]
+    sidebar: [
+      {
+        title: "PixelIt", // required
+        path: "/", // optional, link of the title, which should be an absolute path and must exist
+        collapsable: true, // optional, defaults to true
+        sidebarDepth: 1, // optional, defaults to 1
+        children: [
+          "/",
+          "/hardware",
+          "/firmware",
+          "/webinterface",
+          "/api",
+          "/tools",
+          "/nodered",
+          "/iobroker",
+          "/troubleshooting",
+        ],
+      },
+    ],
   },
 
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
   plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
-    'vuepress-plugin-smooth-scroll',
-    '@vuepress/back-to-top',
-    ['vuepress-plugin-code-copy', {
-      staticIcon: true
-    }],
-    ['vuepress-plugin-matomo', {
-      'siteId': 8,
-      'trackerUrl': "https://matomo.dietru.de/"
-    }],
-  ]
-}
+    "@vuepress/plugin-back-to-top",
+    "@vuepress/plugin-medium-zoom",
+    "vuepress-plugin-smooth-scroll",
+    "@vuepress/back-to-top",
+    [
+      "vuepress-plugin-code-copy",
+      {
+        staticIcon: true,
+      },
+    ],
+    [
+      "vuepress-plugin-matomo",
+      {
+        siteId: 8,
+        trackerUrl: "https://matomo.dietru.de/",
+      },
+    ],
+  ],
+};

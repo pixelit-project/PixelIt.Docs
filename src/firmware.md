@@ -50,5 +50,5 @@ Now you can connect to the [Webinterface](webinterface.html) of PixelIt. Find th
 Now the next step should be to look at the [Tools](tools.html) to see the available options for creating ads (most called *Screens* here).
 
 ## Troubleshooting
-#### Board (e.g. Wemos D1 mini) is not detected by your computer
-Try resetting the board (via reset switch).
+
+See [Troubleshooting](troubleshooting.html).
