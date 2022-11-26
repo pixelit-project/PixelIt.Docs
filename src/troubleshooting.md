@@ -14,6 +14,12 @@ Check the wiring and, if you have soldered the wires, also check for cold solder
 
 Try resetting the board (via reset switch).
 
+### No sound with DFPlayer Mini
+
+1. check the wiring and, if you have soldered the wires, also check for cold solder joints.
+2. increase the volume. Some users have reported not hearing any sound below 30 percent (perhaps bad hardware/firmware)?
+3. Test the hardware standalone. [Here](https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299#target_5) you could find the schematic and sample code.
+
 ## Node-RED
 
 ### I cant find the PixelIt nodes in Node-RED or there are some missing
