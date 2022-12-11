@@ -5,4 +5,4 @@ This is the [documentation](https://docs.pixelit-project.com/) for the awesome [
 ## How to develop?
 
 1. Install dependencies with `npm install`.
-2. Start local ViePress dev server with `npm run dev`
+2. Start local ViePress dev server with `npm run dev` (or `npm run dev-win` on Windows).

@@ -9,7 +9,8 @@
   },
   "repository": "o0shojo0o/doc/doc",
   "scripts": {
-    "dev": "vuepress dev src --temp .temp",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && vuepress dev src --temp .temp",
+    "dev-win": "set NODE_OPTIONS=--openssl-legacy-provider && vuepress dev src --temp .temp",
     "build": "vuepress build src"
   },
   "license": "MIT",
