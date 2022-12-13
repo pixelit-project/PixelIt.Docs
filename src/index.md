@@ -21,7 +21,6 @@
   - [Wemos D1 mini](hardware.html#minimal-setup-basis)
   - [NodeMCU v2](hardware.html#minimal-setup-basis)
   - [Generic ESP8266](hardware.html#minimal-setup-basis)
-  - [Generic ESP32](hardware.html#minimal-setup-basis)
 - Matrix
   - [Pixelmatrix (8x32)](hardware.html#minimal-setup-basis)
   - [Pixelmatrix (CJMCU)(4x 8x8)](hardware.html#minimal-setup-basis)
