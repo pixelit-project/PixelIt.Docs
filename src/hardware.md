@@ -109,12 +109,12 @@ The 1000uF capacitor prevents the initial onrush of current from damaging the pi
 
 ![](/hardware_dfplayer.png)
 
-| Wemos | DFPlayer Mini | Function         | Note |
-| ----- | ------------- | ---------------- | ---- |
-| 3V3   | VCC           | Power supply (+) |      |
-| G     | GND           | Power supply (-) |      |
-| D7    | RX            | Data In          |      |
-| D5    | TX            | Data Out         |      |
+| Wemos | DFPlayer Mini | Function                  | Note |
+| ----- | ------------- | ------------------------- | ---- |
+| 3V3   | VCC           | Power supply (+)          |      |
+| G     | GND           | Power supply (-)          |      |
+| D5    | RX            | PixelIt TX -> DFPlayer RX |      |
+| D7    | TX            | PixelIt RX <- DFPlayer TX |      |
 
 #### Touch Buttons upgrade (Touch Sensor)
 
@@ -124,7 +124,7 @@ The 1000uF capacitor prevents the initial onrush of current from damaging the pi
 
 #### Wiring
 
-![xxx](/hardware_touchbtn.png)
+![](/hardware_touchbtn.png)
 
 | Wemos | Button left | Button middle | Button right | Function         | Note            |
 | ----- | ----------- | ------------- | ------------ | ---------------- | --------------- |
