@@ -26,6 +26,10 @@ Try resetting the board (via reset switch).
 
 Install the latest version of Node-RED and the latest version of the PixelIt Extension [`node-red-contrib-pixelit`](https://flows.nodered.org/node/node-red-contrib-pixelit) via the palette manager. **Don't use NPM to install Node-RED extensions.**
 
+### Nothing working! I cant see anything on my pixelit!
+
+Have you deployed the Flow? Press "Deploy" in upper right corner in Node-RED.
+
 ## Webinterface
 
 ### I can't connect to the PixelIt Webinterface
