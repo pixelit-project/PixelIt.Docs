@@ -6,7 +6,7 @@
 
 - [Webinterface](webinterface.html)
 - [REST-API](api.html)
-- [Node-Red Node](tools.html#node-red)
+- [Node-Red Node](nodered.html#node-red)
 - [Pixel Creator](tools.html#pixel-creator)
 - [Pixel Gallery](tools.html#pixel-gallery)
 - [ioBroker Adapter](iobroker.html)
