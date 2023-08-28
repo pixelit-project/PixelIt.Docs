@@ -45,4 +45,4 @@ Any problems? Checkout the [Troubleshooting](troubleshooting.html) section. If y
 
 - [![](https://img.shields.io/github/discussions/pixelit-project/PixelIt?&logo=github&label=GitHub%20Discussions&style=for-the-badge)](https://github.com/pixelit-project/PixelIt/discussions)
 - [![](https://img.shields.io/endpoint?label=Telegram&style=for-the-badge&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fpixelitdisplay)](https://t.me/pixelitdisplay)
-- [![](https://img.shields.io/discord/558849582377861122?logo=discord&label=Discrod&style=for-the-badge)](https://discord.gg/JHE9P9zczW)
+- [![](https://img.shields.io/discord/1145731525996970025?logo=discord&label=Discrod&style=for-the-badge)](https://discord.gg/WaNwCyge)
