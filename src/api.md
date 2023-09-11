@@ -336,7 +336,9 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 | `data`           | `Array of Integer Arrays` | `[[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]]` | **Required** Only 8x8 BMPs are supported here! |
 | `animationDelay` | `Integer`                 | `0 - 99999`                               | **Required** Higher is a slower animation      |
 | `rubberbanding`  | `Boolean`                 | `true / false`                            | Should the animation run back and forth        |
-| `limitLoops`     | `Integer`                 | `{"width":8, "height":8}`                 | If the repetition is to be limited             |
+| `limitLoops`     | `Integer`                 | `0-99`                                    | Limiting the loops                             |
+| `position`       | `JSON`                    | `{"x":0, "y":0}`                          | Postion                                        |
+
 
 ### Bar
 
