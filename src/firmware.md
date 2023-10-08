@@ -4,12 +4,16 @@
 
 Note: For Wemos D1 mini (Clone) (see [Part list](hardware.html#parts-list)) you need the `XXX_d1_mini.bin` firmware.
 
+## Flashing (Web)
+Select the hardware you are using and then press the connect button (only visible after your selection).
+
+<iframe id="dynamicFrame" src="/pixelit_flasher/index.html" width="100%" height="400px" frameborder="0" ></iframe>
+
 ## Flashing (Windows)
 
 - [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
 
 To flash the Wemos D1 Mini (or simillar ESP8266 board) we use the ESPEasy Flasher for simplicity. After unpacking the ESPEasy_Flasher.zip only the current `firmware_XXX.bin` must be copied into the folder of the ESPEasy Flasher.
-
 Now we have two dropdown menus after starting the FlashESP8266.exe:
 ![](/flash_esp8266.png)
 
