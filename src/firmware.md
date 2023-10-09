@@ -9,7 +9,7 @@ Select the hardware you are using and then press the connect button (only visibl
 
 <iframe id="dynamicFrame" src="/pixelit_flasher/index.html" width="100%" height="400px" frameborder="0" ></iframe>
 
-## Flashing (Windows)
+## Flashing ESP8266 (Windows)
 
 - [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
 
@@ -52,6 +52,27 @@ Erase flash
 
 Flash firmware  
 `esptool.py --port /dev/tty.XXX --baud 1000000 write_flash --flash_size=4MB -fm dio 0 firmware_XXX.bin`
+
+## Flashing (Linux)
+
+Install esptool (e.g. via pip)  
+`pip install --upgrade esptool`
+
+#### Find your board
+
+Connect your board via USB, and get the device address by running:  
+`ls /dev/ttyUSB*`
+
+This should output something like:  
+`/dev/ttyUSB0`
+
+#### Erase and flash the firmware
+
+Erase flash  
+`esptool.py --port /dev/ttyXXX erase_flash`
+
+Flash firmware  
+`esptool.py --port /dev/ttyXXX --baud 1000000 write_flash --flash_size=4MB -fm dio 0 firmware_XXX.bin`
 
 ## Setup
 
