@@ -96,12 +96,12 @@ module.exports = {
         staticIcon: true,
       },
     ],
-    [
-      "vuepress-plugin-matomo",
-      {
-        siteId: 8,
-        trackerUrl: "https://matomo.dietru.de/",
-      },
-    ],
+    // [
+    //   "vuepress-plugin-matomo",
+    //   {
+    //     siteId: 8,
+    //     trackerUrl: "https://matomo.dietru.de/",
+    //   },
+    // ],
   ],
 };
