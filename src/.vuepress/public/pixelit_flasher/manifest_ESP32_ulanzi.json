@@ -9,7 +9,7 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "firmware/firmware_v2.4.0-beta_ESP32_ulanzi.bin",
+          "path": "firmware/firmware_v2.4.0-beta_ESP32_ulanzi.combined.bin",
           "offset": 0
         }
       ]
