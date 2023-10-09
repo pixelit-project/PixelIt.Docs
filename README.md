@@ -1,6 +1,6 @@
 # PixelIt.Docs
 
-This is the [documentation](https://docs.pixelit-project.com/) for the awesome [PixelIt Project](https://github.com/pixelit-project/PixelIt).
+This is the [documentation](https://pixelit-project.github.io/) for the awesome [PixelIt Project](https://github.com/pixelit-project/PixelIt).
 
 ## How to develop?
 
