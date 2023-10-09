@@ -59,7 +59,7 @@ module.exports = {
     editLinks: true,
     docsDir: "src",
     //editLinkText: '',
-    lastUpdated: false,
+    lastUpdated: true,
     //nav: [],
     sidebar: [
       {
