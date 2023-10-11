@@ -7,19 +7,20 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@master
 
-      - name: Build Webflasher 🔧
+      - name: Build manifest files for Webflasher 🔧
         run: |
           python .github/webflasher.py
 
       - name: Display structure of files 🔍
         run: ls -R ./src/.vuepress/public/pixelit_flasher
 
-      - name: Commit new metadata 📝
+      - name: Commit new manifest files📝
         run: |
           git config --global user.name 'PixelIt Pipeline Bot'
           git config --global user.email 'bot@pixelit'
           if [[ $(git status --porcelain) ]]; then
-            git commit -am "Pushed new manifest files via GitHub Actions"
+            git add --all
+            git commit -m "Pushed new manifest files via GitHub Actions"
             git push
             echo "Changes committed."
           else
