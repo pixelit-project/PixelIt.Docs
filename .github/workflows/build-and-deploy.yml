@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
 
       - name: Build manifest files for Webflasher 🔧
         run: |
@@ -13,6 +13,14 @@ jobs:
 
       - name: Display structure of files 🔍
         run: ls -R ./src/.vuepress/public/pixelit_flasher
+
+      - name: Upload build artifacts 💾
+        uses: actions/upload-artifact@v3
+        with:
+          name: webflasher-manifest-files
+          path: |
+            ./src/.vuepress/public/pixelit_flasher/meta.json
+            ./src/.vuepress/public/pixelit_flasher/manifest/*.json
 
       - name: Commit new manifest files📝
         run: |
@@ -32,7 +40,13 @@ jobs:
     needs: prepare-webflasher
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts 💾
+        uses: actions/download-artifact@v3
+        with:
+          name: webflasher-manifest-files
+          path: ./src/.vuepress/public/pixelit_flasher
 
       - name: vuepress-deploy 🚀
         uses: jenkey2011/vuepress-deploy@master

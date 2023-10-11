@@ -8,6 +8,12 @@ print("+++ Starting webflasher prepare script... +++")
 
 root = Path("src/.vuepress/public/pixelit_flasher/")
 meta = Path("src/.vuepress/public/pixelit_flasher/meta.json")
+manifest = Path("src/.vuepress/public/pixelit_flasher/manifest")
+
+# Create manifest folder if it doesn't exist
+if not os.path.exists(manifest):
+    print("Creating manifest folder...")
+    os.makedirs(manifest)
 
 json_template = '''
 {
