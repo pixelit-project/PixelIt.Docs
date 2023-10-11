@@ -16,10 +16,10 @@ jobs:
 
       - name: Commit new metadata 📝
         run: |
-          git config --global user.name 'PixelIt pipeline'
-          git config --global user.email 'pixelit@bot'
+          git config --global user.name 'PixelIt Pipeline Bot'
+          git config --global user.email 'bot@pixelit'
           if [[ $(git status --porcelain) ]]; then
-            git commit -am "Update webflasher metadata"
+            git commit -am "Pushed new manifest files via GitHub Actions"
             git push
             echo "Changes committed."
           else
