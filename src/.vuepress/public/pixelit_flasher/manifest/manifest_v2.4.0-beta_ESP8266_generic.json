@@ -10,7 +10,7 @@
       "chipFamily": "ESP8266",
       "parts": [
         {
-          "path": "firmware/firmware_v2.4.0-beta_ESP8266_generic.bin",
+          "path": "../firmware/firmware_v2.4.0-beta_ESP8266_generic.bin",
           "offset": 0
         }
       ]
