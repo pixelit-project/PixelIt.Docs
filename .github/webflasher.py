@@ -57,7 +57,7 @@ for filename in os.listdir(os.path.join(root, "firmware")):
                 "full-upgrade": True if match.group(6) == "full-upgrade" else False,
                 "manifest": f"manifest_{match.group(1)}.json",
                 "firmware": filename,
-                "path": f"firmware/{filename}"
+                "path": f"../firmware/{filename}"
             }
 
             # Print the different parts of the filename

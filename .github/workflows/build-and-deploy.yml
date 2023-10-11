@@ -48,6 +48,9 @@ jobs:
           name: webflasher-manifest-files
           path: ./src/.vuepress/public/pixelit_flasher
 
+      - name: Display structure of downloaded files 🔍
+        run: ls -R ./src/.vuepress/public
+
       - name: vuepress-deploy 🚀
         uses: jenkey2011/vuepress-deploy@master
         env:
