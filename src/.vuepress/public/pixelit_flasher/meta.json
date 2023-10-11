@@ -3,6 +3,28 @@
     "version": "v2.4.0",
     "beta": true,
     "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "nodemcuv2",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.0-beta_ESP8266_nodemcuv2.json",
+    "firmware": "firmware_v2.4.0-beta_ESP8266_nodemcuv2.bin",
+    "path": "firmware/firmware_v2.4.0-beta_ESP8266_nodemcuv2.bin"
+  },
+  {
+    "version": "v2.4.0",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "d1_mini",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.0-beta_ESP8266_d1_mini.json",
+    "firmware": "firmware_v2.4.0-beta_ESP8266_d1_mini.bin",
+    "path": "firmware/firmware_v2.4.0-beta_ESP8266_d1_mini.bin"
+  },
+  {
+    "version": "v2.4.0",
+    "beta": true,
+    "testing": false,
     "chipFamily": "ESP32",
     "enviroment": "d1_mini32",
     "full-upgrade": false,
@@ -26,32 +48,10 @@
     "beta": true,
     "testing": false,
     "chipFamily": "ESP8266",
-    "enviroment": "d1_mini",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.0-beta_ESP8266_d1_mini.json",
-    "firmware": "firmware_v2.4.0-beta_ESP8266_d1_mini.bin",
-    "path": "firmware/firmware_v2.4.0-beta_ESP8266_d1_mini.bin"
-  },
-  {
-    "version": "v2.4.0",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP8266",
     "enviroment": "generic",
     "full-upgrade": false,
     "manifest": "manifest_v2.4.0-beta_ESP8266_generic.json",
     "firmware": "firmware_v2.4.0-beta_ESP8266_generic.bin",
     "path": "firmware/firmware_v2.4.0-beta_ESP8266_generic.bin"
-  },
-  {
-    "version": "v2.4.0",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP8266",
-    "enviroment": "nodemcuv2",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.0-beta_ESP8266_nodemcuv2.json",
-    "firmware": "firmware_v2.4.0-beta_ESP8266_nodemcuv2.bin",
-    "path": "firmware/firmware_v2.4.0-beta_ESP8266_nodemcuv2.bin"
   }
 ]
