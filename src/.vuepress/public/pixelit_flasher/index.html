@@ -74,17 +74,17 @@
       <li>
         <h4>ESP32 Family</h4>
       </li>
-      <label><input type="radio" name="type" value="ESP32_d1_mini32" /> ESP32 D1 Mini32</label>
-      <label><input type="radio" name="type" value="ESP32_generic" /> ESP32 Generic</label>
-      <label><input type="radio" name="type" value="ESP32_ulanzi" /> ESP32 Ulanzi</label>
+      <label><input type="radio" name="type" value="v2.4.1-beta_ESP32_d1_mini32" /> ESP32 D1 Mini32</label>
+      <label><input type="radio" name="type" value="v2.4.1-beta_ESP32_generic" /> ESP32 Generic</label>
+      <label><input type="radio" name="type" value="v2.4.1-beta_ESP32_ulanzi" /> ESP32 Ulanzi</label>
       </li>
       <li>
         <h4>ESP8266 Family</h4>
       </li>
       <li>
-        <label><input type="radio" name="type" value="ESP8266_d1_mini" /> ESP8266 D1 Mini</label>
-        <label><input type="radio" name="type" value="ESP8266_generic" /> ESP8266 Generic</label>
-        <label><input type="radio" name="type" value="ESP8266_nodemcuv2" /> ESP8266 NodeMCU v2</label>
+        <label><input type="radio" name="type" value="v2.4.1-beta_ESP8266_d1_mini" /> ESP8266 D1 Mini</label>
+        <label><input type="radio" name="type" value="v2.4.1-beta_ESP8266_generic" /> ESP8266 Generic</label>
+        <label><input type="radio" name="type" value="v2.4.1-beta_ESP8266_nodemcuv2" /> ESP8266 NodeMCU v2</label>
       </li>
     </ul>
     <p class="button-row" align="center">
@@ -98,7 +98,7 @@
       document.querySelectorAll('input[name="type"]').forEach(radio =>
         radio.addEventListener("change", () => {
           const button = document.querySelector('esp-web-install-button');
-          button.manifest = `./manifest_${radio.value}.json`;
+          button.manifest = `./manifest/manifest_${radio.value}.json`;
           button.classList.remove('invisible');
         }
         ));

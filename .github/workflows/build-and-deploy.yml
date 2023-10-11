@@ -1,0 +1,43 @@
+name: Build and Deploy
+on: [push]
+jobs:
+  prepare-webflasher:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+
+      - name: Build Webflasher 🔧
+        run: |
+          python .github/webflasher.py
+
+      - name: Display structure of files 🔍
+        run: ls -R ./src/.vuepress/public/pixelit_flasher
+
+      - name: Commit new metadata 📝
+        run: |
+          git config --global user.name 'PixelIt pipeline'
+          git config --global user.email 'pixelit@bot'
+          if [[ $(git status --porcelain) ]]; then
+            git commit -am "Update webflasher metadata"
+            git push
+            echo "Changes committed."
+          else
+            echo "No uncommitted changes found."
+          fi
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: prepare-webflasher
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+
+      - name: vuepress-deploy 🚀
+        uses: jenkey2011/vuepress-deploy@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          TARGET_REPO: pixelit-project/pixelit-project.github.io
+          TARGET_BRANCH: gh-pages
+          BUILD_SCRIPT: yarn && yarn build
+          BUILD_DIR: src/.vuepress/dist/
