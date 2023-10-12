@@ -5,7 +5,7 @@
 Note: For Wemos D1 mini (Clone) (see [Part list](hardware.html#parts-list)) you need the `XXX_d1_mini.bin` firmware.
 
 ## Flashing (Web)
-Select the hardware you are using and then press the connect button (only visible after your selection).
+Select the hardware you are using and then press the connect button.
 
 <iframe id="dynamicFrame" src="/pixelit_flasher/index.html" width="100%" height="400px" frameborder="0" ></iframe>
 
