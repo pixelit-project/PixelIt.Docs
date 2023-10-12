@@ -7,102 +7,131 @@
   <meta name="description" content="Install PixelIt." />
   <meta name="viewport" content="width=device-width" />
   <style>
-    body {
-      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-      padding: 0;
+    /* Reset von Seitenelementen */
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    p,
+    ul,
+    li,
+    button,
+    select {
       margin: 0;
-      line-height: 1.4;
-      color: #e2e2e2;
+      padding: 0;
+      border: 0;
     }
 
-    a {
-      color: #03a9f4;
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
     }
 
-    .invisible {
-      visibility: hidden;
+
+
+    /* Hauptcontainer */
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    esp-web-install-button[install-unsupported] {
-      visibility: inherit;
-      color: rgb(253, 138, 55);
-    }
-
-    .content pre {
-      max-width: 100%;
-      overflow-y: scroll;
-    }
-
-    .footer {
-      margin-top: 24px;
-      border-top: 1px solid #ccc;
-      padding-top: 24px;
+    /* Formularcontainer */
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
       text-align: center;
     }
 
-    .footer .initiative {
-      font-style: italic;
-      margin-top: 16px;
+    /* Formular-Label */
+    .label {
+      font-weight: bold;
+      font-size: 20px;
     }
 
-    table {
-      border-spacing: 0;
+    /* Select-Feld */
+    .select {
+      padding: 10px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 100%;
     }
 
-    td {
-      padding: 8px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .radios li {
-      list-style: none;
-      line-height: 2em;
+    /* Hinzufügen von Abstand zu den Elementen */
+    .container {
+      margin: 0 10px;
     }
   </style>
   <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
 </head>
 
 <body>
-  <div class="content">
-
-    <ul class="radios">
-      <li>
-      <li>
-        <h4>ESP32 Family</h4>
-      </li>
-      <label><input type="radio" name="type" value="v2.4.1-beta_ESP32_d1_mini32.full-upgrade" /> ESP32 D1 Mini32</label>
-      <label><input type="radio" name="type" value="v2.4.1-beta_ESP32_generic.full-upgrade" /> ESP32 Generic</label>
-      <label><input type="radio" name="type" value="v2.4.1-beta_ESP32_ulanzi.full-upgrade" /> ESP32 Ulanzi</label>
-      </li>
-      <li>
-        <h4>ESP8266 Family</h4>
-      </li>
-      <li>
-        <label><input type="radio" name="type" value="v2.4.1-beta_ESP8266_d1_mini" /> ESP8266 D1 Mini</label>
-        <label><input type="radio" name="type" value="v2.4.1-beta_ESP8266_generic" /> ESP8266 Generic</label>
-        <label><input type="radio" name="type" value="v2.4.1-beta_ESP8266_nodemcuv2" /> ESP8266 NodeMCU v2</label>
-      </li>
-    </ul>
-    <p class="button-row" align="center">
+  <main class="container">
+    <section>
+      <label for="versionSelect" class="label">Wähle eine Version:</label>
+      <select id="versionSelect" class="select">
+      </select>
+    </section>
+    <br>
+    <p align="center">
       <esp-web-install-button class="invisible"></esp-web-install-button>
     </p>
-    <div class="footer">
+    <br>
+    <div calign="center">
       <a href="https://github.com/pixelit-project/PixelIt" target="_blank">PixelIt </a>
       Installer powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>.
     </div>
-    <script>
-      document.querySelectorAll('input[name="type"]').forEach(radio =>
-        radio.addEventListener("change", () => {
-          const button = document.querySelector('esp-web-install-button');
-          button.manifest = `./manifest/manifest_${radio.value}.json`;
-          button.classList.remove('invisible');
-        }
-        ));
-    </script>
+  </main>
 </body>
+
+<script>
+  const button = document.querySelector('esp-web-install-button');
+  const selectElement = document.getElementById('versionSelect');
+
+  selectElement.addEventListener("change", (event) => {
+    button.manifest = event.target.value;
+  });
+
+  async function loadJSON() {
+    const response = await fetch('meta.json');
+    const data = await response.json();
+    const versionsData_Release = data.filter(x => x.beta == false && x.testing == false);
+    const versionsData_Testing = data.filter(x => x.testing == true);
+    const versionsData_Beta = data.filter(x => x.beta == true);
+
+    addGroup('Release', versionsData_Release);
+    addGroup('Beta', versionsData_Beta);
+    addGroup('Testing', versionsData_Testing);
+
+    function addGroup(releaseType, releaseData) {
+      const chipFamilys = [...new Set(releaseData.map(x => x.chipFamily))];
+      chipFamilys.forEach(chipFamily => {
+        let data = releaseData.filter(x => x.chipFamily == chipFamily)
+        const group = document.createElement('optgroup');
+        group.label = `${releaseType} ${chipFamily}`
+        selectElement.appendChild(group);
+        data = data.sort((a, b) => {
+          if (a.version < b.version) return 1;
+          if (a.version > b.version) return -1;
+          if (a.enviroment < b.enviroment) return 1;
+          if (a.enviroment > b.enviroment) return -1;
+        });
+        data.forEach(x => {
+          const option = document.createElement('option');
+          option.value = `./manifest/${x.manifest}`;
+          option.text = `${x.version.replace('v', '')} (${x.chipFamily}) ${x.enviroment} ${x.chipFamily == 'ESP32' ? `${x['full-upgrade'] ? '[ first install ]' : '[ update ]'}` : ''}`;
+          group.appendChild(option);
+        });
+      });
+    }
+    button.manifest = selectElement.value;
+  }
+  loadJSON();
+</script>
 
 </html>
