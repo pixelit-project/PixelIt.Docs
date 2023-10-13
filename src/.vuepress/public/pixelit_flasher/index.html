@@ -28,23 +28,22 @@
       color: #333;
     }
 
-
-
     /* Hauptcontainer */
-    .main {
-      display: flex;
+    main {
       justify-content: center;
       align-items: center;
-      min-height: 80vh;
+      min-height: 100vh;
     }
 
     /* Formularcontainer */
     .container {
-      background-color: #fff;
+      background-color: #eee;
       border-radius: 8px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
       padding: 20px;
       text-align: center;
+      margin: 0 !important;
+      box-sizing: border-box;
+      height: 100vh;
     }
 
     /* Formular-Label */
@@ -63,9 +62,27 @@
       margin-top: 10px;
     }
 
-    /* Hinzufügen von Abstand zu den Elementen */
-    .container {
-      margin: 0 10px;
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+    }
+
+    .footer-inner {
+      position: relative;
+      left: -50%;
+    }
+
+    a,
+    a:link,
+    a:visited {
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #333;
+      text-decoration: underline;
     }
   </style>
   <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
@@ -79,13 +96,16 @@
       </select>
     </section>
     <br>
-    <p align="center">
+    <p>
       <esp-web-install-button class="invisible"></esp-web-install-button>
     </p>
     <br>
-    <div calign="center">
-      <a href="https://github.com/pixelit-project/PixelIt" target="_blank">PixelIt </a>
-      Installer powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>.
+    <div class="spacer"></div>
+    <div class="footer">
+      <div class="footer-inner">
+        <a href="https://github.com/pixelit-project/PixelIt" target="_blank">PixelIt</a>
+        Installer powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>.
+      </div>
     </div>
   </main>
 </body>

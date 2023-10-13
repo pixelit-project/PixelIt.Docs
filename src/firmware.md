@@ -8,7 +8,7 @@ Note: For Wemos D1 mini (Clone) (see [Part list](hardware.html#parts-list)) you 
 
 Select the hardware you are using and then press the connect button.
 
-<iframe id="dynamicFrame" src="/pixelit_flasher/index.html" width="100%" height="250px" frameborder="0" ></iframe>
+<iframe id="dynamicFrame" src="/pixelit_flasher/index.html" width="100%" height="400px" frameborder="0" ></iframe>
 
 ::: tip Flasing ESP32
 When you flash a ESP32 based board the first time or change the complete firmware, choose the "first install" firmware. After that you can use the "normal" firmware or the "OTA" firmware upgrade from the WebUI.
