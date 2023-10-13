@@ -17,6 +17,8 @@
 
 ## Supported hardware
 
+- Prebuild Hardware
+  - [Ulanzi TC001 Pixel Clock](https://www.ulanzi.com/products/ulanzi-pixel-smart-clock-2882?aff=1181)
 - MCU
   - [Wemos D1 mini](hardware.html#minimal-setup-basis)
   - [NodeMCU v2](hardware.html#minimal-setup-basis)
@@ -46,3 +48,7 @@ Any problems? Checkout the [Troubleshooting](troubleshooting.html) section. If y
 - [![](https://img.shields.io/github/discussions/pixelit-project/PixelIt?&logo=github&label=GitHub%20Discussions&style=for-the-badge)](https://github.com/pixelit-project/PixelIt/discussions)
 - [![](https://img.shields.io/endpoint?label=Telegram&style=for-the-badge&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fpixelitdisplay)](https://t.me/pixelitdisplay)
 - [![](https://img.shields.io/discord/1145731525996970025?logo=discord&label=Discrod&style=for-the-badge)](https://discord.gg/ERBSHWxB2S)
+
+## Disclaimer
+
+Some links in the documentation are affiliate links. We would be happy if you use this link, but of course you don't have to.
