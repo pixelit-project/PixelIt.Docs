@@ -1,0 +1,19 @@
+
+{
+  "name": "PixelIt",
+  "version": "v2.4.2",
+  "home_assistant_domain": "PixelIt",
+  "funding_url": "https://github.com/pixelit-project/PixelIt",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP8266",
+      "parts": [
+        {
+          "path": "../firmware/firmware_v2.4.2-beta_ESP8266_generic.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
