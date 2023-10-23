@@ -1,0 +1,19 @@
+
+{
+  "name": "PixelIt",
+  "version": "v2.4.3",
+  "home_assistant_domain": "PixelIt",
+  "funding_url": "https://github.com/pixelit-project/PixelIt",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "../firmware/firmware_v2.4.3_ESP32_d1_mini32.full-upgrade.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

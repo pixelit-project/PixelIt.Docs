@@ -1,5 +1,126 @@
 [
   {
+    "version": "v2.4.2",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "ulanzi",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.2-beta_ESP32_ulanzi.full-upgrade.json",
+    "firmware": "firmware_v2.4.2-beta_ESP32_ulanzi.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.2-beta_ESP32_ulanzi.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "d1_mini32",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.3_ESP32_d1_mini32.full-upgrade.json",
+    "firmware": "firmware_v2.4.3_ESP32_d1_mini32.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP32_d1_mini32.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "generic",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.3_ESP32_generic.full-upgrade.json",
+    "firmware": "firmware_v2.4.3_ESP32_generic.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP32_generic.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "nodemcuv2",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.3_ESP8266_nodemcuv2.json",
+    "firmware": "firmware_v2.4.3_ESP8266_nodemcuv2.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP8266_nodemcuv2.bin"
+  },
+  {
+    "version": "v2.4.2",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "d1_mini32",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.2-beta_ESP32_d1_mini32.json",
+    "firmware": "firmware_v2.4.2-beta_ESP32_d1_mini32.bin",
+    "path": "../firmware/firmware_v2.4.2-beta_ESP32_d1_mini32.bin"
+  },
+  {
+    "version": "v2.4.1",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "d1_mini",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.1-beta_ESP8266_d1_mini.json",
+    "firmware": "firmware_v2.4.1-beta_ESP8266_d1_mini.bin",
+    "path": "../firmware/firmware_v2.4.1-beta_ESP8266_d1_mini.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "d1_mini32",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.3_ESP32_d1_mini32.json",
+    "firmware": "firmware_v2.4.3_ESP32_d1_mini32.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP32_d1_mini32.bin"
+  },
+  {
+    "version": "v2.4.1",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "ulanzi",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.1-beta_ESP32_ulanzi.full-upgrade.json",
+    "firmware": "firmware_v2.4.1-beta_ESP32_ulanzi.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.1-beta_ESP32_ulanzi.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.2",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "d1_mini32",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.2-beta_ESP32_d1_mini32.full-upgrade.json",
+    "firmware": "firmware_v2.4.2-beta_ESP32_d1_mini32.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.2-beta_ESP32_d1_mini32.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "ulanzi",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.3_ESP32_ulanzi.full-upgrade.json",
+    "firmware": "firmware_v2.4.3_ESP32_ulanzi.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP32_ulanzi.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "d1_mini",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.3_ESP8266_d1_mini.json",
+    "firmware": "firmware_v2.4.3_ESP8266_d1_mini.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP8266_d1_mini.bin"
+  },
+  {
     "version": "v2.4.0",
     "beta": true,
     "testing": false,
@@ -11,37 +132,15 @@
     "path": "../firmware/firmware_v2.4.0-beta_ESP8266_nodemcuv2.bin"
   },
   {
-    "version": "v2.4.0",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP8266",
-    "enviroment": "d1_mini",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.0-beta_ESP8266_d1_mini.json",
-    "firmware": "firmware_v2.4.0-beta_ESP8266_d1_mini.bin",
-    "path": "../firmware/firmware_v2.4.0-beta_ESP8266_d1_mini.bin"
-  },
-  {
-    "version": "v2.4.2",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "ulanzi",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.2-beta_ESP32_ulanzi.json",
-    "firmware": "firmware_v2.4.2-beta_ESP32_ulanzi.bin",
-    "path": "../firmware/firmware_v2.4.2-beta_ESP32_ulanzi.bin"
-  },
-  {
     "version": "v2.4.1",
     "beta": true,
     "testing": false,
-    "chipFamily": "ESP32",
+    "chipFamily": "ESP8266",
     "enviroment": "generic",
-    "full-upgrade": true,
-    "manifest": "manifest_v2.4.1-beta_ESP32_generic.full-upgrade.json",
-    "firmware": "firmware_v2.4.1-beta_ESP32_generic.full-upgrade.bin",
-    "path": "../firmware/firmware_v2.4.1-beta_ESP32_generic.full-upgrade.bin"
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.1-beta_ESP8266_generic.json",
+    "firmware": "firmware_v2.4.1-beta_ESP8266_generic.bin",
+    "path": "../firmware/firmware_v2.4.1-beta_ESP8266_generic.bin"
   },
   {
     "version": "v2.4.1",
@@ -58,12 +157,12 @@
     "version": "v2.4.0",
     "beta": true,
     "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "d1_mini32",
+    "chipFamily": "ESP8266",
+    "enviroment": "generic",
     "full-upgrade": false,
-    "manifest": "manifest_v2.4.0-beta_ESP32_d1_mini32.json",
-    "firmware": "firmware_v2.4.0-beta_ESP32_d1_mini32.bin",
-    "path": "../firmware/firmware_v2.4.0-beta_ESP32_d1_mini32.bin"
+    "manifest": "manifest_v2.4.0-beta_ESP8266_generic.json",
+    "firmware": "firmware_v2.4.0-beta_ESP8266_generic.bin",
+    "path": "../firmware/firmware_v2.4.0-beta_ESP8266_generic.bin"
   },
   {
     "version": "v2.4.1",
@@ -92,6 +191,72 @@
     "beta": true,
     "testing": false,
     "chipFamily": "ESP32",
+    "enviroment": "ulanzi",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.2-beta_ESP32_ulanzi.json",
+    "firmware": "firmware_v2.4.2-beta_ESP32_ulanzi.bin",
+    "path": "../firmware/firmware_v2.4.2-beta_ESP32_ulanzi.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "generic",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.3_ESP32_generic.json",
+    "firmware": "firmware_v2.4.3_ESP32_generic.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP32_generic.bin"
+  },
+  {
+    "version": "v2.4.1",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "generic",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.1-beta_ESP32_generic.full-upgrade.json",
+    "firmware": "firmware_v2.4.1-beta_ESP32_generic.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.1-beta_ESP32_generic.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.2",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "generic",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.2-beta_ESP32_generic.full-upgrade.json",
+    "firmware": "firmware_v2.4.2-beta_ESP32_generic.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.2-beta_ESP32_generic.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.1",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "d1_mini32",
+    "full-upgrade": true,
+    "manifest": "manifest_v2.4.1-beta_ESP32_d1_mini32.full-upgrade.json",
+    "firmware": "firmware_v2.4.1-beta_ESP32_d1_mini32.full-upgrade.bin",
+    "path": "../firmware/firmware_v2.4.1-beta_ESP32_d1_mini32.full-upgrade.bin"
+  },
+  {
+    "version": "v2.4.1",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "nodemcuv2",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.1-beta_ESP8266_nodemcuv2.json",
+    "firmware": "firmware_v2.4.1-beta_ESP8266_nodemcuv2.bin",
+    "path": "../firmware/firmware_v2.4.1-beta_ESP8266_nodemcuv2.bin"
+  },
+  {
+    "version": "v2.4.2",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
     "enviroment": "generic",
     "full-upgrade": false,
     "manifest": "manifest_v2.4.2-beta_ESP32_generic.json",
@@ -99,15 +264,37 @@
     "path": "../firmware/firmware_v2.4.2-beta_ESP32_generic.bin"
   },
   {
-    "version": "v2.4.1",
+    "version": "v2.4.2",
     "beta": true,
     "testing": false,
     "chipFamily": "ESP8266",
     "enviroment": "d1_mini",
     "full-upgrade": false,
-    "manifest": "manifest_v2.4.1-beta_ESP8266_d1_mini.json",
-    "firmware": "firmware_v2.4.1-beta_ESP8266_d1_mini.bin",
-    "path": "../firmware/firmware_v2.4.1-beta_ESP8266_d1_mini.bin"
+    "manifest": "manifest_v2.4.2-beta_ESP8266_d1_mini.json",
+    "firmware": "firmware_v2.4.2-beta_ESP8266_d1_mini.bin",
+    "path": "../firmware/firmware_v2.4.2-beta_ESP8266_d1_mini.bin"
+  },
+  {
+    "version": "v2.4.3",
+    "beta": false,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "ulanzi",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.3_ESP32_ulanzi.json",
+    "firmware": "firmware_v2.4.3_ESP32_ulanzi.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP32_ulanzi.bin"
+  },
+  {
+    "version": "v2.4.0",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP32",
+    "enviroment": "d1_mini32",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.0-beta_ESP32_d1_mini32.json",
+    "firmware": "firmware_v2.4.0-beta_ESP32_d1_mini32.bin",
+    "path": "../firmware/firmware_v2.4.0-beta_ESP32_d1_mini32.bin"
   },
   {
     "version": "v2.4.0",
@@ -124,23 +311,23 @@
     "version": "v2.4.1",
     "beta": true,
     "testing": false,
-    "chipFamily": "ESP8266",
-    "enviroment": "generic",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.1-beta_ESP8266_generic.json",
-    "firmware": "firmware_v2.4.1-beta_ESP8266_generic.bin",
-    "path": "../firmware/firmware_v2.4.1-beta_ESP8266_generic.bin"
-  },
-  {
-    "version": "v2.4.1",
-    "beta": true,
-    "testing": false,
     "chipFamily": "ESP32",
     "enviroment": "d1_mini32",
     "full-upgrade": false,
     "manifest": "manifest_v2.4.1-beta_ESP32_d1_mini32.json",
     "firmware": "firmware_v2.4.1-beta_ESP32_d1_mini32.bin",
     "path": "../firmware/firmware_v2.4.1-beta_ESP32_d1_mini32.bin"
+  },
+  {
+    "version": "v2.4.0",
+    "beta": true,
+    "testing": false,
+    "chipFamily": "ESP8266",
+    "enviroment": "d1_mini",
+    "full-upgrade": false,
+    "manifest": "manifest_v2.4.0-beta_ESP8266_d1_mini.json",
+    "firmware": "firmware_v2.4.0-beta_ESP8266_d1_mini.bin",
+    "path": "../firmware/firmware_v2.4.0-beta_ESP8266_d1_mini.bin"
   },
   {
     "version": "v2.4.2",
@@ -154,102 +341,14 @@
     "path": "../firmware/firmware_v2.4.2-beta_ESP8266_generic.bin"
   },
   {
-    "version": "v2.4.0",
-    "beta": true,
+    "version": "v2.4.3",
+    "beta": false,
     "testing": false,
     "chipFamily": "ESP8266",
     "enviroment": "generic",
     "full-upgrade": false,
-    "manifest": "manifest_v2.4.0-beta_ESP8266_generic.json",
-    "firmware": "firmware_v2.4.0-beta_ESP8266_generic.bin",
-    "path": "../firmware/firmware_v2.4.0-beta_ESP8266_generic.bin"
-  },
-  {
-    "version": "v2.4.1",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "d1_mini32",
-    "full-upgrade": true,
-    "manifest": "manifest_v2.4.1-beta_ESP32_d1_mini32.full-upgrade.json",
-    "firmware": "firmware_v2.4.1-beta_ESP32_d1_mini32.full-upgrade.bin",
-    "path": "../firmware/firmware_v2.4.1-beta_ESP32_d1_mini32.full-upgrade.bin"
-  },
-  {
-    "version": "v2.4.2",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP8266",
-    "enviroment": "d1_mini",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.2-beta_ESP8266_d1_mini.json",
-    "firmware": "firmware_v2.4.2-beta_ESP8266_d1_mini.bin",
-    "path": "../firmware/firmware_v2.4.2-beta_ESP8266_d1_mini.bin"
-  },
-  {
-    "version": "v2.4.2",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "d1_mini32",
-    "full-upgrade": true,
-    "manifest": "manifest_v2.4.2-beta_ESP32_d1_mini32.full-upgrade.json",
-    "firmware": "firmware_v2.4.2-beta_ESP32_d1_mini32.full-upgrade.bin",
-    "path": "../firmware/firmware_v2.4.2-beta_ESP32_d1_mini32.full-upgrade.bin"
-  },
-  {
-    "version": "v2.4.2",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "generic",
-    "full-upgrade": true,
-    "manifest": "manifest_v2.4.2-beta_ESP32_generic.full-upgrade.json",
-    "firmware": "firmware_v2.4.2-beta_ESP32_generic.full-upgrade.bin",
-    "path": "../firmware/firmware_v2.4.2-beta_ESP32_generic.full-upgrade.bin"
-  },
-  {
-    "version": "v2.4.2",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "d1_mini32",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.2-beta_ESP32_d1_mini32.json",
-    "firmware": "firmware_v2.4.2-beta_ESP32_d1_mini32.bin",
-    "path": "../firmware/firmware_v2.4.2-beta_ESP32_d1_mini32.bin"
-  },
-  {
-    "version": "v2.4.2",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "ulanzi",
-    "full-upgrade": true,
-    "manifest": "manifest_v2.4.2-beta_ESP32_ulanzi.full-upgrade.json",
-    "firmware": "firmware_v2.4.2-beta_ESP32_ulanzi.full-upgrade.bin",
-    "path": "../firmware/firmware_v2.4.2-beta_ESP32_ulanzi.full-upgrade.bin"
-  },
-  {
-    "version": "v2.4.1",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP8266",
-    "enviroment": "nodemcuv2",
-    "full-upgrade": false,
-    "manifest": "manifest_v2.4.1-beta_ESP8266_nodemcuv2.json",
-    "firmware": "firmware_v2.4.1-beta_ESP8266_nodemcuv2.bin",
-    "path": "../firmware/firmware_v2.4.1-beta_ESP8266_nodemcuv2.bin"
-  },
-  {
-    "version": "v2.4.1",
-    "beta": true,
-    "testing": false,
-    "chipFamily": "ESP32",
-    "enviroment": "ulanzi",
-    "full-upgrade": true,
-    "manifest": "manifest_v2.4.1-beta_ESP32_ulanzi.full-upgrade.json",
-    "firmware": "firmware_v2.4.1-beta_ESP32_ulanzi.full-upgrade.bin",
-    "path": "../firmware/firmware_v2.4.1-beta_ESP32_ulanzi.full-upgrade.bin"
+    "manifest": "manifest_v2.4.3_ESP8266_generic.json",
+    "firmware": "firmware_v2.4.3_ESP8266_generic.bin",
+    "path": "../firmware/firmware_v2.4.3_ESP8266_generic.bin"
   }
 ]
