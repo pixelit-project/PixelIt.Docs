@@ -6,7 +6,7 @@
 
 - [Webinterface](webinterface.html)
 - [REST-API](api.html)
-- [Node-Red Node](nodered.html#node-red)
+- [Node-RED Node](nodered.html#node-red)
 - [Pixel Creator](tools.html#pixel-creator)
 - [Pixel Gallery](tools.html#pixel-gallery)
 - [ioBroker Adapter](iobroker.html)
@@ -17,8 +17,14 @@
 
 ## Supported hardware
 
-- Prebuild Hardware
-  - [Ulanzi TC001 Pixel Clock](https://www.ulanzi.com/products/ulanzi-pixel-smart-clock-2882?aff=1181)
+You can use the PixelIt with different hardware. You can use a prebuild hardware or build your own hardware. The PixelIt is designed to be expandable. You can add sensors, buttons, displays, etc. to your PixelIt.
+
+### Prebuild Hardware
+
+- [Ulanzi TC001 Pixel Clock](https://www.ulanzi.com/products/ulanzi-pixel-smart-clock-2882?aff=1181)
+
+### DIY Hardware
+
 - MCU
   - [Wemos D1 mini](hardware.html#minimal-setup-basis)
   - [NodeMCU v2](hardware.html#minimal-setup-basis)

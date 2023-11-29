@@ -1,6 +1,13 @@
+---
+collapsable: false
+sidebarDepth: 2
+---
+
 # Hardware
 
-## Parts list
+## DIY Hardware
+
+### Parts list
 
 #### Minimal setup (Basis)
 
@@ -140,7 +147,7 @@ The touch sensors have two solder bridges on the board which can be connected. T
 
 TTP223 Image for Fritzing by [rbricheno](https://github.com/rbricheno).
 
-## 3D Printing Files
+### 3D Printing Files
 
 ![](/cover.jpg)
 by PlastikJunkies
@@ -148,13 +155,10 @@ by PlastikJunkies
 #### Downloads
 
 - [Thingiverse](https://www.thingiverse.com/thing:3559014)
+- [Thingiverse](https://www.thingiverse.com/thing:4749750)
 - [Local download](/pixel_it_case.zip)
 
-### AWTRIX Case (Discontinued project!)
-
-- [Thingiverse](https://www.thingiverse.com/thing:4749750)
-
-#### Makes
+### Makes
 
 Make sure to check out this discussion page for some inspiration.
 

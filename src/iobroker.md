@@ -4,8 +4,7 @@ sidebarDepth: 2
 
 # ioBroker
 
-This adapter allows you to send screen to the [Pixel It]() from ioBroker. It queries the optional sensors of [Pixel It]() , and the API of the [Pixel Gallery](tools.html#pixel-gallery) is also implemented in the adapter.
-
+This adapter allows you to send screen to the PixelIt from ioBroker. It queries the optional sensors of PixelIt , and the API of the [Pixel Gallery](tools.html#pixel-gallery) is also implemented in the adapter.
 
 ## Basic settings
 
