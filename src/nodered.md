@@ -4,19 +4,21 @@ sidebarDepth: 2
 
 # Node-RED
 
-There is a quite extensive [PixelIt Node](https://flows.nodered.org/node/node-red-contrib-pixelit) for [Node-RED](https://nodered.org/).  
-This helps you in a quite simple way to create the screens for PixelIt, also a [Playlist](#playlist) of the screens was realized here.
+There is a fairly well [PixelIt Node-RED extension](https://flows.nodered.org/node/node-red-contrib-pixelit) for [Node-RED](https://nodered.org/).  
+This helps you to easily create the screens for PixelIt and also a [playlist](#playlist) of the screens was realized here.
 
-There is also a beginner flow that you can import: [beginner example flow](#beginner-flow) to master the first hurdle.
+- The playlist is also controlled fully automatically and your PixelIt switches through the various screens and always displays the latest data.
+- There is also a [beginner example flow](#beginner-flow) that you can import to get started.
 
+:::tip No no Node-RED yet?
 If you don't have Node-RED running yet you should have a look here [Node-RED - Get Started](https://nodered.org/#get-started).
+:::
 
 ## Beginner Flow
 
----
-
-To flatten the first hurdle a bit, you can import this flow, and tinker with it a bit and try it out.
 ![](/einsteiger_flow.png)
+
+To help you overcome the first challenge, you can import this flow, tweak it a little and try it out:
 
 ::: details Expand here!
 
@@ -552,15 +554,13 @@ To flatten the first hurdle a bit, you can import this flow, and tinker with it 
 
 ::::
 
-## Core
+## Core Nodes
 
----
+### Core
 
 ![](/core_node.png)
 
 The Core Node is the heart of PixelIt Node-RED extension.
-
-### The tasks
 
 - Receiving and saving/updating screens.
 - The handling of the alerts.
@@ -568,112 +568,71 @@ The Core Node is the heart of PixelIt Node-RED extension.
 - The playback of the playlists.
 - Receiving the configuration of PixelIt.
 - The receiving of controls.
-- The optional communication with the web service to query the bitmap IDs.
-- These are then also kept in the RAM cache.
-- The structure of the JSON.
+- The optional communication with the web service to query the bitmap IDs and cache them.
 - The communication with PixelIt.
 
-### The configuration
+#### Configuration
 
 ![](/core_node_config.png)
 
-**Name**: This value can be chosen as you like.  
-**IP-Address**: The Ip address of PixelIt can be entered here to directly use the HTTP API.  
-**Master-Topic**: Here the master topic can be entered to generate the MQTT-Tpoic, this is then passed on in the "msg.topic".
+- **Name**: This value can be chosen as you like.
+- **IP-Address**: The Ip address of PixelIt can be entered here to directly use the HTTP API.
+- **Master-Topic**: Here the master topic can be entered to generate the MQTT-Topic, this is then passed on in the "msg.topic".
 
-## Alert Screen
-
----
+### Alert Screen
 
 ![](/alert_screen_node.png)
 
-Alert Screen Node is a small helper from PixelIt Node-RED extension.
+If you want to display show a screen directly and dont want to wait for the playlist to switch to it, you can use this node to easily display it.
 
-### The tasks
-
-- The incoming screen as alert days so that the core node knows how to deal with it.
-
-### The configuration
-
-![](/alert_screen_node_config.png)
-
-**Name**: This value can be chosen as you like.
-
-## Screen Data Update
-
----
+### Screen Data Update
 
 ![](/screen_data_update_node.png)
 
-Screen Data Update is a small helper from PixelIt Node-RED extension.
+Update screen information in the playlist, but do not switch to it. Checkout the API for more information.
 
-### The tasks
+### Matrix Control
 
-- Den ankommenden Screen als Data Update für einen Screen Tagen so das der Core Node weiß damit umzugehen.
+![](/matrix_control_node.png)
 
-### The configuration
+You can use this node to easily control the sleep mode of PixelIt or the brightness.
 
----
+#### Example
 
-![](/screen_data_update_node_config.png)
+```javascript
+msg.sleepMode = true;
+msg.brightness = 80;
+return msg;
+```
 
-**Name**: This value can be chosen as you like.
-
-## Matrix Control
-
----
-
-![](/matrix_control_node.png)  
-Matrix Control is a small helper from PixelIt Node-RED extension.
-
-### The tasks
-
-- The incoming data stream as matrix control commands days so that the core node knows how to deal with it.
-
-### The configuration
-
-![](/matrix_control_node_config.png)
-
-**Name**: This value can be chosen as you like.
-
-## Playlist Update
-
----
+### Playlist Update
 
 ![](/playlist_update_node.png)
 
-Playlist Update is a little helper from PixelIt Node-RED extension.
+This node receives the playlist and passes it on to the core node.
 
-### The tasks
+#### Example
 
-- Tag the incoming data stream as a playlist so that the core node knows how to handle it.
+```javascript
+msg.payload = [
+  {
+    screenName: "clock",
+  },
+  {
+    screenName: "smartmeter",
+  },
+  {
+    screenName: "weather",
+  },
+];
+return msg;
+```
 
-- ### The configuration
+::: tip
+Creat a Inject Node and set `msg.payload`. Enable `Injection once after 5 seconds` to set the playlist after each flow deployment.
+:::
 
-![](/playlist_update_node_config.png)
-
-**Name**: This value can be chosen as you like.
-
-## Playlist
-
----
-
-![](/)
-
-The playlist is created as a json containing the names previously specified in the [Screen Init Node](#screen-init).
-
-### The tasks
-
-- Set playback order.
--
-
-### The configuration
-
-**Name**: This value can be chosen as you like.
-
-## Matrix Config <Badge text="Obsolete" type="warning"/>
-
----
+### Matrix Config <Badge text="Obsolete" type="warning"/>
 
 ![](/matrix_control_node.png)  
 ::: warning Outdated!
@@ -682,195 +641,152 @@ This node is obsolete and has been replaced by the [webinterface](webinterface.h
 Matrix Config is the node to set the configuration of PixelIt via the Node-RED extension.
 This node is bound directly to the core node because the core node can process the node directly.
 
-### The tasks
+## Screen Nodes
 
-- Configuration of PixelIt.
+The following nodes help you to create screens for PixelIt. There job is to create the JSON object for the screen and pass it on to the core node. You could also create the JSON object yourself and pass it on to the core node, but this is much more complicated and error-prone.
 
-### The configuration
+::: tip
+Use the Node-RED `Debug node` to see the JSON object that is created by the screen nodes. Enable `Complete msg object` to see the complete JSON object, because many values are set to the `msg object` directly and not to the payload.
+:::
 
-![](/matrix_control_node_config_0.png)  
-**Name**: This value can be chosen as you like.
+### Screen Init
 
-![](/matrix_control_node_config_1.png)
-**Matrix Brightness**: Sets the default brightness of PixelIt. (0 - 255)
+![](/screen_init_node.png)
 
-![](/matrix_control_node_config_2.png)  
-**Matrix Type**: Sets the type of the matrix used. (info)
-
-![](/matrix_control_node_config_3.png)  
-**Matrix Correction**: Color correction can be applied here. (info)
-
-![](/matrix_control_node_config_4.png)
-**NTP Server**: Here the domain or IP address of the NTP server can be passed.
-
-![](/matrix_control_node_config_5.png)  
-**Clock offset**: Here the UTC offset is specified (https://en.wikipedia.org/wiki/List_of_UTC_time_offsets)
-
-![](/matrix_control_node_config_6.png)  
-**Scroll Text Default Delay**: Sets the default delay for the scroll text. (ms)
-
-![](/matrix_control_node_config_7.png)  
-**Bootscreen active**: Switches the boot screen on or off.
-
-![](/matrix_control_node_config_8.png)  
-**MQTT active**: Switches the MQTT client on or off.
-
-![](/matrix_control_node_config_9.png)  
-![](/matrix_control_node_config_10.png)  
-![](/matrix_control_node_config_11.png)  
-![](/matrix_control_node_config_12.png)  
-![](/matrix_control_node_config_13.png)  
-**MQTT MasterTopic**: This is the topic on which the PixelIt listens or transmits
-
-## Screen Init
-
----
-
-![](/screen_init.png)
-
-Matrix Config is the node to set the configuration of the PixelIt via the Node-RED extension.
-This node is bound directly to the core node because the core node can process the node directly.
-
-### The tasks
+Screen Init is the node to initialize a screen. You
 
 - Naming the screen e.g. for the playlist
 - Display duration
 
-### The configuration
+#### Configuration
 
-![](/screen_init_config_0.png)  
-**Name**: This value can be chosen as you like.
+![](/screen_init_node_config.png)
 
-![](/screen_init_config_1.png)  
-**Screen Name**: Not relevant for alerts, but important for screens as this name is used in the playlist.
+- **Name**: This value can be chosen as you like.
+- **Screen Name**: Not relevant for alerts, but important for screens as this name is used in the playlist.
+- **Duration**: The duration of the alert/screen in seconds, this value can also be passed dynamically by passing the appropriate message-val with double braces. Set `msg.duration` and access it with <span v-pre>`{{duration}}`</span>.
 
-![](/screen_init_config_2.png)  
-::: v-pre
-**Duration**: The duration of the alert / screen in seconds, this value can also be passed dynamically by passing the appropriate message-val with double braces e.g. `{payload}}`.
-:::
-
-## Switch Animation
-
----
+### Switch Animation
 
 ![](/switch_animation_node.png)
 
 Switch Animation is the node to set a transition animation.
 
-### The tasks
-
 - Enables or disables the transition animation.
 - Set the type of transition animation.
 
-### The configuration
+#### Configuration
 
-![](/switch_animation_node_config_0.png)  
-**Name**: This value can be chosen as you like.
+![](/switch_animation_node_config.png)
 
-![](/switch_animation_node_config_1.png)  
-**Animation active**: Enables or disables the transition animation.
+- **Name**: This value can be chosen as you like.
+- **Animation active**: Enables or disables the transition animation.
+- **Animation style**: Here you can set the style of the transition animation.
 
-![](/switch_animation_node_config_2.png)  
-**Animation style**: Here you can set the style of the transition animation.
+### Text
 
-## Text
+![](/text_node.png)
 
----
+In this node you can set a text that should be displayed on the screen. You can setup the color, position, scrolling and more.
 
-The following special characters are supported as of v0.3.7:
+Some special characters will be replaced with a icon. The following characters are supported at the moment:
+
 `€ ← ↑ → ↓ ★ 📁 ♥ ↧ 🚗 😀`
+
 ![](/special_characters.png)
 
-![]()
+#### Configuration
 
-::: warning ToDo
-[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
-:::
+![](/text_node_config.png)
 
-### The tasks
+- **Name**: This value can be chosen as you like.
+- **Text**: The text that should be displayed on the screen. You can also pass the text dynamically by passing the appropriate message-val with double braces. Set `msg.payload` and access it with <span v-pre>`{{payload}}`</span>.
+- **Big Font**: If the text should be displayed in big font.
+- **Scrolling**: If the text should be scrolled. If you select `Auto`, the text will be scolled if it is longer than the screen width.
+- **Scrolling Delay**: The delay between the scrolling steps in milliseconds.
+- **Center Text**: If the text should be centered.
+- **Position X**: The X position of the text.
+- **Position Y**: The Y position of the text.
+- **Color**: The color of the text.
 
--
+### Bitmap
 
-### The configuration
+![](/bitmap_node.png)
 
-![]()  
-**Name**: This value can be chosen as you like.
+In this node you can set a bitmap that should be displayed on the screen. You can set the position and a pixel array (Data) or the ID. If you set the ID, the Core Node will query the bitmap from the web service and cache it.
 
-## Bitmap
+#### Configuration
 
----
+![](/bitmap_node_config.png)
 
-![]()
+- **Name**: This value can be chosen as you like.
+- **Data/ID**: The pixel array of the bitmap or the ID of the bitmap.
+- **Position X**: The X position of the bitmap.
+- **Position Y**: The Y position of the bitmap.
+- **Width X**: The width of the bitmap.
+- **Height Y**: The height of the bitmap.
 
-::: warning ToDo
-[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
-:::
+### Bitmap Animation
 
-### The tasks
+![](/bitmap_animation_node.png)
 
--
+Same as [Bitmap Node](nodered.html#bitmap) but with animation.
 
-### The configuration
+#### Configuration
 
-![]()  
-**Name**: This value can be chosen as you like.
+![](/bitmap_animation_node_config.png)
 
-## Bitmap Animation
+- **Name**: This value can be chosen as you like.
+- **Data/ID**: The pixel array of the bitmap or the ID of the bitmap.
+- **Animation Delay**: The delay between the frames of the animation in milliseconds.
+- **Rubberbanding**: If the animation should be played in reverse after it has been played.
+- **Limit Loops**: The number of loops the animation should be played. `0` means infinite.
 
----
+### Clock
 
-![]()
+![](/clock_node.png)
 
-::: warning ToDo
-[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
-:::
+Because you could not set dynamic values in the [Text Node](nodered.html#text) you can use this node to display a clock, which use the time of the PixelIt. You can set the color and if the seconds should be displayed.
 
-### The tasks
+#### Configuration
 
--
+![](/clock_node_config.png)
 
-### The configuration
+- **Name**: This value can be chosen as you like.
+- **Date Time Switch**: Enables or disables switch between date and time.
+- **With Seconds**: Enables or disables the seconds.
+- **Switch Sec**: The number of seconds after which the switch between date and time should take place.
 
-![]()  
-**Name**: This value can be chosen as you like.
-
-## Clock
-
----
-
-![]()
-
-::: warning ToDo
-[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
-:::
-
-### The tasks
-
--
-
-### The configuration
-
-![]()  
-**Name**: This value can be chosen as you like.
-
-## GPIO Control
-
----
+### GPIO Control
 
 ![](/gpio_control_node.png)
 
-::: warning ToDo
-[Edit this page](https://github.com/pixelit-project/Docs/edit/master/src/nodered.md)
-:::
+With this node you can control the GPIOs of PixelIt. You can set the GPIOs to `On (HIGH)` or `Off (LOW)` and the duration in milliseconds.
 
-### The tasks
+#### Configuration
 
--
+![](/gpio_control_node_config.png)
 
-### The configuration
+- **Name**: This value can be chosen as you like.
+- **GPIO**: The GPIO number.
+- **Value**: The state of the GPIO. `On` or `Off`.
+- **Duration**: The duration in milliseconds.
 
-![]()  
-**Name**: This value can be chosen as you like.
+### Sound
+
+![](/sound_node.png)
+
+With this node you can play a sound on PixelIt. You can set the volume and the duration in milliseconds. The DF Player Mini is used for this.
+
+#### Configuration
+
+![](/sound_node_config.png)
+
+- **Name**: This value can be chosen as you like.
+- **Control**: What you want to do. `Play` or `Stop` etc.
+- **Volume**: The volume of the sound.
+- **Folder**: The folder number of the sound.
+- **File**: The file number of the sound.
 
 ## Troubleshooting
 

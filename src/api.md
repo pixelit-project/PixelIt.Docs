@@ -5,9 +5,25 @@ sidebarDepth: 2
 
 # API
 
-You can use the API via the HTTP or MQTT.
+You can use the API via the HTTP REST Interface or MQTT. The HTTP API is available at `/api/` and the MQTT API at `<MasterTopic>/`. You can use both APIs at the same time.
+
+::: tip
+If you use the [Node-RED](nodered.html) or [ioBroker](iobroker.html) integration, you don't need to use the API directly.
+:::
+
+## MQTT
+
+The default MasterTopic is `pixelit/`, but can be changed in the WebUI. The MasterTopic is used as a prefix for all MQTT topics. If enabled, the device also uses an additional topic with the name `<MasterTopic>/<hostname>`. When you use MQTT, you are able to use multiple PixelIts but with the additional topic you can also address a single PixelIt.
+
+With MQTT enabled, the device will also discoverable via [Home Assistant](https://www.home-assistant.io/integrations/mqtt/).
+
+::: tip
+We recommend using MQTT.
+:::
 
 ## Screen
+
+Most important endpoint is `/api/screen` or `<MasterTopic>/setScreen`. This endpoint is used to display a single screen on Pixelit. The following elements are supported:
 
 ::: tip HTTP Endpoint [POST]
 /api/screen
@@ -15,7 +31,6 @@ You can use the API via the HTTP or MQTT.
 ::: tip MQTT Topic [PUBLISH]
 &lt;MasterTopic&gt;/setScreen
 :::
-<br>
 
 You **must** combine all elements in one call that are to be displayed as one screen.
 
@@ -125,8 +140,8 @@ The following special characters are supported:
 
 ---
 
-`sleepMode` dimms down the matrix to `brightness: 0`.
-Additionally while `sleepMode` is active the `/api/screen`-endpoint and `&lt;MasterTopic&gt;/setScreeen`-topic are not fully evaluated. Only when `sleepMode` previously or within the same message-body is set to `false` , the requested screen will be displayed.
+`sleepMode` could be send as a key of a screen payload. When `sleepMode` is active, the device dimms down the matrix to `brightness: 0`.
+Additionally while `sleepMode` is active the `/api/screen`-endpoint and `<MasterTopic>/setScreeen`-topic are not fully evaluated. Only when `sleepMode` previously or within the same message-body is set to `false` , the requested screen will be displayed.
 
 :::warning Disclaimer
 Enabeling `sleepMode` does not enable power saving features on the MCU itself, like e.g. deep sleep functionality of an ESP8266.
@@ -338,7 +353,6 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 | `rubberbanding`  | `Boolean`                 | `true / false`                            | Should the animation run back and forth        |
 | `limitLoops`     | `Integer`                 | `0-99`                                    | Limiting the loops                             |
 | `position`       | `JSON`                    | `{"x":0, "y":0}`                          | Postion                                        |
-
 
 ### Bar
 
@@ -634,7 +648,7 @@ The response has the following structure:
   "mqttUser": "",
   "mqttPassword": "",
   "mqttServer": "0.0.0.0",
-  "mqtt&lt;MasterTopic&gt;": "Haus/PixelIt/",
+  "mqttMasterTopic": "pixelit/",
   "mqttPort": 1883
 }
 ```
