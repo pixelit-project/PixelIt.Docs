@@ -11,7 +11,13 @@ You can use the API via the HTTP REST Interface or MQTT. The HTTP API is availab
 If you use the [Node-RED](nodered.html) or [ioBroker](iobroker.html) integration, you don't need to use the API directly.
 :::
 
-## MQTT
+## Interfaces
+
+### REST
+
+The port is `80`, The REST API is available at `/api/`. The following endpoints are available:
+
+### MQTT
 
 The default MasterTopic is `pixelit/`, but can be changed in the WebUI. The MasterTopic is used as a prefix for all MQTT topics. If enabled, the device also uses an additional topic with the name `<MasterTopic>/<hostname>`. When you use MQTT, you are able to use multiple PixelIts but with the additional topic you can also address a single PixelIt.
 
@@ -21,14 +27,31 @@ With MQTT enabled, the device will also discoverable via [Home Assistant](https:
 We recommend using MQTT.
 :::
 
+## Endpoints
+
+The following endpoints are available:
+
+| Endpoint       | Description                      | Details                               |
+| :------------- | :------------------------------- | ------------------------------------- |
+| `screen`       | Show screen on device            | [Details](api.html#screen)            |
+| `brightness`   | Get or set brightness            | [Details](api.html#brightness)        |
+| `buttons`      | Get button states                | [Details](api.html#buttons)           |
+| `luxsensor`    | Get lux sensor value             | [Details](api.html#lux-sensor)        |
+| `sensor`       | Get sensor values                | [Details](api.html#sensor)            |
+| `state`        | Get state (MQTT only)            | [Details](api.html#state)             |
+| `matrixinfo`   | Get matrix info                  | [Details](api.html#matrix-infomation) |
+| `config`       | Get or set config                | [Details](api.html#matrix-config)     |
+| `wifireset`    | WiFi reset                       | [Details](api.html#matrix-config)     |
+| `factoryreset` | Reset device to factory defaults | [Details](api.html#matrix-config)     |
+
 ## Screen
 
 Most important endpoint is `/api/screen` or `<MasterTopic>/setScreen`. This endpoint is used to display a single screen on Pixelit. The following elements are supported:
 
-::: tip HTTP Endpoint [POST]
+::: blue HTTP Endpoint [POST]
 /api/screen
 :::
-::: tip MQTT Topic [PUBLISH]
+::: blue MQTT Topic [PUBLISH]
 &lt;MasterTopic&gt;/setScreen
 :::
 
@@ -482,9 +505,9 @@ This option also enables the controls **next** and **previous**, but the followi
 | `control` | `String`  | `play / pause / next / previous` | **Required** |
 | `file`    | `Integer` | `1 - 3000`                       | **Required** |
 
-## Current Brightness
+## Brightness
 
-::: tip HTTP Endpoint [GET]
+::: blue HTTP Endpoint [GET]
 /api/brightness
 :::  
 This option can be used to query the current brightness. If u use MQTT, use `<MasterTopic>/matrixinfo` to get the current brightness.
@@ -500,7 +523,7 @@ The response has the following structure:
 
 ## Buttons
 
-::: tip HTTP Endpoint [GET]
+::: blue HTTP Endpoint [GET]
 /api/buttons
 :::
 
@@ -514,7 +537,7 @@ The HTTP response has the following structure:
 }
 ```
 
-::: tip MQTT Topic [SUBSCRIBE]
+::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/buttons/#<br />
 &lt;MasterTopic&gt;/buttons/button0<br />
 &lt;MasterTopic&gt;/buttons/button1<br />
@@ -531,13 +554,13 @@ The MQTT response has the following structure:
 
 ## Lux Sensor
 
-::: tip HTTP Endpoint [GET]
+::: blue HTTP Endpoint [GET]
 /api/luxsensor
 :::
-::: tip MQTT Topic [PUBLISH]
+::: blue MQTT Topic [PUBLISH]
 &lt;MasterTopic&gt;/getLuxsensor
 :::
-::: tip MQTT Topic [SUBSCRIBE]
+::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/luxsensor
 :::
 
@@ -549,12 +572,12 @@ The response has the following structure:
 }
 ```
 
-## DHT Humidity/Temperatur Sensor
+## Sensor
 
-::: tip HTTP Endpoint [GET]
+::: blue HTTP Endpoint [GET]
 /api/sensor
 :::
-::: tip MQTT Topic [SUBSCRIBE]
+::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/sensor
 :::
 
@@ -571,7 +594,7 @@ The response has the following structure:
 
 Its possible to get a disconnection (and connection) message via the MQTT LWT (Last Will and Testament) Feature.
 
-::: tip MQTT Topic [SUBSCRIBE]
+::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/state
 :::
 
@@ -581,13 +604,13 @@ disconnected (or connected)
 
 ## Matrix Infomation
 
-::: tip HTTP Endpoint [GET]
+::: blue HTTP Endpoint [GET]
 /api/matrixinfo
 :::
-::: tip MQTT Topic [PUBLISH]
+::: blue MQTT Topic [PUBLISH]
 &lt;MasterTopic&gt;/getMatrixinfo
 :::
-::: tip MQTT Topic [SUBSCRIBE]
+::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/matrixinfo
 :::
 The response has the following structure:
@@ -613,13 +636,13 @@ The response has the following structure:
 
 ## Matrix Config
 
-::: tip HTTP Endpoint [GET]
+::: blue HTTP Endpoint [GET]
 /api/config
 :::
-::: tip MQTT Topic [PUBLISH]
+::: blue MQTT Topic [PUBLISH]
 &lt;MasterTopic&gt;/getConfig
 :::
-::: tip MQTT Topic [SUBSCRIBE]
+::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/config
 :::
 The response has the following structure:
@@ -653,11 +676,33 @@ The response has the following structure:
 }
 ```
 
-::: tip HTTP Endpoint [POST]
+::: blue HTTP Endpoint [POST]
 /api/config
 :::
-::: tip MQTT Topic [PUBLISH]
+::: blue MQTT Topic [PUBLISH]
 &lt;MasterTopic&gt;/setConfig
 :::
 
 To set the configuration, the upper structure must be followed.
+
+## WiFi Reset
+
+::: blue HTTP Endpoint [GET]
+/api/wifireset
+:::
+::: blue MQTT Topic [PUBLISH]
+&lt;MasterTopic&gt;/wifiReset
+:::
+
+Erases the WiFi configuration and restarts the device. Device will be in AP mode after restart.
+
+## Factory Reset
+
+::: blue HTTP Endpoint [GET]
+/api/factoryreset
+:::
+::: blue MQTT Topic [PUBLISH]
+&lt;MasterTopic&gt;/factoryReset
+:::
+
+Erases the WiFi configuration and all other settings and restarts the device. Device will be in AP mode after restart.

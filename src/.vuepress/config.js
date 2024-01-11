@@ -63,21 +63,42 @@ module.exports = {
     //nav: [],
     sidebar: [
       {
-        title: "PixelIt", // required
+        title: "Introduction", // required
         path: "/", // optional, link of the title, which should be an absolute path and must exist
         collapsable: true, // optional, defaults to true
         sidebarDepth: 1, // optional, defaults to 1
-        children: [
-          "/",
-          "/hardware",
-          "/firmware",
-          "/webinterface",
-          "/api",
-          "/tools",
-          "/nodered",
-          "/iobroker",
-          "/troubleshooting",
-        ],
+      },
+      {
+        title: "Hardware",
+        path: "/hardware",
+      },
+      {
+        title: "Firmware",
+        path: "/firmware",
+      },
+      {
+        title: "Webinterface",
+        path: "/webinterface",
+      },
+      {
+        title: "API",
+        path: "/api",
+      },
+      {
+        title: "Tools",
+        path: "/tools",
+      },
+      {
+        title: "Node-RED",
+        path: "/nodered",
+      },
+      {
+        title: "ioBroker",
+        path: "/iobroker",
+      },
+      {
+        title: "Troubleshooting",
+        path: "/troubleshooting",
       },
     ],
   },
@@ -96,12 +117,13 @@ module.exports = {
         staticIcon: true,
       },
     ],
-    // [
-    //   "vuepress-plugin-matomo",
-    //   {
-    //     siteId: 8,
-    //     trackerUrl: "https://matomo.dietru.de/",
-    //   },
-    // ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'blue',
+        before: info => `<div class="blue"><p class="title">${info}</p>`,
+        after: '</div>',
+      },
+    ],
   ],
 };
