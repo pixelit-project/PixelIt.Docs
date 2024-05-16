@@ -100,11 +100,11 @@ Enables automatic brightness control and exposes the brightness/lux value via AP
 
 ![](/hardware_gl5516.png)
 
-| ESP8266 | ESP32 | LDR GL5516 | Resistor 10k Ohm | Function                  | Note |
-| ------- | ----- | ---------- | ---------------- | ------------------------- | ---- |
-| 3V3     | 3V3   | Leg 1      |                  |                           |
-| G       | GND   | -          | Leg 1            |                           |
-| A0      | ADC0  | Leg 2      | Leg 2            | Acts as a voltage divider |
+| ESP8266 | ESP32  | LDR GL5516 | Resistor 10k Ohm | Function                  | Note |
+| ------- | ------ | ---------- | ---------------- | ------------------------- | ---- |
+| 3V3     | 3V3    | Leg 1      |                  |                           |
+| G       | GND    | -          | Leg 1            |                           |
+| A0      | GPIO34 | Leg 2      | Leg 2            | Acts as a voltage divider |
 
 ### DHT22 Sensor
 
