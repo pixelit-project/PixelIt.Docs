@@ -164,7 +164,7 @@ The following special characters are supported:
 ---
 
 `sleepMode` could be send as a key of a screen payload. When `sleepMode` is active, the device dimms down the matrix to `brightness: 0`.
-Additionally while `sleepMode` is active the `/api/screen`-endpoint and `<MasterTopic>/setScreeen`-topic are not fully evaluated. Only when `sleepMode` previously or within the same message-body is set to `false` , the requested screen will be displayed.
+Additionally while `sleepMode` is active the `/api/screen`-endpoint and `<MasterTopic>/setScreen`-topic are not fully evaluated. Only when `sleepMode` previously or within the same message-body is set to `false` , the requested screen will be displayed.
 
 :::warning Disclaimer
 Enabeling `sleepMode` does not enable power saving features on the MCU itself, like e.g. deep sleep functionality of an ESP8266.
