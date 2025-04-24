@@ -183,6 +183,7 @@ Enabeling `sleepMode` does not enable power saving features on the MCU itself, l
 ### Brightness
 
 ---
+Temporary adjust the brightness until next reboot or auto brightness change it when enabled.
 
 ```json
 {
@@ -194,7 +195,7 @@ Enabeling `sleepMode` does not enable power saving features on the MCU itself, l
 | :----------- | :-------- | :-------- | :------------------ |
 | `brightness` | `Integer` | `0 - 255` | Sets the brightness |
 
-### Control Auto-Brightness
+### Auto-Brightness
 
 ---
 Temporary enable/disable the auto brightness feature until next reboot.
