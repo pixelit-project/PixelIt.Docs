@@ -1,7 +1,7 @@
 
 {
   "name": "PixelIt",
-  "version": "v2.4.2",
+  "version": "v2.4.2-beta",
   "home_assistant_domain": "PixelIt",
   "funding_url": "https://github.com/pixelit-project/PixelIt",
   "new_install_prompt_erase": true,
