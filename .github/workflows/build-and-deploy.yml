@@ -7,7 +7,12 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
+      - name: Test Webflasher release selection
+        run: python -B -m unittest discover -s .github/tests -v
+
       - name: Build manifest files for Webflasher 🔧
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           python .github/webflasher.py
 

@@ -1,86 +1,117 @@
+import json
 import os
 import re
+from datetime import datetime
 from pathlib import Path
-from jinja2 import Template
-import json
+from urllib.request import Request, urlopen
 
-print("+++ Starting webflasher prepare script... +++")
 
-root = Path("src/.vuepress/public/pixelit_flasher/")
-meta = Path("src/.vuepress/public/pixelit_flasher/meta.json")
-manifest = Path("src/.vuepress/public/pixelit_flasher/manifest")
+ROOT = Path("src/.vuepress/public/pixelit_flasher")
+API = "https://api.github.com/repos/pixelit-project/PixelIt/releases"
+PATTERN = re.compile(
+    r"firmware_(?P<version>v?\d+\.\d+\.\d+(?:-[^_]+)?)_"
+    r"(?P<chip>ESP32|ESP8266)_(?P<board>[^.]+)"
+    r"(?P<full>\.full-upgrade)?\.bin"
+)
 
-# Create manifest folder if it doesn't exist
-if not os.path.exists(manifest):
-    print("Creating manifest folder...")
-    os.makedirs(manifest)
 
-json_template = '''
-{
-  "name": "PixelIt",
-  "version": "{{version}}",
-  "home_assistant_domain": "PixelIt",
-  "funding_url": "https://github.com/pixelit-project/PixelIt",
-  "new_install_prompt_erase": true,
-  "builds": [
-    {
-      "chipFamily": "{{chipFamily}}",
-      "parts": [
-        {
-          "path": "{{path}}",
-          "offset": 0
-        }
-      ]
+def github_json(url):
+    headers = {"Accept": "application/vnd.github+json", "User-Agent": "PixelIt.Docs"}
+    if os.environ.get("GITHUB_TOKEN"):
+        headers["Authorization"] = f"Bearer {os.environ['GITHUB_TOKEN']}"
+    with urlopen(Request(url, headers=headers), timeout=30) as response:
+        return json.load(response)
+
+
+def latest_releases(fetch=github_json):
+    stable = fetch(f"{API}/latest")
+    if stable.get("draft") or stable.get("prerelease"):
+        raise ValueError("GitHub latest must identify a published stable release")
+
+    # Search all pages: version numbers and API ordering do not establish recency.
+    betas = []
+    page = 1
+    while True:
+        releases = fetch(f"{API}?per_page=100&page={page}")
+        betas.extend(
+            release for release in releases
+            if not release.get("draft") and release.get("prerelease")
+            and re.fullmatch(r"v?\d+\.\d+\.\d+-beta(?:\.\d+)*", release["tag_name"])
+            and release.get("published_at")
+        )
+        if len(releases) < 100:
+            break
+        page += 1
+    beta = max(betas, key=lambda r: datetime.fromisoformat(
+        r["published_at"].replace("Z", "+00:00")
+    ), default=None)
+    return stable, beta
+
+
+def firmware_data(filename):
+    match = PATTERN.fullmatch(filename)
+    if not match:
+        raise ValueError(f"Unsupported firmware filename: {filename}")
+    version = match["version"]
+    return {
+        "version": version,
+        "beta": "-beta" in version,
+        "testing": "-testing" in version,
+        "chipFamily": match["chip"],
+        "enviroment": match["board"],
+        "full-upgrade": bool(match["full"]),
+        "manifest": f"manifest_{filename[len('firmware_'):-len('.bin')]}.json",
+        "firmware": filename,
+        "path": f"../firmware/{filename}",
     }
-  ]
-}
-'''
-
-# Define your regex pattern
-pattern = r"firmware_((.*?)(?:-(.*?))?_(.*?)_(.*?)(?:\.(.*))?).bin"
-
-data_list = []
-
-# Loop through the files in the folder
-for filename in os.listdir(os.path.join(root, "firmware")):
-    # Check if the file is a regular file
-    if os.path.isfile(os.path.join(os.path.join(root, "firmware"), filename)):
-        # Use regex to extract the different parts of the filename
-        match = re.match(pattern, filename)
-        if match:
-            data = {
-                "version": match.group(2) + (f"-{match.group(3)}" if match.group(3) else ""),
-                "beta": bool(re.fullmatch(r"beta(?:\.\d+)*", match.group(3) or "")),
-                "testing": bool(re.fullmatch(r"testing(?:\.\d+)*", match.group(3) or "")),
-                "chipFamily": match.group(4),
-                "enviroment": match.group(5),
-                "full-upgrade": True if match.group(6) == "full-upgrade" else False,
-                "manifest": f"manifest_{match.group(1)}.json",
-                "firmware": filename,
-                "path": f"../firmware/{filename}"
-            }
-
-            # Print the different parts of the filename
-            print(f"Found firmware file! Version: {data['version']}, ChipFamily: {data['chipFamily']}, Enviroment: {data['enviroment']}, Full-upgrade: {data['full-upgrade']}, Beta: {data['beta']}, Testing: {data['testing']}...")
-
-            # Create manifest file
-            template = Template(json_template)
-
-            # Render the template with the values
-            filled_json = template.render(data)
-
-            # Write the manifest file
-            print(f"Writing manifest file {data['manifest']}...")
-            with open(os.path.join(root, "manifest",data['manifest']), "w") as f:
-                f.write(filled_json)
-
-            # Append data to list
-            data_list.append(data)
 
 
-# Write meta file with all manifest information
-print(f"Writing meta.json file with {len(data_list)} entires...")
-with open(meta, "w") as json_file:
-    json_file.write(json.dumps(data_list, indent=2))
+def select_firmware(entries, releases):
+    selected = []
+    for release in releases:
+        if release is None:
+            continue
+        tag = release["tag_name"].removeprefix("v")
+        assets = {asset["name"] for asset in release["assets"]}
+        expected = {name for name in assets if PATTERN.fullmatch(name)}
+        available = {entry["firmware"] for entry in entries}
+        if expected - available:
+            raise ValueError(f"Missing local release assets: {sorted(expected - available)}")
+        matching = [entry for entry in entries
+                    if entry["version"].removeprefix("v") == tag
+                    and entry["firmware"] in assets]
+        if not matching:
+            raise ValueError(f"No local firmware matches official release {release['tag_name']}")
+        selected.extend(matching)
+    return selected
 
-print("+++ Webflasher prepare script done! +++")
+
+def main():
+    print("+++ Preparing Webflasher +++")
+    entries = [firmware_data(path.name) for path in sorted((ROOT / "firmware").glob("*.bin"))]
+    releases = latest_releases()
+    selected = select_firmware(entries, releases)
+    manifest_dir = ROOT / "manifest"
+    manifest_dir.mkdir(exist_ok=True)
+    # Preserve historical manifest URLs and binaries; only the selector is filtered.
+    for entry in entries:
+        manifest = {
+            "name": "PixelIt", "version": entry["version"],
+            "home_assistant_domain": "PixelIt",
+            "funding_url": "https://github.com/pixelit-project/PixelIt",
+            "new_install_prompt_erase": True,
+            "builds": [{"chipFamily": entry["chipFamily"],
+                        "parts": [{"path": entry["path"], "offset": 0}]}],
+        }
+        content = json.dumps(manifest, indent=2) + "\n"
+        target = manifest_dir / entry["manifest"]
+        # Avoid rewriting equivalent historical JSON just for formatting.
+        if not target.exists() or json.loads(target.read_text()) != manifest:
+            target.write_text(content)
+    (ROOT / "meta.json").write_text(json.dumps(selected, indent=2) + "\n")
+    print("Selected releases:", ", ".join(r["tag_name"] for r in releases if r))
+    print(f"+++ Prepared {len(selected)} installation options +++")
+
+
+if __name__ == "__main__":
+    main()
