@@ -49,9 +49,9 @@ for filename in os.listdir(os.path.join(root, "firmware")):
         match = re.match(pattern, filename)
         if match:
             data = {
-                "version": match.group(2),
-                "beta": True if match.group(3) == "beta" else False,
-                "testing": True if match.group(3) == "testing" else False,
+                "version": match.group(2) + (f"-{match.group(3)}" if match.group(3) else ""),
+                "beta": bool(re.fullmatch(r"beta(?:\.\d+)*", match.group(3) or "")),
+                "testing": bool(re.fullmatch(r"testing(?:\.\d+)*", match.group(3) or "")),
                 "chipFamily": match.group(4),
                 "enviroment": match.group(5),
                 "full-upgrade": True if match.group(6) == "full-upgrade" else False,
