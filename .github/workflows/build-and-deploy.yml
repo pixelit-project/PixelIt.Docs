@@ -51,11 +51,22 @@ jobs:
       - name: Display structure of downloaded files 🔍
         run: ls -R ./src/.vuepress/public
 
-      - name: vuepress-deploy 🚀
-        uses: jenkey2011/vuepress-deploy@master
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          TARGET_REPO: pixelit-project/pixelit-project.github.io
-          TARGET_BRANCH: gh-pages
-          BUILD_SCRIPT: yarn && yarn build
-          BUILD_DIR: src/.vuepress/dist/
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build documentation
+        run: npm run build
+
+      - name: Deploy documentation 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.ACCESS_TOKEN }}
+          external_repository: pixelit-project/pixelit-project.github.io
+          publish_branch: gh-pages
+          publish_dir: src/.vuepress/dist

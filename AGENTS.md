@@ -21,6 +21,14 @@ These rules apply to the entire repository.
 - Document prerelease features only when explicitly requested, and clearly label them as not yet part of the stable release.
 - Check integration and WebUI information for compatibility with the stable PixelIt release; a newer release in another repository does not automatically change the firmware baseline.
 - Include the verified release tag and the sources used in the final report. This file defines the workflow; it does not update the documentation automatically.
+- Release verification is required for changes to technical content or release selection. Changes limited to spelling, formatting, or contributor instructions do not require a release lookup or a repository-wide documentation update.
+
+## Firmware assets and Webflasher
+
+- Firmware delivery is automated: the upstream PixelIt workflow `.github/workflows/build-and-release.yml`, job `upload-fw-to-docs`, copies firmware binaries into this repository's `src/.vuepress/public/pixelit_flasher/firmware/` on tag pushes, retaining existing binaries. This includes prerelease tags; local filenames are not the authority for the latest stable release.
+- This repository's `.github/workflows/build-and-deploy.yml` runs `.github/webflasher.py` to generate and commit `pixelit_flasher/meta.json` and `pixelit_flasher/manifest/*.json`, then builds and deploys the site. Routine documentation work does not require manually copying firmware or regenerating these files.
+- Treat firmware binaries and generated Webflasher metadata as pipeline-managed assets. Change them only when the task explicitly concerns firmware delivery or the Webflasher pipeline. For generation changes, edit the generator, regenerate for validation, and review the resulting diff rather than hand-editing generated entries.
+- For firmware and Webflasher changes, verify that referenced binaries exist and match the release, board, chip family, and installation method. Keep first-install/full-upgrade instructions distinct from OTA updates. Retain historical and prerelease assets unless their removal is part of the task; do not present them as the current stable recommendation.
 
 ## Project structure and validation
 
@@ -28,5 +36,8 @@ These rules apply to the entire repository.
 - Preserve the style and Markdown conventions of each page while following the English-language requirement above. Change navigation or configuration only when the task requires it.
 - Use the existing npm scripts: `npm run dev` for local preview and `npm run build` for build validation. The project pins Node.js `16.17.0` through Volta.
 - For documentation changes, check internal links, linked files, and code examples, and run the VuePress build when possible. Clearly report any checks that could not be performed.
+- Preserve existing page URLs and heading anchors where possible. When renaming or moving them, update affected links and the sidebar in `src/.vuepress/config.js`. Static assets in `src/.vuepress/public/` are served from the site root.
+- Preview affected pages when changing layout, images, VuePress containers, or the embedded Webflasher; a successful build alone does not verify their appearance or interaction.
+- Do not include generated build output (`src/.vuepress/dist/`), temporary files, or `node_modules/` in changes. Review the final diff and run `git diff --check` before finishing.
 - Keep changes focused on the task and preserve existing changes made by others.
 - Update npm dependencies and the lockfile only when required by the task. Avoid unrelated dependency upgrades.
