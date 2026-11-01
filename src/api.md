@@ -5,7 +5,7 @@ sidebarDepth: 2
 
 # API
 
-You can use the API via the HTTP REST Interface or MQTT. The HTTP API is available at `/api/` and the MQTT API at `<MasterTopic>/`. You can use both APIs at the same time.
+Use the HTTP REST API on port 80 or MQTT to control PixelIt. Both interfaces can be active at the same time. This page describes firmware 2.6.0.
 
 ::: tip
 If you use the [Node-RED](nodered.html) or [ioBroker](iobroker.html) integration, you don't need to use the API directly.
@@ -15,7 +15,7 @@ If you use the [Node-RED](nodered.html) or [ioBroker](iobroker.html) integration
 
 ### REST
 
-The port is `80`, The REST API is available at `/api/`. The following endpoints are available:
+HTTP endpoints are listed below. Send screen and configuration payloads as JSON objects using `Content-Type: application/json`.
 
 ### MQTT
 
@@ -25,30 +25,40 @@ Enable `mqttUseDeviceTopic` to also address a single device at `<MasterTopic>/<h
 
 Enable both MQTT and `mqttHAdiscoverable` to make the device discoverable via [Home Assistant](https://www.home-assistant.io/integrations/mqtt/).
 
-::: tip
-We recommend using MQTT.
-:::
+MQTT query topics (`getLuxsensor`, `getMatrixinfo`, `getConfig`) require a non-empty JSON object as their request payload in 2.6.0; empty payloads and `{}` are rejected by the shared parser. Responses are published on the corresponding sensor, matrix-info or config topic.
+
+### WebSocket
+
+The WebUI and ioBroker receive live updates over `ws://<device-ip>:81`. Status messages wrap their data under `sysinfo`, `luxsensor`, `sensor`, `config`, `buttons` or `telemetry`.
+
+Commands use a wrapper, unlike REST and MQTT screen payloads. For example, activate the clock with:
+
+```json
+{"setScreen":{"clock":{}}}
+```
+
+Use compact JSON serialization without extra whitespace: firmware 2.6.0 compares incoming message length with the parsed object's compact length and rejects mismatches. `setConfig` wraps a configuration object and restarts the device after saving. Reset commands are `{"wifiReset":true}` and `{"factoryReset":true}`.
 
 ## Endpoints
 
 The following endpoints are available:
 
-| Endpoint       | Description                      | Details                               |
+| Endpoint | Description | Details |
 | :------------- | :------------------------------- | ------------------------------------- |
-| `screen`       | Show screen on device            | [Details](api.html#screen)            |
-| `brightness`   | Get brightness; set via screen            | [Details](api.html#brightness-2)        |
-| `buttons`      | Get button states                | [Details](api.html#buttons)           |
-| `luxsensor`    | Get lux sensor value             | [Details](api.html#lux-sensor)        |
-| `sensor`       | Get sensor values                | [Details](api.html#sensor)            |
-| `state`        | Get state (MQTT only)            | [Details](api.html#state)             |
-| `matrixinfo`   | Get matrix info                  | [Details](api.html#matrix-infomation) |
-| `config`       | Get or set config                | [Details](api.html#matrix-config)     |
-| `wifireset`    | WiFi reset                       | [Details](api.html#wifi-reset)        |
-| `factoryreset` | Reset device to factory defaults | [Details](api.html#factory-reset)     |
+| `screen` | Show screen on device | [Details](api.html#screen) |
+| `brightness` | Get brightness; set via screen | [Details](api.html#brightness-2) |
+| `buttons` | Get button states | [Details](api.html#buttons) |
+| `luxsensor` | Get lux sensor value | [Details](api.html#lux-sensor) |
+| `sensor` | Get sensor values | [Details](api.html#sensor) |
+| `state` | Get state (MQTT only) | [Details](api.html#state) |
+| `matrixinfo` | Get matrix info | [Details](api.html#matrix-information) |
+| `config` | Get or set config | [Details](api.html#matrix-config) |
+| `wifireset` | WiFi reset | [Details](api.html#wifi-reset) |
+| `factoryreset` | Reset device to factory defaults | [Details](api.html#factory-reset) |
 
 ## Screen
 
-Most important endpoint is `/api/screen` or `<MasterTopic>/setScreen`. This endpoint is used to display a single screen on Pixelit. The following elements are supported:
+Send one screen payload to `/api/screen` or `<MasterTopic>/setScreen`. Fields such as `text`, `bitmap` and `clock` describe the screen; `brightness`, `sleepMode`, `setGpio` and `sound` control device behavior.
 
 ::: blue HTTP Endpoint [POST]
 /api/screen
@@ -71,7 +81,6 @@ Example call:
     "animation": "fade"
   },
   "clock": {
-    "show": true,
     "switchAktiv": true,
     "withSeconds": false,
     "switchSec": 6,
@@ -151,16 +160,16 @@ The following special characters are supported:
 }
 ```
 
-| Parameter         | Type               | Values                         | Description                             |
+| Parameter | Type | Values | Description |
 | :---------------- | :----------------- | :----------------------------- | :-------------------------------------- |
-| `textString`      | `String`           |                                | **Required**. Displayed Text            |
-| `bigFont`         | `Boolean`          | `true / false`                 | Select the large text font              |
-| `scrollText`      | `Boolean / String` | `true / false / auto`          | Enable scrolling; `auto` scrolls long text                  |
-| `scrollTextDelay` | `Integer`          | `1 - 9999`                     | Optional delay in milliseconds; otherwise uses `scrollTextDefaultDelay`  |
-| `centerText`      | `Boolean`          | `true / false`                 | **Required**                            |
-| `position`        | `JSON`             | `{"x":8, "y":1}`               | **Required**                            |
-| `color`           | `JSON`             | `{"r":255, "g":255, "b":255},` | **Required** (or hexColor)              |
-| `hexColor`        | `String`           | `#FFFFFF`                      | **since v0.3.2** Alternatively to color |
+| `textString` | `String` |  | **Required**. Displayed Text |
+| `bigFont` | `Boolean / Integer` | `false / true / 0 / 1 / 2 / 3` | `0` small, `1` standard large; `2` fat and `3` very large are intended for clock text |
+| `scrollText` | `Boolean / String` | `true / false / auto` | Enable scrolling; `auto` scrolls long text |
+| `scrollTextDelay` | `Integer` | Positive milliseconds | Optional delay in milliseconds; otherwise uses `scrollTextDefaultDelay` |
+| `centerText` | `Boolean` | `true / false` | Include an explicit value for predictable rendering |
+| `position` | `JSON` | `{"x":8, "y":1}` | Include an explicit value for predictable rendering |
+| `color` | `JSON` | `{"r":255, "g":255, "b":255}` | Use this or `hexColor` |
+| `hexColor` | `String` | `#FFFFFF` | Alternative to `color` |
 
 ### Sleep Mode
 
@@ -178,14 +187,14 @@ Enabling `sleepMode` turns off the matrix display; it does not put the ESP8266 o
 }
 ```
 
-| Parameter   | Type      | Values         | Description                                                   |
+| Parameter | Type | Values | Description |
 | :---------- | :-------- | :------------- | :------------------------------------------------------------ |
 | `sleepMode` | `Boolean` | `true / false` | When active `sleepMode` disables the rendering of new screens |
 
 ### Brightness
 
 ---
-Temporary adjust the brightness until next reboot or auto brightness change it when enabled.
+Set the display brightness while awake. Automatic brightness control can change it again; use the configuration API to save a persistent setting.
 
 ```json
 {
@@ -193,14 +202,14 @@ Temporary adjust the brightness until next reboot or auto brightness change it w
 }
 ```
 
-| Parameter    | Type      | Values    | Description         |
+| Parameter | Type | Values | Description |
 | :----------- | :-------- | :-------- | :------------------ |
 | `brightness` | `Integer` | `0 - 255` | Sets the brightness |
 
 ### Auto-Brightness
 
 ---
-Temporary enable/disable the auto brightness feature until next reboot.
+Enable or disable automatic brightness control without saving the configuration.
 
 ```json
 {
@@ -208,7 +217,7 @@ Temporary enable/disable the auto brightness feature until next reboot.
 }
 ```
 
-| Parameter    | Type      | Values    | Description         |
+| Parameter | Type | Values | Description |
 | :----------- | :-------- | :-------- | :------------------ |
 | `autobrightness` | `Boolean` | `true / false` | Temporary enable/disable the auto brightness feature |
 
@@ -239,21 +248,22 @@ Temporary enable/disable the auto brightness feature until next reboot.
 }
 ```
 
-| Parameter   | Type            | Values                                                     | Description                                                 |
+| Parameter | Type | Values | Description |
 | :---------- | :-------------- | :--------------------------------------------------------- | :---------------------------------------------------------- |
-| `aktiv`     | `Boolean`       | `true / false`                                             |                                                             |
-| `animation` | `String`        | `fade / coloredBarWipe / zigzagWipe / bitmapWipe / random` | [bitmapWipe call example](api.html#call-bitmapwipe-example) |
-| `data`      | `Integer Array` | `RGB565 pixel values`                                       | **Required for bitmapWipe**; provide `width × 8` RGB565 values |
-| `width`     | `Integer`       | `1 - 32`                                                   | **Required for bitmapWipe** height always needs to be 8     |
+| `aktiv` | `Boolean` | `true / false` |  |
+| `animation` | `String` | `fade / coloredBarWipe / zigzagWipe / bitmapWipe / random` | [bitmapWipe call example](api.html#call-bitmapwipe-example) |
+| `data` | `Integer Array` | `RGB565 pixel values` | **Required for bitmapWipe**; provide `width × 8` RGB565 values |
+| `width` | `Integer` | `1 - 32` | **Required for bitmapWipe** height always needs to be 8 |
 
 ### Clock
 
 ---
 
+An object such as `{"clock": {}}` activates the device clock. The legacy `show` field is ignored in 2.6.0. Omitted clock options retain their current settings. Send text or bitmap content to replace the clock display.
+
 ```json
 {
   "clock": {
-    "show": true,
     "switchAktiv": true,
     "withSeconds": true,
     "switchSec": 5,
@@ -268,15 +278,17 @@ Temporary enable/disable the auto brightness feature until next reboot.
 }
 ```
 
-| Parameter      | Type      | Values                         | Description                                                                |
+| Parameter | Type | Values | Description |
 | :------------- | :-------- | :----------------------------- | :------------------------------------------------------------------------- |
-| `show`         | `Boolean` | `true / false`                 | **Required**                                                               |
-| `switchAktiv`  | `Boolean` | `true / false`                 | Switch clock/date                                                          |
-| `switchSec`    | `Integer` | `1 - 9999`                     | **Required (when Switch clock/date is used)** Switch clock/date in seconds |
-| `withSeconds`  | `Boolean` | `true / false`                 | Show seconds                                                               |
-| `drawWeekDays` | `Boolean` | `true / false`                 | **since v1.1.0** Draw weekdays                                             |
-| `color`        | `JSON`    | `{"r":255, "g":255, "b":255},` | Color of Clock (or hexColor)                                               |
-| `hexColor`     | `String`  | `#FFFFFF`                      | **since v0.3.2** Alternatively to color                                    |
+| `switchAktiv` | `Boolean` | `true / false` | Switch clock/date |
+| `switchSec` | `Integer` | Positive seconds | Interval between clock/date changes; used when switching is enabled |
+| `withSeconds` | `Boolean` | `true / false` | Show seconds |
+| `blinkAnimated` | `Boolean` | `true / false` | Animate the clock separator |
+| `fatFont` | `Boolean` | `true / false` | Select the fat clock font |
+| `largeFont` | `Boolean` | `true / false` | Select the large clock font |
+| `drawWeekDays` | `Boolean` | `true / false` | Draw weekdays |
+| `color` | `JSON` | `{"r":255, "g":255, "b":255}` | RGB color (or `hexColor`) |
+| `hexColor` | `String` | `#FFFFFF` | Alternative to `color` |
 
 ### Bitmap
 
@@ -309,11 +321,11 @@ Provide one RGB565 integer per pixel, in row order (`width × height` values). T
 }
 ```
 
-| Parameter  | Type            | Values                    | Description  |
+| Parameter | Type | Values | Description |
 | :--------- | :-------------- | :------------------------ | :----------- |
-| `data`     | `Integer Array` | `RGB565 pixel values`      | **Required** |
-| `position` | `JSON`          | `{"x":0, "y":0}`          | **Required** |
-| `size`     | `JSON`          | `{"width":8, "height":8}` | **Required** |
+| `data` | `Integer Array` | `RGB565 pixel values` | **Required** |
+| `position` | `JSON` | `{"x":0, "y":0}` | **Required** |
+| `size` | `JSON` | `{"width":8, "height":8}` | **Required** |
 
 ### Bitmaps
 
@@ -411,17 +423,17 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 }
 ```
 
-| Parameter  | Type            | Values                    | Description  |
+| Parameter | Type | Values | Description |
 | :--------- | :-------------- | :------------------------ | :----------- |
-| `data`     | `Integer Array` | `RGB565 pixel values`      | **Required** |
-| `position` | `JSON`          | `{"x":0, "y":0}`          | **Required** |
-| `size`     | `JSON`          | `{"width":8, "height":8}` | **Required** |
+| `data` | `Integer Array` | `RGB565 pixel values` | **Required** |
+| `position` | `JSON` | `{"x":0, "y":0}` | **Required** |
+| `size` | `JSON` | `{"width":8, "height":8}` | **Required** |
 
 ### Bitmap Animation
 
 ---
 
-Each frame needs 64 RGB565 values for an 8×8 image. The firmware stores ten frames; keep animations below ten frames so the end marker remains available. The example cycles through white, blue and red.
+Use 1–9 frames, each containing exactly 64 RGB565 values for an 8×8 image. The firmware has ten storage slots and uses an unused slot as an end marker. Do not send 32×8 frames: although `size` is read, only 64 pixels per frame are stored in 2.6.0. Avoid RGB565 value `2` as the first pixel of a frame, because it is used as the end marker. The example cycles through white, blue and red.
 
 ```json
 {
@@ -465,13 +477,13 @@ Each frame needs 64 RGB565 values for an 8×8 image. The firmware stores ten fra
 }
 ```
 
-| Parameter        | Type                      | Values                                    | Description                                    |
+| Parameter | Type | Values | Description |
 | :--------------- | :------------------------ | :---------------------------------------- | :--------------------------------------------- |
-| `data`           | `Array of Integer Arrays` | One array of 64 RGB565 values per frame | **Required** Only 8x8 BMPs are supported here! |
-| `animationDelay` | `Integer`                 | `0 - 99999`                               | **Required** Higher is a slower animation      |
-| `rubberbanding`  | `Boolean`                 | `true / false`                            | Should the animation run back and forth        |
-| `limitLoops`     | `Integer`                 | `0-99`                                    | Limiting the loops                             |
-| `position`       | `JSON`                    | `{"x":0, "y":0}`                          | Postion                                        |
+| `data` | `Array of Integer Arrays` | One array of 64 RGB565 values per frame | Exactly 64 RGB565 values per frame; see the limits above |
+| `animationDelay` | `Integer` | Milliseconds | **Required** Higher is a slower animation |
+| `rubberbanding` | `Boolean` | `true / false` | Should the animation run back and forth |
+| `limitLoops` | `Integer` | `0` or a positive count | `0` repeats indefinitely; a positive value limits playback |
+| `position` | `JSON` | `{"x":0, "y":0}` | Position |
 
 ### Bar
 
@@ -496,11 +508,11 @@ Each frame needs 64 RGB565 values for an 8×8 image. The firmware stores ten fra
 }
 ```
 
-| Parameter  | Type     | Values                           | Description                             |
+| Parameter | Type | Values | Description |
 | :--------- | :------- | :------------------------------- | :-------------------------------------- |
-| `position` | `JSON`   | `{"x":0, "y":0,"x2":1, "y2":10}` | **Required**                            |
-| `color`    | `JSON`   | `{"r":255, "g":255, "b":255},`   | Color of Clock (or hexColor)            |
-| `hexColor` | `String` | `#FFFFFF`                        | **since v0.3.2** Alternatively to color |
+| `position` | `JSON` | `{"x":0, "y":0,"x2":1, "y2":7}` | Include an explicit value for predictable rendering |
+| `color` | `JSON` | `{"r":255, "g":255, "b":255}` | RGB color (or `hexColor`) |
+| `hexColor` | `String` | `#FFFFFF` | Alternative to `color` |
 
 ### Bars
 
@@ -529,13 +541,15 @@ Here you can pass an array of bars to draw several on one screen.
 }
 ```
 
-| Parameter  | Type     | Values                           | Description                             |
+| Parameter | Type | Values | Description |
 | :--------- | :------- | :------------------------------- | :-------------------------------------- |
-| `position` | `JSON`   | `{"x":0, "y":0,"x2":1, "y2":10}` | **Required**                            |
-| `color`    | `JSON`   | `{"r":255, "g":255, "b":255},`   | Color of Clock (or hexColor)            |
-| `hexColor` | `String` | `#FFFFFF`                        | **since v0.3.2** Alternatively to color |
+| `position` | `JSON` | `{"x":0, "y":0,"x2":1, "y2":7}` | Include an explicit value for predictable rendering |
+| `color` | `JSON` | `{"r":255, "g":255, "b":255}` | RGB color (or `hexColor`) |
+| `hexColor` | `String` | `#FFFFFF` | Alternative to `color` |
 
 ### Set GPIO
+
+`gpio` is the GPIO number, not a D1 mini D-label. Select a free output-capable pin that is not used by the matrix, sensors or flash. Up to four GPIO reset timers can be active. Without `duration`, the output remains at the requested level.
 
 ```json
 {
@@ -547,21 +561,21 @@ Here you can pass an array of bars to draw several on one screen.
 }
 ```
 
-| Parameter  | Type      | Values         | Description                                  |
+| Parameter | Type | Values | Description |
 | :--------- | :-------- | :------------- | :------------------------------------------- |
-| `gpio`     | `Integer` | `E.g. 14`      | **Required** GPIO of the ESP                 |
-| `set`      | `Boolean` | `true / false` | **Required**                                 |
-| `duration` | `Integer` | `1 - 99999999` | Automatic fall back to false in milliseconds |
+| `gpio` | `Integer` | `E.g. 14` | **Required** GPIO of the ESP |
+| `set` | `Boolean` | `true / false` | **Required** |
+| `duration` | `Integer` | Positive milliseconds | Optional timeout after which the GPIO is set LOW |
 
 ### Sound
 
 ---
 
+A DFPlayer Mini must be connected and configured. Firmware supports `play`, `pause`, `next` and `previous`; it does not implement `stop`. Volume and playback changes are more reliable as separate requests on some modules.
+
 #### Option 1
 
-This option allows the use of multiple folders, but has the limitations, that the controls **next** and **previous** are omitted.
-
-The following folders structure must be provided: `sd:\01\001.mp3`
+Supply `folder` and `file` to call the DFPlayer library's folder-play command. Use numbered directories and files, for example `01/001.mp3`. Do not rely on `next` and `previous` to remain within that folder.
 
 ```json
 {
@@ -574,16 +588,16 @@ The following folders structure must be provided: `sd:\01\001.mp3`
 }
 ```
 
-| Parameter | Type      | Values         | Description  |
+| Parameter | Type | Values | Description |
 | :-------- | :-------- | :------------- | :----------- |
-| `volume`  | `Integer` | `0 - 30`       | **Required** |
-| `control` | `String`  | `play / pause` | **Required** |
-| `folder`  | `Integer` | `1 - 99`       | **Required** |
-| `file`    | `Integer` | `1 - 255`      | **Required** |
+| `volume` | `Integer` | `0 - 30` | Optional volume setting |
+| `control` | `String` | `play / pause` | Required for playback commands; omit for volume-only changes |
+| `folder` | `Integer` | `1 - 99` | **Required** |
+| `file` | `Integer` | `1 - 255` | Required for `play` |
 
 #### Option 2
 
-This option also enables the controls **next** and **previous**, but the following order structure must be provided: `sd:\MP3\0001.mp3`
+Omit `folder` (or use `0`) to select a track using the library's `play(file)` command. This uses the DFPlayer's track index, which can depend on the order files were copied to the card. It is not the dedicated `/MP3/0001.mp3` folder command. Prepare the card according to the [DFRobot documentation](https://wiki.dfrobot.com/dfr0299). `next` and `previous` use the module's track navigation.
 
 ```json
 {
@@ -595,25 +609,26 @@ This option also enables the controls **next** and **previous**, but the followi
 }
 ```
 
-| Parameter | Type      | Values                           | Description  |
+| Parameter | Type | Values | Description |
 | :-------- | :-------- | :------------------------------- | :----------- |
-| `volume`  | `Integer` | `0 - 30`                         | **Required** |
-| `control` | `String`  | `play / pause / next / previous` | **Required** |
-| `file`    | `Integer` | `1 - 3000`                       | **Required** |
+| `volume` | `Integer` | `0 - 30` | Optional volume setting |
+| `control` | `String` | `play / pause / next / previous` | Required for playback commands; omit for volume-only changes |
+| `file` | `Integer` | `1 - 3000` | Required for `play` |
 
 ## Brightness
 
 ::: blue HTTP Endpoint [GET]
 /api/brightness
 :::  
-This option can be used to query the current brightness. If u use MQTT, use `<MasterTopic>/matrixinfo` to get the current brightness.
+Query the current brightness. To set it, use the [screen brightness field](#brightness). With MQTT, subscribe to `<MasterTopic>/matrixinfo` to get the current brightness.
 
 The response has the following structure:
 
 ```json
 {
   "brightness_255": 20,
-  "brightness": 7
+  "brightness": 7,
+  "hostname": "PixelIt"
 }
 ```
 
@@ -659,11 +674,16 @@ The response has the following structure:
 
 ```json
 {
-  "lux": 107.0217
+  "lux": 107.0217,
+  "hostname": "PixelIt"
 }
 ```
 
 ## Sensor
+
+The example below represents a DHT22 installation. Available readings depend on the detected hardware. Unsupported measurements are the string `"Not installed"`; BME680 read failures can return `"Error while reading"` instead of a number. Validate types before using values in calculations.
+
+Pressure is in hPa, BME680 gas resistance is in kΩ, humidity and battery level are percentages. Temperature uses the configured Celsius/Fahrenheit unit for DHT22, BME280, BMP280 and BME680. In firmware 2.6.0, the SHT31 path reports Celsius even when Fahrenheit is selected.
 
 ::: blue HTTP Endpoint [GET]
 /api/sensor
@@ -677,13 +697,17 @@ The response has the following structure:
 ```json
 {
   "humidity": 40,
-  "temperature": 21.5
+  "temperature": 21.5,
+  "pressure": "Not installed",
+  "gas": "Not installed",
+  "battery": "Not installed",
+  "hostname": "PixelIt"
 }
 ```
 
 ## State
 
-Its possible to get a disconnection (and connection) message via the MQTT LWT (Last Will and Testament) Feature.
+The device publishes `connected` on MQTT connection and configures `disconnected` as its Last Will. Both use the master-topic state channel.
 
 ::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/state
@@ -693,7 +717,9 @@ Its possible to get a disconnection (and connection) message via the MQTT LWT (L
 disconnected (or connected)
 ```
 
-## Matrix Infomation
+<a id="matrix-infomation"></a>
+
+## Matrix Information
 
 ::: blue HTTP Endpoint [GET]
 /api/matrixinfo
@@ -796,7 +822,7 @@ Additional configuration fields available in 2.6.0:
 
 | Fields | Purpose |
 | :----- | :------ |
-| `temperatureUnit` | `0` for Celsius, `1` for Fahrenheit |
+| `temperatureUnit` | `0` for Celsius, `1` for Fahrenheit; see the SHT31 exception under [Sensor](#sensor) |
 | `clock24Hours`, `clockDayLightSaving`, `clockDateDayMonth`, `clockDayOfWeekFirstMonday` | Time format, automatic daylight saving, day/month ordering and first weekday |
 | `clockAutoFallbackActive`, `clockAutoFallbackTime`, `clockAutoFallbackAnimation` | Return to the clock after screen inactivity; timeout is in seconds |
 | `clockBlinkAnimated`, `clockLargeFont`, `clockFatFont`, `clockDrawWeekDays` | Clock appearance |
@@ -808,6 +834,8 @@ Additional configuration fields available in 2.6.0:
 | `ldrDevice`, `ldrPulldown`, `ldrSmoothing` | Light sensor selection and configuration |
 | `initialVolume` | DFPlayer startup volume |
 | `sendTelemetry`, `checkUpdateScreen` | Telemetry and update notification options |
+
+HTTP configuration writes restart the device after saving. The WebUI also restarts it after configuration changes. MQTT `setConfig` saves the settings without restarting; restart after changing pins, peripheral selection or connection settings so initialization uses the new configuration.
 
 Button actions are `0` (none), `1` (clock), `2` (toggle sleep), `3` (play/pause), `4` (previous track) or `5` (next track). Use the WebUI to choose valid pins and hardware-dependent settings.
 

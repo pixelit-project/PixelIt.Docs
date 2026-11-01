@@ -16,80 +16,114 @@ For a first installation or a full upgrade over USB, select the matching "first 
 
 ## Flashing ESP8266 (Windows)
 
-- [ESPEasy Flasher](https://www.bastelbunker.de/wp-content/uploads/ESPEasy_Flasher.zip)
+The Webflasher above is the easiest browser-based option. For command-line flashing, use Python 3.10 or newer and esptool 5.x. Create and activate a virtual environment in PowerShell:
 
-To flash the Wemos D1 Mini (or simillar ESP8266 board) we use the ESPEasy Flasher for simplicity. After unpacking the ESPEasy_Flasher.zip only the current `firmware_XXX.bin` must be copied into the folder of the ESPEasy Flasher.
-Now we have two dropdown menus after starting the FlashESP8266.exe:
-![](/flash_esp8266.png)
+```powershell
+py -3 -m venv pixelit-flash-env
+.\pixelit-flash-env\Scripts\Activate.ps1
+python -m pip install "esptool>=5,<6"
+python -m esptool version
+```
+
+Replace `COM3` with your board's serial port, then flash the matching ESP8266 image:
+
+```powershell
+python -m esptool --chip esp8266 --port COM3 --baud 460800 write-flash 0x0 firmware_v2.6.0_ESP8266_d1_mini.bin
+```
 
 #### COM-Port
 
-Here you have to select the port where you have connected your Wemos D1 mini (or simillar ESP8266 board).
+Find the USB serial port in Windows Device Manager. Close other programs using that port before flashing.
 
 #### Firmware
 
-Now here we have two items the `CleanFlash.bin` and `firmware_XXX.bin`:
+Download the `.bin` for your board from the stable release. The example above is for an ESP8266 D1 mini. It is not an ESP32 image.
 
-- `CleanFlash.bin` Has the task to zero the complete flash of the ESP, which can be very helpful if the ESP was already used for other projects and makes problems with the current project (e.g. no hotspot opens)
-- `firmware_XXX.bin` Is the firmware of the PixelIt :)
+A full erase removes saved settings and WiFi credentials. Use it only when a clean installation is needed, then repeat the write command:
 
-Now you just have to press the Flash button and wait a bit.
+```powershell
+python -m esptool --chip esp8266 --port COM3 erase-flash
+```
 
 ## Flashing (macOS)
 
-The serial commands below are for ESP8266 boards. For ESP32, use the Webflasher above and select the matching board and installation method.
+These commands target ESP8266 boards. For ESP32 USB installation, use the matching first-install image in the Webflasher.
 
 #### Install esptool
 
-Install esptool (e.g. via homebrew)  
-`brew install esptool`
+Use Python 3.10 or newer and install esptool 5.x in a virtual environment:
+
+```sh
+python3 -m venv pixelit-flash-env
+source pixelit-flash-env/bin/activate
+python -m pip install 'esptool>=5,<6'
+python -m esptool version
+```
 
 #### Find your board
 
-Connect your board via USB, and get the device address by running:  
-`ls /dev/tty*usb*`
+```sh
+ls /dev/cu.usb*
+```
 
-This should output something like:  
-`/dev/tty.usbserial-1337`
+Replace `/dev/cu.usbserial-1337` below with the port shown for your board.
 
 #### Erase and flash the firmware
 
-Erase flash  
-`esptool.py --port /dev/tty.XXX erase_flash`
+A normal write erases the sectors it needs. To install the D1 mini image:
 
-Flash firmware  
-`esptool.py --port /dev/tty.XXX --baud 1000000 write_flash --flash_size=4MB -fm dio 0 firmware_XXX.bin`
+```sh
+python -m esptool --chip esp8266 --port /dev/cu.usbserial-1337 --baud 460800 write-flash 0x0 firmware_v2.6.0_ESP8266_d1_mini.bin
+```
+
+If a clean installation is required, first erase all flash, then run the write command again. A full erase removes saved settings and WiFi credentials:
+
+```sh
+python -m esptool --chip esp8266 --port /dev/cu.usbserial-1337 erase-flash
+```
 
 ## Flashing (Linux)
 
-The serial commands below are for ESP8266 boards. For ESP32, use the Webflasher above and select the matching board and installation method.
+These commands target ESP8266 boards. For ESP32 USB installation, use the matching first-install image in the Webflasher.
 
-Install esptool (e.g. via pip)  
-`pip install --upgrade esptool`
+Use Python 3.10 or newer and install esptool 5.x in a virtual environment:
+
+```sh
+python3 -m venv pixelit-flash-env
+source pixelit-flash-env/bin/activate
+python -m pip install 'esptool>=5,<6'
+python -m esptool version
+```
 
 #### Find your board
 
-Connect your board via USB, and get the device address by running:  
-`ls /dev/ttyUSB*`
+```sh
+ls /dev/ttyUSB* /dev/ttyACM*
+```
 
-This should output something like:  
-`/dev/ttyUSB0`
+Some patterns may have no matches. Use the port belonging to your board, such as `/dev/ttyUSB0`. Ensure your user has serial-port access according to your distribution's instructions.
 
 #### Erase and flash the firmware
 
-Erase flash  
-`esptool.py --port /dev/ttyXXX erase_flash`
+```sh
+python -m esptool --chip esp8266 --port /dev/ttyUSB0 --baud 460800 write-flash 0x0 firmware_v2.6.0_ESP8266_d1_mini.bin
+```
 
-Flash firmware  
-`esptool.py --port /dev/ttyXXX --baud 1000000 write_flash --flash_size=4MB -fm dio 0 firmware_XXX.bin`
+For a clean installation, erase first and then repeat the write command. This removes saved settings and WiFi credentials:
+
+```sh
+python -m esptool --chip esp8266 --port /dev/ttyUSB0 erase-flash
+```
+
+The examples use the [esptool 5 command syntax](https://docs.espressif.com/projects/esptool/en/latest/esp8266/esptool/basic-commands.html). See the official [installation instructions](https://docs.espressif.com/projects/esptool/en/latest/esp32/installation.html) if Python or virtual-environment setup fails. If flashing is unreliable, retry at a lower baud rate such as `115200`.
 
 ## Setup
 
-After flashing, the PixelIt should now set up its own WiFi AccessPoint (SSID: `PIXELIT`). If you have connected to this AP, you can enter and save the WiFi data of your network. If everything has worked and the PixelIt is connected to the WiFi and the Internet, you should now see a time.
+On a fresh installation, connect to the `PIXELIT` WiFi access point and enter your network credentials in the setup portal. Once connected, the device obtains its time through NTP.
 
-Now you can connect to the [Webinterface](webinterface.html) of PixelIt. Find the IP-Adress in your routers DHCP lease list or try the default hostname of PixelIt `pixelit` to finish the setup in the [Options](webinterface.html#options).
+Find the device's IP address in your router's DHCP client list and open it in a browser. In the [Webinterface](webinterface.html), configure matrix layout, time and optional peripherals. Save changes and restart after changing peripheral pins. An existing installation may retain its saved WiFi credentials, so an access point does not necessarily appear after every update.
 
-Now the next step should be to look at the [Tools](tools.html) to see the available options for creating ads (most called _Screens_ here).
+Next, use the [API](api.html), [Node-RED](nodered.html) or [ioBroker](iobroker.html) to display your own screens. The [Tools](tools.html) page explains how to create and find pixel art.
 
 ## Troubleshooting
 
