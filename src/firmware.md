@@ -1,8 +1,8 @@
 # Firmware
 
-- [PixelIt Firmware](https://github.com/pixelit-project/PixelIt/releases).
+- [PixelIt Firmware](https://github.com/pixelit-project/PixelIt/releases/latest).
 
-Note: For Wemos D1 mini (Clone) (see [Part list](hardware.html#parts-list)) you need the `XXX_d1_mini.bin` firmware.
+Choose the firmware for your exact board. For a Wemos D1 mini (ESP8266), the 2.6.0 release provides `firmware_v2.6.0_ESP8266_d1_mini.bin` (see the [components list](hardware.html#diy-components-list)).
 
 ## Flashing (Web)
 
@@ -10,8 +10,8 @@ Select the hardware you are using and then press the connect button.
 
 <iframe id="dynamicFrame" title="PixelIt USB firmware installer" src="/pixelit_flasher/index.html" width="100%" height="400px" frameborder="0" ></iframe>
 
-::: tip Flasing ESP32
-When you flash a ESP32 based board the first time or change the complete firmware, choose the "first install" firmware. After that you can use the "normal" firmware or the "OTA" firmware upgrade from the WebUI.
+::: tip Flashing ESP32
+For a first installation or a full upgrade over USB, select the matching "first install" image. In GitHub release downloads, these images end in `.full-upgrade.bin`. For an OTA update through the WebUI, use the matching application image without `.full-upgrade` in its filename. For example, Ulanzi TC001 uses `firmware_v2.6.0_ESP32_ulanzi.full-upgrade.bin` for a full USB installation and `firmware_v2.6.0_ESP32_ulanzi.bin` for OTA.
 :::
 
 ## Flashing ESP8266 (Windows)
@@ -37,6 +37,8 @@ Now you just have to press the Flash button and wait a bit.
 
 ## Flashing (macOS)
 
+The serial commands below are for ESP8266 boards. For ESP32, use the Webflasher above and select the matching board and installation method.
+
 #### Install esptool
 
 Install esptool (e.g. via homebrew)  
@@ -59,6 +61,8 @@ Flash firmware
 `esptool.py --port /dev/tty.XXX --baud 1000000 write_flash --flash_size=4MB -fm dio 0 firmware_XXX.bin`
 
 ## Flashing (Linux)
+
+The serial commands below are for ESP8266 boards. For ESP32, use the Webflasher above and select the matching board and installation method.
 
 Install esptool (e.g. via pip)  
 `pip install --upgrade esptool`

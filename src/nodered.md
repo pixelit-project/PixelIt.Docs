@@ -5,7 +5,7 @@ sidebarDepth: 2
 # Node-RED
 
 There is a fairly well [PixelIt Node-RED extension](https://flows.nodered.org/node/node-red-contrib-pixelit) for [Node-RED](https://nodered.org/).  
-This helps you to easily create the screens for PixelIt and also a [playlist](#playlist) of the screens was realized here.
+This helps you to easily create the screens for PixelIt and also a [playlist](#playlist-update) of the screens was realized here.
 
 - The playlist is also controlled fully automatically and your PixelIt switches through the various screens and always displays the latest data.
 - There is also a [beginner example flow](#beginner-flow) that you can import to get started.

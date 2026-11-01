@@ -1,5 +1,7 @@
 # Introduction
 
+This documentation targets the stable [PixelIt 2.6.0 release](https://github.com/pixelit-project/PixelIt/releases/tag/2.6.0).
+
 ![](/pixelit_pic.jpeg)
 
 ## Features
@@ -26,24 +28,24 @@ You can use the PixelIt with different hardware. You can use a prebuild hardware
 ### DIY Hardware
 
 - MCU
-  - [Wemos D1 mini](hardware.html#minimal-setup-basis)
-  - [NodeMCU v2](hardware.html#minimal-setup-basis)
-  - [Generic ESP8266](hardware.html#minimal-setup-basis)
+  - [Wemos D1 mini](hardware.html#microcontrollers)
+  - [NodeMCU v2](hardware.html#microcontrollers)
+  - [Generic ESP8266](hardware.html#microcontrollers)
 - Matrix
-  - [Pixelmatrix (8x32)](hardware.html#minimal-setup-basis)
-  - [Pixelmatrix (CJMCU)(4x 8x8)](hardware.html#minimal-setup-basis)
-  - [MicroMatrix by foorschtbar (4x 8x8)](hardware.html#minimal-setup-basis)
+  - [Pixelmatrix (8x32)](hardware.html#matrix)
+  - [Pixelmatrix (CJMCU)(4x 8x8)](hardware.html#matrix)
+  - [MicroMatrix by foorschtbar (4x 8x8)](hardware.html#matrix)
 - Extensions
-  - [LDR GL5516](hardware.html#ldr-gl5516-sensor-upgrade-brightness-lux)
-  - [DHT22](hardware.html#dht22-sensor-upgrade-temperature-humidity)
-  - [BMP280](hardware.html#bme280-sensor-upgrade-temperature-humidity-pressure)
-  - [BME680](hardware.html#bme680-sensor-upgrade-temperature-humidity-pressure-gas)
-  - [DFPlayer Mini](hardware.html#dfplayer-mini-upgrade-mp3-player)
-  - [Touch Buttons](hardware.html#touch-buttons-upgrade-touch-sensor)
+  - [LDR GL5516](hardware.html#ldr-gl5516)
+  - [DHT22](hardware.html#dht22-sensor)
+  - [BME280](hardware.html#bme280-sensor)
+  - [BME680](hardware.html#bme680-sensor)
+  - [DFPlayer Mini](hardware.html#dfplayer-mini)
+  - [Touch Buttons](hardware.html#touch-buttons)
 
 ## Getting started
 
-- Start with the [hardware](hardware.html) and checkout the [parts list](hardware.html#parts-list).
+- Start with the [hardware](hardware.html) and checkout the [parts list](hardware.html#diy-components-list).
 - Then you can flash the [firmware](firmware.html) and setup the matrix in the [webinterface](webinterface.html).
 - At last step, you send your own screens to the [API](api.html) or use [Node-RED](nodered.html) (recommanded) or [ioBroker](iobroker.html) to create and send your own screens to your PixelIt.
 

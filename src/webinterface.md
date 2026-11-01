@@ -8,9 +8,13 @@ You can try the web interface in your browser. The demo is readonly and you can'
 
 ## Dashboard
 
+System details can be collapsed. Dashboard logs can be filtered and paused.
+
 ![](/webinterface_main.png)
 
 ## Options
+
+Options and Sensors & Buttons keep separate configuration drafts. Save your edits using the sticky save toolbar, or discard them to return to the saved configuration. The WebUI warns you about unsaved changes.
 
 ![](/webinterface_config.png)
 
@@ -20,9 +24,9 @@ If you have a working DFPlayer, you can enable this option to play a sound on bo
 
 ### MQTT
 
-If you have a working MQTT server, you can enable this option to use a MQTT broker for messages instead of the REST API.
+If you have a working MQTT server, you can enable this option to receive messages through a MQTT broker. The REST API remains available at the same time.
 
-If you use MQTT, you can also use the HomeAssistant to turn on/off the PixelIt and get some status information. To control the PixelIt we recommend [Node-RED](nodered.html).
+Enable Home Assistant discovery in the MQTT options to use Home Assistant to turn on/off the PixelIt and get some status information. To control the PixelIt we recommend [Node-RED](nodered.html).
 
 ## Sensor & Buttons
 
@@ -37,5 +41,9 @@ If you use MQTT, you can also use the HomeAssistant to turn on/off the PixelIt a
 ![](/webinterface_pixel_gallery.png)
 
 ## Update
+
+For a manual update, download the firmware for your hardware. The WebUI provides hardware-specific release downloads, image compatibility warnings and a prompt to back up your configuration before uploading. Check these warnings before continuing. The update view shows upload progress and reports reconnect or error status.
+
+For the latest stable firmware, use [GitHub Releases / latest](https://github.com/pixelit-project/PixelIt/releases/latest). An ESP32 first-install image is for a full installation over USB; use the matching OTA image for updates through the WebUI. See [Firmware](firmware.html#flashing-web) for USB installation.
 
 ![](/webinterface_update.png)

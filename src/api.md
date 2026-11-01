@@ -19,9 +19,11 @@ The port is `80`, The REST API is available at `/api/`. The following endpoints 
 
 ### MQTT
 
-The default MasterTopic is `pixelit/`, but can be changed in the WebUI. The MasterTopic is used as a prefix for all MQTT topics. If enabled, the device also uses an additional topic with the name `<MasterTopic>/<hostname>`. When you use MQTT, you are able to use multiple PixelIts but with the additional topic you can also address a single PixelIt.
+The default MQTT prefix is `pixelit/` and can be changed in the WebUI. In the examples below, `<MasterTopic>` means the prefix without its trailing slash, so `<MasterTopic>/setScreen` becomes `pixelit/setScreen`. Do not add a second slash.
 
-With MQTT enabled, the device will also discoverable via [Home Assistant](https://www.home-assistant.io/integrations/mqtt/).
+Enable `mqttUseDeviceTopic` to also address a single device at `<MasterTopic>/<hostname>/setScreen`. Devices using the same master topic receive the same master-topic commands.
+
+Enable both MQTT and `mqttHAdiscoverable` to make the device discoverable via [Home Assistant](https://www.home-assistant.io/integrations/mqtt/).
 
 ::: tip
 We recommend using MQTT.
@@ -34,15 +36,15 @@ The following endpoints are available:
 | Endpoint       | Description                      | Details                               |
 | :------------- | :------------------------------- | ------------------------------------- |
 | `screen`       | Show screen on device            | [Details](api.html#screen)            |
-| `brightness`   | Get or set brightness            | [Details](api.html#brightness)        |
+| `brightness`   | Get brightness; set via screen            | [Details](api.html#brightness-2)        |
 | `buttons`      | Get button states                | [Details](api.html#buttons)           |
 | `luxsensor`    | Get lux sensor value             | [Details](api.html#lux-sensor)        |
 | `sensor`       | Get sensor values                | [Details](api.html#sensor)            |
 | `state`        | Get state (MQTT only)            | [Details](api.html#state)             |
 | `matrixinfo`   | Get matrix info                  | [Details](api.html#matrix-infomation) |
 | `config`       | Get or set config                | [Details](api.html#matrix-config)     |
-| `wifireset`    | WiFi reset                       | [Details](api.html#matrix-config)     |
-| `factoryreset` | Reset device to factory defaults | [Details](api.html#matrix-config)     |
+| `wifireset`    | WiFi reset                       | [Details](api.html#wifi-reset)        |
+| `factoryreset` | Reset device to factory defaults | [Details](api.html#factory-reset)     |
 
 ## Screen
 
@@ -152,8 +154,9 @@ The following special characters are supported:
 | Parameter         | Type               | Values                         | Description                             |
 | :---------------- | :----------------- | :----------------------------- | :-------------------------------------- |
 | `textString`      | `String`           |                                | **Required**. Displayed Text            |
-| `scrollText`      | `Boolean / String` | `true / false / auto`          | **Required** Big front                  |
-| `scrollTextDelay` | `Integer`          | `1 - 9999`                     | **Required (when scrollText is used)**  |
+| `bigFont`         | `Boolean`          | `true / false`                 | Select the large text font              |
+| `scrollText`      | `Boolean / String` | `true / false / auto`          | Enable scrolling; `auto` scrolls long text                  |
+| `scrollTextDelay` | `Integer`          | `1 - 9999`                     | Optional delay in milliseconds; otherwise uses `scrollTextDefaultDelay`  |
 | `centerText`      | `Boolean`          | `true / false`                 | **Required**                            |
 | `position`        | `JSON`             | `{"x":8, "y":1}`               | **Required**                            |
 | `color`           | `JSON`             | `{"r":255, "g":255, "b":255},` | **Required** (or hexColor)              |
@@ -163,12 +166,11 @@ The following special characters are supported:
 
 ---
 
-`sleepMode` could be send as a key of a screen payload. When `sleepMode` is active, the device dimms down the matrix to `brightness: 0`.
-Additionally while `sleepMode` is active the `/api/screen`-endpoint and `<MasterTopic>/setScreen`-topic are not fully evaluated. Only when `sleepMode` previously or within the same message-body is set to `false` , the requested screen will be displayed.
+Send `sleepMode` through the screen endpoint to turn the display off or on. While asleep, the device does not render new screen content. A message containing `sleepMode` also skips new screen content, even when its value is `false`.
 
-:::warning Disclaimer
-Enabeling `sleepMode` does not enable power saving features on the MCU itself, like e.g. deep sleep functionality of an ESP8266.
-:::
+To wake the display and show a new screen, first send `{"sleepMode": false}`, then send the new screen in a separate request without `sleepMode`. Waking restores the last saved screen when one is available.
+
+Enabling `sleepMode` turns off the matrix display; it does not put the ESP8266 or ESP32 into deep sleep.
 
 ```json
 {
@@ -178,7 +180,7 @@ Enabeling `sleepMode` does not enable power saving features on the MCU itself, l
 
 | Parameter   | Type      | Values         | Description                                                   |
 | :---------- | :-------- | :------------- | :------------------------------------------------------------ |
-| `sleepMode` | `Boolean` | `true / false` | When acitve `sleepMode` disables the rendering of new screens |
+| `sleepMode` | `Boolean` | `true / false` | When active `sleepMode` disables the rendering of new screens |
 
 ### Brightness
 
@@ -230,9 +232,9 @@ Temporary enable/disable the auto brightness feature until next reboot.
 {
   "switchAnimation": {
     "aktiv": true,
-    "animation": "fade",
-    "data": [0, 0, 0, 0, 0, 0],
-    "width": 8
+    "animation": "bitmapWipe",
+    "data": [65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535],
+    "width": 1
   }
 }
 ```
@@ -241,7 +243,7 @@ Temporary enable/disable the auto brightness feature until next reboot.
 | :---------- | :-------------- | :--------------------------------------------------------- | :---------------------------------------------------------- |
 | `aktiv`     | `Boolean`       | `true / false`                                             |                                                             |
 | `animation` | `String`        | `fade / coloredBarWipe / zigzagWipe / bitmapWipe / random` | [bitmapWipe call example](api.html#call-bitmapwipe-example) |
-| `data`      | `Integer Array` | `[0, 0, 0, 0, 0, 0]`                                       | **Required for bitmapWipe**                                 |
+| `data`      | `Integer Array` | `RGB565 pixel values`                                       | **Required for bitmapWipe**; provide `width × 8` RGB565 values |
 | `width`     | `Integer`       | `1 - 32`                                                   | **Required for bitmapWipe** height always needs to be 8     |
 
 ### Clock
@@ -271,6 +273,7 @@ Temporary enable/disable the auto brightness feature until next reboot.
 | `show`         | `Boolean` | `true / false`                 | **Required**                                                               |
 | `switchAktiv`  | `Boolean` | `true / false`                 | Switch clock/date                                                          |
 | `switchSec`    | `Integer` | `1 - 9999`                     | **Required (when Switch clock/date is used)** Switch clock/date in seconds |
+| `withSeconds`  | `Boolean` | `true / false`                 | Show seconds                                                               |
 | `drawWeekDays` | `Boolean` | `true / false`                 | **since v1.1.0** Draw weekdays                                             |
 | `color`        | `JSON`    | `{"r":255, "g":255, "b":255},` | Color of Clock (or hexColor)                                               |
 | `hexColor`     | `String`  | `#FFFFFF`                      | **since v0.3.2** Alternatively to color                                    |
@@ -279,10 +282,21 @@ Temporary enable/disable the auto brightness feature until next reboot.
 
 ---
 
+Provide one RGB565 integer per pixel, in row order (`width × height` values). The example is a solid white 8×8 bitmap.
+
 ```json
 {
   "bitmap": {
-    "data": [0, 0, 0, 0, 0, 0],
+    "data": [
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+      65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535
+    ],
     "position": {
       "x": 0,
       "y": 0
@@ -297,7 +311,7 @@ Temporary enable/disable the auto brightness feature until next reboot.
 
 | Parameter  | Type            | Values                    | Description  |
 | :--------- | :-------------- | :------------------------ | :----------- |
-| `data`     | `Integer Array` | `[0, 0, 0, 0, 0, 0]`      | **Required** |
+| `data`     | `Integer Array` | `RGB565 pixel values`      | **Required** |
 | `position` | `JSON`          | `{"x":0, "y":0}`          | **Required** |
 | `size`     | `JSON`          | `{"width":8, "height":8}` | **Required** |
 
@@ -305,7 +319,7 @@ Temporary enable/disable the auto brightness feature until next reboot.
 
 ---
 
-How to display multiple bitmaps on one screen.
+Use `bitmaps` to display multiple static bitmaps on one screen. Each bitmap needs `width × height` RGB565 values.
 ::: warning Limitations
 When displaying multiple bitmaps, animated bitmaps, scrolling or text are not supported!
 :::
@@ -314,7 +328,16 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 {
   "bitmaps": [
     {
-      "data": [0, 0, 0, 0, 0, 0],
+      "data": [
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535
+      ],
       "position": {
         "x": 0,
         "y": 0
@@ -325,7 +348,16 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
       }
     },
     {
-      "data": [0, 0, 0, 0, 0, 0],
+      "data": [
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535
+      ],
       "position": {
         "x": 8,
         "y": 0
@@ -336,7 +368,16 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
       }
     },
     {
-      "data": [0, 0, 0, 0, 0, 0],
+      "data": [
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535
+      ],
       "position": {
         "x": 16,
         "y": 0
@@ -347,7 +388,16 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
       }
     },
     {
-      "data": [0, 0, 0, 0, 0, 0],
+      "data": [
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535
+      ],
       "position": {
         "x": 24,
         "y": 0
@@ -363,7 +413,7 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 
 | Parameter  | Type            | Values                    | Description  |
 | :--------- | :-------------- | :------------------------ | :----------- |
-| `data`     | `Integer Array` | `[0, 0, 0, 0, 0, 0]`      | **Required** |
+| `data`     | `Integer Array` | `RGB565 pixel values`      | **Required** |
 | `position` | `JSON`          | `{"x":0, "y":0}`          | **Required** |
 | `size`     | `JSON`          | `{"width":8, "height":8}` | **Required** |
 
@@ -371,13 +421,42 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 
 ---
 
+Each frame needs 64 RGB565 values for an 8×8 image. The firmware stores ten frames; keep animations below ten frames so the end marker remains available. The example cycles through white, blue and red.
+
 ```json
 {
   "bitmapAnimation": {
     "data": [
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0]
+      [
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535
+      ],
+      [
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31,
+        31, 31, 31, 31, 31, 31, 31, 31
+      ],
+      [
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488,
+        63488, 63488, 63488, 63488, 63488, 63488, 63488, 63488
+      ]
     ],
     "animationDelay": 20,
     "rubberbanding": false,
@@ -388,7 +467,7 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 
 | Parameter        | Type                      | Values                                    | Description                                    |
 | :--------------- | :------------------------ | :---------------------------------------- | :--------------------------------------------- |
-| `data`           | `Array of Integer Arrays` | `[[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]]` | **Required** Only 8x8 BMPs are supported here! |
+| `data`           | `Array of Integer Arrays` | One array of 64 RGB565 values per frame | **Required** Only 8x8 BMPs are supported here! |
 | `animationDelay` | `Integer`                 | `0 - 99999`                               | **Required** Higher is a slower animation      |
 | `rubberbanding`  | `Boolean`                 | `true / false`                            | Should the animation run back and forth        |
 | `limitLoops`     | `Integer`                 | `0-99`                                    | Limiting the loops                             |
@@ -550,7 +629,8 @@ The HTTP response has the following structure:
 {
   "leftButton": "false",
   "middleButton": "true",
-  "rightButton": "false"
+  "rightButton": "false",
+  "hostname": "PixelIt"
 }
 ```
 
@@ -561,13 +641,7 @@ The HTTP response has the following structure:
 &lt;MasterTopic&gt;/buttons/button2<br />
 :::
 
-The MQTT response has the following structure:
-
-```json
-{
-    "true/false"
-}
-```
+Each button topic publishes the plain text payload `true` or `false` (without quotes or a JSON object).
 
 ## Lux Sensor
 
@@ -630,13 +704,15 @@ disconnected (or connected)
 ::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/matrixinfo
 :::
-The response has the following structure:
+Example response from an ESP8266 (values vary by device):
 
 ```json
 {
-  "pixelitVersion": "0.3.4",
+  "pixelitVersion": "2.6.0",
   "note": "",
   "hostname": "PixelIt",
+  "deviceID": "example-device",
+  "buildSection": "ESP8266_d1_mini",
   "freeSketchSpace": 2695168,
   "wifiRSSI": -58,
   "wifiQuality": 84,
@@ -647,9 +723,15 @@ The response has the following structure:
   "sketchSize": 447424,
   "chipID": 13668362,
   "cpuFreqMHz": 80,
-  "sleepMode": false
+  "sleepMode": false,
+  "wifiBSSID": "00:11:22:33:44:55",
+  "uptime": 120,
+  "resetReason": "Power on",
+  "matrixsize": {"cols": 32, "rows": 8}
 }
 ```
+
+On ESP32, `chipID` is a string and `sketchSize` is omitted.
 
 ## Matrix Config
 
@@ -662,7 +744,7 @@ The response has the following structure:
 ::: blue MQTT Topic [SUBSCRIBE]
 &lt;MasterTopic&gt;/config
 :::
-The response has the following structure:
+The response contains the saved configuration plus `showBatteryBtn`, which indicates whether the board supports the battery button. The following is an excerpt with example values, not a complete response or a list of defaults:
 
 ```json
 {
@@ -700,26 +782,49 @@ The response has the following structure:
 &lt;MasterTopic&gt;/setConfig
 :::
 
-To set the configuration, the upper structure must be followed.
+Send a JSON object containing the fields you want to change. Omitted fields keep their current values; supplied settings are saved. For example:
+
+```json
+{
+  "clock24Hours": true,
+  "clockAutoFallbackActive": true,
+  "clockAutoFallbackTime": 30
+}
+```
+
+Additional configuration fields available in 2.6.0:
+
+| Fields | Purpose |
+| :----- | :------ |
+| `temperatureUnit` | `0` for Celsius, `1` for Fahrenheit |
+| `clock24Hours`, `clockDayLightSaving`, `clockDateDayMonth`, `clockDayOfWeekFirstMonday` | Time format, automatic daylight saving, day/month ordering and first weekday |
+| `clockAutoFallbackActive`, `clockAutoFallbackTime`, `clockAutoFallbackAnimation` | Return to the clock after screen inactivity; timeout is in seconds |
+| `clockBlinkAnimated`, `clockLargeFont`, `clockFatFont`, `clockDrawWeekDays` | Clock appearance |
+| `bootBatteryScreen`, `bootSound` | Battery display and sound at startup |
+| `mqttUseDeviceTopic`, `mqttHAdiscoverable` | Per-device MQTT topics and Home Assistant discovery |
+| `luxOffset`, `temperatureOffset`, `humidityOffset`, `pressureOffset`, `gasOffset` | Sensor reading corrections |
+| `dfpRXpin`, `dfpTXpin`, `onewirePin`, `SCLPin`, `SDAPin` | Peripheral pin selections; use the board-specific values from the WebUI |
+| `btn0Pin`, `btn0PressedLevel`, `btn0Enabled`, `btn0Action` | Left button configuration; replace `0` with `1` or `2` for the middle or right button |
+| `ldrDevice`, `ldrPulldown`, `ldrSmoothing` | Light sensor selection and configuration |
+| `initialVolume` | DFPlayer startup volume |
+| `sendTelemetry`, `checkUpdateScreen` | Telemetry and update notification options |
+
+Button actions are `0` (none), `1` (clock), `2` (toggle sleep), `3` (play/pause), `4` (previous track) or `5` (next track). Use the WebUI to choose valid pins and hardware-dependent settings.
 
 ## WiFi Reset
 
-::: blue HTTP Endpoint [GET]
+::: blue HTTP Endpoint [POST]
 /api/wifireset
-:::
-::: blue MQTT Topic [PUBLISH]
-&lt;MasterTopic&gt;/wifiReset
 :::
 
 Erases the WiFi configuration and restarts the device. Device will be in AP mode after restart.
 
 ## Factory Reset
 
-::: blue HTTP Endpoint [GET]
+::: blue HTTP Endpoint [POST]
 /api/factoryreset
-:::
-::: blue MQTT Topic [PUBLISH]
-&lt;MasterTopic&gt;/factoryReset
 :::
 
 Erases the WiFi configuration and all other settings and restarts the device. Device will be in AP mode after restart.
+
+These reset operations are available over HTTP POST; the firmware does not implement MQTT reset topics.
