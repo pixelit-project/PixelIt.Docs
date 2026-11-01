@@ -23,7 +23,7 @@ The default MQTT prefix is `pixelit/` and can be changed in the WebUI. In the ex
 
 Enable `mqttUseDeviceTopic` to also address a single device at `<MasterTopic>/<hostname>/setScreen`. Devices using the same master topic receive the same master-topic commands.
 
-Enable both MQTT and `mqttHAdiscoverable` to make the device discoverable via [Home Assistant](https://www.home-assistant.io/integrations/mqtt/).
+Enable both MQTT and `mqttHAdiscoverable` to make the device discoverable via Home Assistant. See the [Home Assistant guide](homeassistant.html) for setup, discovery limitations and automation examples.
 
 MQTT query topics (`getLuxsensor`, `getMatrixinfo`, `getConfig`) require a non-empty JSON object as their request payload in 2.6.0; empty payloads and `{}` are rejected by the shared parser. Responses are published on the corresponding sensor, matrix-info or config topic.
 

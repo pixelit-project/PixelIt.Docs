@@ -28,7 +28,7 @@ With a configured DFPlayer Mini, this option plays track index `1` at startup us
 
 If you have a working MQTT server, you can enable this option to receive messages through a MQTT broker. The REST API remains available at the same time.
 
-Enable Home Assistant discovery in the MQTT options to use Home Assistant to turn on/off the PixelIt and get some status information. To control the PixelIt we recommend [Node-RED](nodered.html).
+Enable Home Assistant discovery in the MQTT options to control display power and brightness and receive status information. See [Home Assistant](homeassistant.html) for setup, available entities and automation examples for sending screens. [Node-RED](nodered.html) can also control PixelIt through MQTT.
 
 ## Sensor & Buttons
 

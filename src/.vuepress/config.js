@@ -93,6 +93,10 @@ module.exports = {
         path: "/nodered",
       },
       {
+        title: "Home Assistant",
+        path: "/homeassistant",
+      },
+      {
         title: "ioBroker",
         path: "/iobroker",
       },
