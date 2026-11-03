@@ -41,3 +41,7 @@ These rules apply to the entire repository.
 - Do not include generated build output (`src/.vuepress/dist/`), temporary files, or `node_modules/` in changes. Review the final diff and run `git diff --check` before finishing.
 - Keep changes focused on the task and preserve existing changes made by others.
 - Update npm dependencies and the lockfile only when required by the task. Avoid unrelated dependency upgrades.
+
+## Text font documentation scope
+
+- Treat `text.bigFont` as a Boolean in documentation and examples: `false` for small text and `true` for large text. Use JSON booleans, not strings or numeric font selectors. Do not document values `2` or `3`. This is an explicit user preference. Document clock fonts separately through the clock options.

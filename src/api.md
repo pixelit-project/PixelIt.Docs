@@ -44,7 +44,7 @@ Use compact JSON serialization without extra whitespace: firmware 2.6.0 compares
 To temporarily protect screen content from ordinary incoming screen commands, send a positive `forcedDuration` in milliseconds alongside `setScreen` over WebSocket:
 
 ```json
-{"forcedDuration":5000,"setScreen":{"text":{"textString":"Alert","bigFont":0,"scrollText":false,"centerText":true,"position":{"x":0,"y":1},"hexColor":"#FFFFFF"}}}
+{"forcedDuration":5000,"setScreen":{"text":{"textString":"Alert","bigFont":false,"scrollText":false,"centerText":true,"position":{"x":0,"y":1},"hexColor":"#FFFFFF"}}}
 ```
 
 This example protects the text for five seconds. The duration applies to text, bitmap, bitmap animation and bar content, not a clock-only command. Another forced screen can replace it. Sleep, brightness, auto-brightness, GPIO and sound controls are processed separately from the content lock. The clock fallback also runs separately; disable automatic fallback if it would interrupt the forced screen.
@@ -188,13 +188,15 @@ The following special characters are supported:
 | Parameter | Type | Values | Description |
 | :---------------- | :----------------- | :----------------------------- | :-------------------------------------- |
 | `textString` | `String` |  | **Required**. Displayed Text |
-| `bigFont` | `Boolean / Integer` | `false / true / 0 / 1 / 2 / 3` | `0` small, `1` standard large; `2` fat and `3` very large are intended for clock text |
+| `bigFont` | `Boolean` | `false / true` | `false`: small text; `true`: large text |
 | `scrollText` | `Boolean / String` | `true / false / auto` | Enable scrolling; `auto` scrolls long text |
 | `scrollTextDelay` | `Integer` | Positive milliseconds | Optional delay in milliseconds; otherwise uses `scrollTextDefaultDelay` |
 | `centerText` | `Boolean` | `true / false` | Include an explicit value for predictable rendering |
 | `position` | `JSON` | `{"x":8, "y":1}` | Include an explicit value for predictable rendering |
 | `color` | `JSON` | `{"r":255, "g":255, "b":255}` | Use this or `hexColor` |
 | `hexColor` | `String` | `#FFFFFF` | Alternative to `color` |
+
+Use JSON booleans (`false` or `true`) for `text.bigFont`, without quotation marks. Configure the internal clock fonts separately using `fatFont` and `largeFont`; see [Clock](#clock).
 
 ### Sleep Mode
 

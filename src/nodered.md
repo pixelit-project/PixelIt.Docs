@@ -16,7 +16,7 @@ Start with the [Node-RED getting started guide](https://nodered.org/docs/getting
 
 ## Beginner Flow
 
-Import the following flow, open **Set your PixelIt IP**, enter the device IP in Core, and deploy. Click **Display text** to send a five-second text alert. The flow uses only this package and built-in nodes. A Function node converts the Text node's font flag to a numeric firmware value; package 0.5.3 otherwise forwards `bigFont` as a string. Without a device IP or MQTT connection, it only shows the generated message in Debug.
+Import the following flow, open **Set your PixelIt IP**, enter the device IP in Core, and deploy. Click **Display text** to send a five-second text alert. The flow uses only this package and built-in nodes. A Function node converts the Text node's font flag to a JSON boolean; package 0.5.3 otherwise forwards `bigFont` as a string. Without a device IP or MQTT connection, it only shows the generated message in Debug.
 
 For MQTT, connect Core's output to an **MQTT Out** node configured to use `msg.topic`. Match Core's Master-Topic to the device's prefix, for example `pixelit`. Leave the IP empty for MQTT-only operation; setting an IP as well sends commands over both transports.
 
@@ -100,7 +100,7 @@ For MQTT, connect Core's output to an **MQTT Out** node configured to use `msg.t
     "type": "function",
     "z": "pixelit-example",
     "name": "Normalize font flag",
-    "func": "msg.text.bigFont = msg.text.bigFont === true || msg.text.bigFont === \"true\" ? 1 : 0;\nreturn msg;",
+    "func": "msg.text.bigFont = msg.text.bigFont === true || msg.text.bigFont === \"true\";\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -309,7 +309,7 @@ The firmware font supports these special characters:
 
 - **Name**: This value can be chosen as you like.
 - **Text**: The text that should be displayed on the screen. You can also pass the text dynamically by passing the message property in double braces. Set `msg.payload` and access it with <span v-pre>`{{payload}}`</span>.
-- **Big Font**: Select the text font. In package 0.5.3, normalize `msg.text.bigFont` to numeric `0` or `1` in a Function node after Text, as shown in the beginner flow; the firmware reads a numeric font selector.
+- **Big Font**: Select the text font. In package 0.5.3, normalize `msg.text.bigFont` to boolean `false` or `true` in a Function node after Text, as shown in the beginner flow; send JSON booleans rather than strings.
 - **Scrolling**: If the text should be scrolled. If you select `Auto`, the text will be scrolled if it is longer than the screen width.
 - **Scrolling Delay**: The delay between the scrolling steps in milliseconds.
 - **Center Text**: Center text in the available space to the right of Position X.

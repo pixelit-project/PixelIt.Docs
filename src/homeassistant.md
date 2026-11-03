@@ -66,7 +66,7 @@ Then send the text:
 action: mqtt.publish
 data:
   topic: pixelit/PixelIt/setScreen
-  payload: '{"text":{"textString":"Hello Home Assistant","bigFont":0,"scrollText":"auto","hexColor":"#FFFFFF","position":{"x":0,"y":1}}}'
+  payload: '{"text":{"textString":"Hello Home Assistant","bigFont":false,"scrollText":"auto","hexColor":"#FFFFFF","position":{"x":0,"y":1}}}'
   qos: 0
   retain: false
 ```
@@ -93,7 +93,7 @@ actions:
   - action: mqtt.publish
     data:
       topic: pixelit/PixelIt/setScreen
-      payload: '{"text":{"textString":"Good morning!","bigFont":0,"scrollText":"auto","hexColor":"#FFFFFF","position":{"x":0,"y":1}}}'
+      payload: '{"text":{"textString":"Good morning!","bigFont":false,"scrollText":"auto","hexColor":"#FFFFFF","position":{"x":0,"y":1}}}'
       retain: false
   - delay: "00:00:10"
   - action: mqtt.publish
