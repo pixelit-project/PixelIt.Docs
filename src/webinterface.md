@@ -20,6 +20,14 @@ Options and Sensors & Buttons keep separate configuration drafts. Save your edit
 
 ![Options with the save toolbar and configuration cards](/webinterface_2_6_options.jpg)
 
+### Matrix and clock settings
+
+Choose the layout matching your matrix wiring and configure LED color correction, automatic brightness reference points, NTP time and clock fallback. See the [configuration reference](api.html#matrix-layout) for layout values, correction profiles and calibration, and [time and clock fallback](api.html#time-and-clock-fallback) for UTC offsets and the supported daylight-saving rule.
+
+### Telemetry and update notifications
+
+Telemetry uploads and matrix update notifications are independent options. See [Telemetry and update notifications](api.html#telemetry-and-update-notifications) for the transmitted data, service addresses, timing and how to disable each option. Matrix update notifications do not install firmware automatically.
+
 ### Play sound on boot
 
 With a configured DFPlayer Mini, this option plays track index `1` at startup using the initial volume setting. File-copy order can affect that index; see [Sound Option 2](api.html#option-2).

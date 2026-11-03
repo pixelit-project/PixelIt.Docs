@@ -39,6 +39,31 @@ Commands use a wrapper, unlike REST and MQTT screen payloads. For example, activ
 
 Use compact JSON serialization without extra whitespace: firmware 2.6.0 compares incoming message length with the parsed object's compact length and rejects mismatches. `setConfig` wraps a configuration object and restarts the device after saving. Reset commands are `{"wifiReset":true}` and `{"factoryReset":true}`.
 
+#### Forced screens
+
+To temporarily protect screen content from ordinary incoming screen commands, send a positive `forcedDuration` in milliseconds alongside `setScreen` over WebSocket:
+
+```json
+{"forcedDuration":5000,"setScreen":{"text":{"textString":"Alert","bigFont":0,"scrollText":false,"centerText":true,"position":{"x":0,"y":1},"hexColor":"#FFFFFF"}}}
+```
+
+This example protects the text for five seconds. The duration applies to text, bitmap, bitmap animation and bar content, not a clock-only command. Another forced screen can replace it. Sleep, brightness, auto-brightness, GPIO and sound controls are processed separately from the content lock. The clock fallback also runs separately; disable automatic fallback if it would interrupt the forced screen.
+
+Expiry only allows new screen commands again; it does not restore the previous screen. `forcedDuration` is a WebSocket wrapper field, not a field supported by REST or MQTT screen payloads.
+
+#### Live matrix view and logs
+
+The firmware also sends these WebSocket messages:
+
+| Message | Payload |
+| :------ | :------ |
+| `liveview` | A string of six hexadecimal RGB digits per pixel, in row order from the top-left corner. A 32×8 matrix has 256 pixels and 1536 hexadecimal characters. This is RGB888, unlike the RGB565 arrays used by screen commands. |
+| `log` | An object containing `timeStamp`, `function` and `message`. Timestamps use the device's current time. |
+
+The live-view buffer is checked every 250 ms and sent when its contents change. For example, `{"liveview":"..."}` represents the message shape only; replace `...` with the complete pixel string when decoding it. Log messages are emitted as events occur.
+
+The `telemetry` message is sent when a WebSocket client connects. The command `{"sendTelemetry":true}` resets the telemetry send timer; an upload follows when telemetry is enabled. See [Telemetry and update notifications](#telemetry-and-update-notifications).
+
 ## Endpoints
 
 The following endpoints are available:
@@ -705,6 +730,10 @@ The response has the following structure:
 }
 ```
 
+### Legacy sensor aliases
+
+Firmware 2.6.0 retains `GET /api/dhtsensor` as an alias for `/api/sensor`. It also publishes the same sensor JSON on `<MasterTopic>/dhtsensor` and, when enabled, `<MasterTopic>/<hostname>/dhtsensor`. These aliases are for existing integrations; use `sensor` for new integrations. Despite the old name, their payload is not limited to DHT sensors.
+
 ## State
 
 The device publishes `connected` on MQTT connection and configures `disconnected` as its Last Will. Both use the master-topic state channel.
@@ -839,6 +868,72 @@ HTTP configuration writes restart the device after saving. The WebUI also restar
 
 Button actions are `0` (none), `1` (clock), `2` (toggle sleep), `3` (play/pause), `4` (previous track) or `5` (next track). Use the WebUI to choose valid pins and hardware-dependent settings.
 
+### Matrix layout
+
+Set `matrixType` to match the physical wiring. This selects pixel mapping, not matrix dimensions; released builds remain 32×8.
+
+| Value | Layout |
+| :---- | :----- |
+| `1` | Column major, top-left origin, zigzag |
+| `2` | Row major, top-left origin, zigzag |
+| `3` | Four CJMCU 8×8 tiles, column major, bottom-left origin, progressive |
+| `4` | MicroMatrix: four 8×8 tiles in one row, top-left origin, row-major zigzag |
+| `5` | Four CJMCU 8×8 tiles in one row, top-left origin, row-major progressive |
+
+### Color correction
+
+`matrixTempCorrection` selects LED color correction or a color-temperature profile. It does not correct environmental temperature readings; use `temperatureOffset` for those.
+
+- LED correction profiles: `default` (same as `typicalsmd5050`), `typicalsmd5050`, `typical8mmpixel`.
+- Color-temperature profiles: `tungsten40w`, `tungsten100w`, `halogen`, `carbonarc`, `highnoonsun`, `directsunlight`, `overcastsky`, `clearbluesky`, `warmfluorescent`, `standardfluorescent`, `coolwhitefluorescent`, `fullspectrumfluorescent`, `growlightfluorescent`, `blacklightfluorescent`, `mercuryvapor`, `sodiumvapor`, `metalhalide`, `highpressuresodium`.
+- Custom RGB correction: a fixed-width string such as `"255,200,150"`. Use three decimal digits for each channel, with commas between channels, and values from `000` to `255`.
+
+Use a listed profile or the exact custom format: unrecognized strings enter the custom RGB parser. Restart after changing the correction so LED initialization applies it.
+
+### Automatic brightness calibration
+
+`matrixBrightnessAutomatic` enables automatic adjustment. `mbaLuxMin` and `mbaLuxMax` define two measured-light reference points; `mbaDimMin` and `mbaDimMax` define the corresponding display brightness values on the 0–255 scale. Use an increasing lux range with distinct endpoints.
+
+For example, this maps 0 lux to brightness 20 and 400 lux to brightness 100:
+
+```json
+{"matrixBrightnessAutomatic":true,"mbaLuxMin":0,"mbaLuxMax":400,"mbaDimMin":20,"mbaDimMax":100}
+```
+
+The firmware recalculates brightness approximately once per second using an integer linear mapping. Readings outside the lux reference range are extrapolated; the result is clamped only to 0–255. The configured dim reference points are therefore not hard brightness limits. Manual screen brightness can be overwritten by the next automatic adjustment.
+
+For an analog LDR, `ldrDevice` accepts `GL5516`, `GL5528`, `GL5537_1`, `GL5537_2`, `GL5539` or `GL5549`. An unknown name falls back to `GL5528`. `ldrPulldown` is the physical pulldown resistance in ohms; `ldrSmoothing` is passed to the LDR driver's smoothing parameter (firmware initial value `0`). These settings apply to the analog LDR, not BH1750 or MAX44009. Restart after changes. See [LDR wiring](hardware.html#ldr-gl5516).
+
+### Time and clock fallback
+
+`ntpServer` selects the NTP server. `clockTimeZone` is a numeric UTC offset in hours, including fractional offsets, rather than a named time zone. For example, `1` selects UTC+1 before daylight saving is applied.
+
+`clockDayLightSaving` enables the firmware's European-style March-to-October daylight-saving calculation, adding one hour. It is not a worldwide time-zone database. Disable it for regions with different rules and configure the required offset explicitly.
+
+`clockAutoFallbackActive` returns to the internal clock after `clockAutoFallbackTime` seconds without a screen message. `clockAutoFallbackAnimation` selects the transition:
+
+| Value | Transition |
+| :---- | :--------- |
+| `0` | None |
+| `1` | Fade |
+| `2` | Colored bar wipe |
+| `3` | Zigzag wipe |
+| `4` | Random choice of the three animations |
+
+### Telemetry and update notifications
+
+`sendTelemetry` enables uploads to `http://pixelit.bastelbunker.de/api/telemetry`. Its firmware initial value is `true`; saved configuration can override it. The first upload is scheduled after approximately 30.3 seconds of uptime, then every 12 hours.
+
+The JSON contains `uuid` (SHA-1 of the chip ID), `version`, `type`, `buildSection`, a `matrix` object (`type`, `name`, `width`, `height`) and a `sensors` array of detected sensor names. It does not contain the sensor readings. Disable uploads with a configuration write:
+
+```json
+{"sendTelemetry":false}
+```
+
+`checkUpdateScreen` independently enables version checks through `http://pixelit.bastelbunker.de/api/lastversion` and update notifications on the matrix. Its firmware initial value is also `true`. Checks start after approximately 30.5 seconds. In 2.6.0, the interval expression evaluates to **48 minutes**, despite a source comment saying eight hours.
+
+Every 30 minutes, if the returned version is newer and the display is awake, the firmware sends an update screen with a five-second content lock. As with other forced screens, expiry does not itself restore prior content; a subsequent screen or clock fallback replaces it. This is a notification, not an automatic firmware installation. Disable it with `{"checkUpdateScreen":false}`. See [manual updates](webinterface.html#update).
+
 ## WiFi Reset
 
 ::: blue HTTP Endpoint [POST]
@@ -856,3 +951,7 @@ Erases the WiFi configuration and restarts the device. Device will be in AP mode
 Erases the WiFi configuration and all other settings and restarts the device. Device will be in AP mode after restart.
 
 These reset operations are available over HTTP POST; the firmware does not implement MQTT reset topics.
+
+## Sources
+
+These interface details were checked against the [2.6.0 stable release](https://github.com/pixelit-project/PixelIt/releases/tag/2.6.0), its [firmware implementation](https://github.com/pixelit-project/PixelIt/blob/2.6.0/src/PixelIt.ino), [live-view encoder](https://github.com/pixelit-project/PixelIt/blob/2.6.0/src/Liveview.cpp) and [daylight-saving calculation](https://github.com/pixelit-project/PixelIt/blob/2.6.0/include/Tools.h). Firmware initial values described above apply before saved settings are loaded.

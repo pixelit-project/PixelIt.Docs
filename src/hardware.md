@@ -108,6 +108,8 @@ Provides the light reading used for automatic brightness control and exposed thr
 | G | GND | - | Leg 1 |  |
 | A0 | GPIO34 | Leg 2 | Leg 2 | Acts as a voltage divider |
 
+The analog driver also supports GL5528, GL5537_1, GL5537_2, GL5539 and GL5549. Select the actual LDR model and physical pulldown resistance, then restart. See [automatic brightness calibration](api.html#automatic-brightness-calibration) for sensor settings and lux-to-brightness mapping.
+
 ### DHT22 Sensor
 
 Exposes temperature and humidity through the API and MQTT. Set `onewirePin` to match DATA; use a pull-up between DATA and 3.3 V if your sensor module does not already include one.
