@@ -920,7 +920,15 @@ For an analog LDR, `ldrDevice` accepts `GL5516`, `GL5528`, `GL5537_1`, `GL5537_2
 | `1` | Fade |
 | `2` | Colored bar wipe |
 | `3` | Zigzag wipe |
-| `4` | Random choice of the three animations |
+| `4` | Random Wipe, which chooses among the nine effects |
+| `5` | Curtain |
+| `6` | Pixel Dissolve |
+| `7` | Slide |
+| `8` | Blinds |
+| `9` | CRT |
+| `10` | Glitch |
+
+Select the effect in **Options → Clock → Fallback Animation** in the WebUI bundled with this firmware.
 
 ### Telemetry and update notifications
 
