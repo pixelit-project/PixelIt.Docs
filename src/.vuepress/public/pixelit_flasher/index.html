@@ -41,7 +41,7 @@
     p { margin: 0; }
     .intro { margin-bottom: 1rem; font-size: .9rem; }
     label { display: block; margin-bottom: .5rem; font-size: .9rem; font-weight: 600; }
-    select {
+    select, input[type="file"] {
       width: 100%;
       min-height: 44px;
       padding: .65rem .75rem;
@@ -52,7 +52,7 @@
       font: inherit;
       font-size: .9rem;
     }
-    select:focus-visible, button:focus-visible, a:focus-visible {
+    select:focus-visible, input:focus-visible, summary:focus-visible, button:focus-visible, a:focus-visible {
       outline: 2px solid var(--accentColor);
       outline-offset: 3px;
     }
@@ -84,6 +84,11 @@
     a { color: var(--accentColor); text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
     #loadError { margin-top: .75rem; }
+    .local-firmware { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--borderColor); }
+    .local-firmware summary { cursor: pointer; font-weight: 600; min-height: 44px; }
+    .local-firmware p { margin-bottom: .75rem; font-size: .85rem; }
+    .local-firmware label { margin-top: 1rem; }
+    #localStatus { margin-top: .75rem; overflow-wrap: anywhere; }
     ewt-install-dialog {
       --roboto-font: var(--flasher-font);
       --text-color: var(--textColor);
@@ -124,6 +129,24 @@
       <span class="usb-note">Use a USB cable that supports data.</span>
     </div>
     <p id="loadError" role="alert" hidden></p>
+    <details class="local-firmware">
+      <summary>Flash a local firmware file</summary>
+      <p>Install an older version or your own build from your computer.
+        <a href="https://github.com/pixelit-project/PixelIt/releases" target="_blank" rel="noopener noreferrer">Download older releases ↗</a>
+      </p>
+      <label for="localFirmware">Firmware file (.bin)</label>
+      <input id="localFirmware" type="file" accept=".bin" aria-describedby="localFileNote localStatus" />
+      <p class="release-note" id="localFileNote">Choose the firmware for your exact board. For ESP32, use a file ending in .full-upgrade.bin; for ESP8266, use the matching .bin file. ESP32 OTA application files cannot be installed here.</p>
+      <p>The connected chip is detected automatically. The filename determines the supported image type; it does not verify the board or file contents. Your file stays on your computer and is not uploaded.</p>
+      <div class="actions">
+        <esp-web-install-button id="localInstaller">
+          <button slot="activate" id="localConnectButton" disabled>Connect &amp; flash local file</button>
+          <span slot="unsupported" class="fallback">USB installation is unavailable in this browser. Try desktop Chrome or Edge.</span>
+          <span slot="not-allowed" class="fallback">Open this installer over HTTPS to connect your device.</span>
+        </esp-web-install-button>
+      </div>
+      <p id="localStatus" role="status" aria-live="polite"></p>
+    </details>
     <noscript>Enable JavaScript to use the USB installer.</noscript>
     <footer>
       <a href="https://github.com/pixelit-project/PixelIt/releases" target="_blank" rel="noopener noreferrer">Older versions on GitHub Releases ↗</a>
@@ -234,4 +257,5 @@
   });
 </script>
 
+<script src="local-firmware.js"></script>
 </html>

@@ -7,6 +7,9 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
+      - name: Test local firmware selection
+        run: node .github/tests/test_local_firmware.js
+
       - name: Test Webflasher release selection
         run: python -B -m unittest discover -s .github/tests -v
 
