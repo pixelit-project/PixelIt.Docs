@@ -35,7 +35,7 @@ class WebflasherTests(unittest.TestCase):
         self.assertEqual(webflasher.latest_releases(lambda url: stable if url.endswith('/latest') else []),
                          (stable, None))
 
-    def test_generation_filters_options_and_preserves_historical_assets(self):
+    def test_generation_removes_unselected_assets(self):
         stable = release("v2.6.0")
         beta = release("v2.7.0-beta.10", prerelease=True)
         old = release("v3.0.0-beta", prerelease=True)
@@ -45,17 +45,47 @@ class WebflasherTests(unittest.TestCase):
             for item in (stable, beta, old):
                 for asset in item['assets']:
                     (root / 'firmware' / asset['name']).touch()
+            (root / 'manifest').mkdir()
+            (root / 'manifest' / 'manifest_orphan.json').write_text('{}')
+            (root / 'manifest' / 'README.txt').write_text('keep')
             with patch.object(webflasher, 'ROOT', root), patch.object(webflasher, 'latest_releases', return_value=(stable, beta)):
                 webflasher.main()
             entries = json.loads((root / 'meta.json').read_text())
             self.assertEqual([entry['version'] for entry in entries], ['v2.6.0'] * 2 + ['v2.7.0-beta.10'] * 2)
             self.assertTrue(all(entry['beta'] for entry in entries[2:]))
             self.assertEqual({entry['full-upgrade'] for entry in entries[:2]}, {False, True})
-            self.assertEqual(len(list((root / 'manifest').glob('*.json'))), 6)
-            self.assertEqual(len(list((root / 'firmware').glob('*.bin'))), 6)
+            self.assertEqual(len(list((root / 'manifest').glob('*.json'))), 4)
+            self.assertEqual(len(list((root / 'firmware').glob('*.bin'))), 4)
+            self.assertTrue((root / 'manifest' / 'README.txt').exists())
             for entry in entries:
                 manifest = json.loads((root / 'manifest' / entry['manifest']).read_text())
                 self.assertTrue((root / 'manifest' / manifest['builds'][0]['parts'][0]['path']).exists())
+
+    def test_failed_release_validation_leaves_all_files_unchanged(self):
+        stable = release("v2.6.0")
+        beta = release("v2.7.0-beta", prerelease=True)
+        for failure in ('api', 'stable_asset', 'beta_asset'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                (root / 'firmware').mkdir()
+                (root / 'manifest').mkdir()
+                assets = stable['assets'] + beta['assets']
+                missing = {'stable_asset': assets[0]['name'], 'beta_asset': assets[-1]['name']}.get(failure)
+                for asset in assets + release("v1.0.0")['assets']:
+                    if asset['name'] != missing:
+                        (root / 'firmware' / asset['name']).write_bytes(b'firmware')
+                (root / 'manifest' / 'manifest_old.json').write_text('{}')
+                (root / 'meta.json').write_text('[]')
+                def snapshot():
+                    return {str(p.relative_to(root)): p.read_bytes() for p in root.rglob('*') if p.is_file()}
+                before = snapshot()
+                with patch.object(webflasher, 'ROOT', root), patch.object(
+                    webflasher, 'latest_releases', return_value=(stable, beta),
+                    side_effect=OSError('API unavailable') if failure == 'api' else None,
+                ):
+                    with self.assertRaises((OSError, ValueError)):
+                        webflasher.main()
+                self.assertEqual(snapshot(), before)
 
     def test_missing_assets_fail_instead_of_offering_older_release(self):
         with self.assertRaises(ValueError):

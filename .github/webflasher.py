@@ -93,8 +93,8 @@ def main():
     selected = select_firmware(entries, releases)
     manifest_dir = ROOT / "manifest"
     manifest_dir.mkdir(exist_ok=True)
-    # Preserve historical manifest URLs and binaries; only the selector is filtered.
-    for entry in entries:
+    # Validate release selection before writing or removing any assets.
+    for entry in selected:
         manifest = {
             "name": "PixelIt", "version": entry["version"],
             "home_assistant_domain": "PixelIt",
@@ -109,6 +109,16 @@ def main():
         if not target.exists() or json.loads(target.read_text()) != manifest:
             target.write_text(content)
     (ROOT / "meta.json").write_text(json.dumps(selected, indent=2) + "\n")
+    keep_firmware = {entry["firmware"] for entry in selected}
+    keep_manifests = {entry["manifest"] for entry in selected}
+    for path in sorted((ROOT / "firmware").glob("*.bin")):
+        if path.name not in keep_firmware:
+            path.unlink()
+            print(f"Removed firmware: {path.name}")
+    for path in sorted(manifest_dir.glob("manifest_*.json")):
+        if path.name not in keep_manifests:
+            path.unlink()
+            print(f"Removed manifest: {path.name}")
     print("Selected releases:", ", ".join(r["tag_name"] for r in releases if r))
     print(f"+++ Prepared {len(selected)} installation options +++")
 

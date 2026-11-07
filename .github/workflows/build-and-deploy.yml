@@ -22,18 +22,16 @@ jobs:
       - name: Upload build artifacts 💾
         uses: actions/upload-artifact@v4
         with:
-          name: webflasher-manifest-files
-          path: |
-            ./src/.vuepress/public/pixelit_flasher/meta.json
-            ./src/.vuepress/public/pixelit_flasher/manifest/*.json
+          name: webflasher-assets
+          path: ./src/.vuepress/public/pixelit_flasher/
 
-      - name: Commit new manifest files📝
+      - name: Commit Webflasher asset changes📝
         run: |
           git config --global user.name 'PixelIt Pipeline Bot'
           git config --global user.email 'bot@pixelit'
           if [[ $(git status --porcelain) ]]; then
             git add --all
-            git commit -m "Pushed new manifest files via GitHub Actions"
+            git commit -m "Updated Webflasher assets via GitHub Actions"
             git push
             echo "Changes committed."
           else
@@ -47,10 +45,15 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
+      # Checkout still contains the assets from the triggering commit. Replace
+      # them completely so deleted firmware cannot reappear in the deployed site.
+      - name: Remove Webflasher assets from checkout
+        run: rm -rf ./src/.vuepress/public/pixelit_flasher
+
       - name: Download build artifacts 💾
         uses: actions/download-artifact@v4
         with:
-          name: webflasher-manifest-files
+          name: webflasher-assets
           path: ./src/.vuepress/public/pixelit_flasher
 
       - name: Display structure of downloaded files 🔍
