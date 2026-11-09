@@ -1,15 +1,15 @@
 {
   "name": "PixelIt",
-  "version": "v3.0.0-beta.5",
+  "version": "v3.0.0-beta.6",
   "home_assistant_domain": "PixelIt",
   "funding_url": "https://github.com/pixelit-project/PixelIt",
   "new_install_prompt_erase": true,
   "builds": [
     {
-      "chipFamily": "ESP8266",
+      "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "../firmware/firmware_v3.0.0-beta.5_ESP8266_generic.bin",
+          "path": "../firmware/firmware_v3.0.0-beta.6_ESP32_ulanzi.bin",
           "offset": 0
         }
       ]
