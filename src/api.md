@@ -5,7 +5,7 @@ sidebarDepth: 2
 
 # API
 
-Use the HTTP REST API on port 80 or MQTT to control PixelIt. Both interfaces can be active at the same time. This page describes firmware 2.6.0.
+Use the HTTP REST API on port 80 or MQTT to control PixelIt. Both interfaces can be active at the same time. This page describes firmware 3.0.0.
 
 ::: tip
 If you use the [Node-RED](nodered.html) or [ioBroker](iobroker.html) integration, you don't need to use the API directly.
@@ -21,13 +21,15 @@ HTTP endpoints are listed below. Send screen and configuration payloads as JSON 
 
 The default MQTT prefix is `pixelit/` and can be changed in the WebUI. In the examples below, `<MasterTopic>` means the prefix without its trailing slash, so `<MasterTopic>/setScreen` becomes `pixelit/setScreen`. Do not add a second slash.
 
-Enable `mqttUseDeviceTopic` to also address a single device at `<MasterTopic>/<hostname>/setScreen`. Devices using the same master topic receive the same master-topic commands.
+Enable `mqttUseDeviceTopic` to also address a single device at `<MasterTopic>/<hostname>/setScreen`. Devices using the same master topic receive the same master-topic commands. Home Assistant discovery always enables device topics in 3.0.0, even if `mqttUseDeviceTopic` was disabled. Availability then uses `<MasterTopic>/<hostname>/state`; migrate automations using the master availability topic.
 
-Enable both MQTT and `mqttHAdiscoverable` to make the device discoverable via Home Assistant. See the [Home Assistant guide](homeassistant.html) for setup, discovery limitations and automation examples.
+Enable both MQTT and `mqttHAdiscoverable` to make the device discoverable via Home Assistant. See the [Home Assistant guide](homeassistant.html) for setup, available entities and automation examples.
 
-MQTT query topics (`getLuxsensor`, `getMatrixinfo`, `getConfig`) require a non-empty JSON object as their request payload in 2.6.0; empty payloads and `{}` are rejected by the shared parser. Responses are published on the corresponding sensor, matrix-info or config topic.
+MQTT query topics (`getLuxsensor`, `getMatrixinfo`, `getConfig`) require a non-empty JSON object as their request payload in 3.0.0; empty payloads and `{}` are rejected by the shared parser. Responses are published on the corresponding sensor, matrix-info or config topic.
 
 ### WebSocket
+
+The [PixelIt custom integration for Home Assistant](homeassistant.html#pixelit-custom-integration) uses this interface for display control and liveview without an MQTT broker.
 
 The WebUI and ioBroker receive live updates over `ws://<device-ip>:81`. Status messages wrap their data under `sysinfo`, `luxsensor`, `sensor`, `config`, `buttons` or `telemetry`.
 
@@ -37,7 +39,7 @@ Commands use a wrapper, unlike REST and MQTT screen payloads. For example, activ
 {"setScreen":{"clock":{}}}
 ```
 
-Use compact JSON serialization without extra whitespace: firmware 2.6.0 compares incoming message length with the parsed object's compact length and rejects mismatches. `setConfig` wraps a configuration object and restarts the device after saving. Reset commands are `{"wifiReset":true}` and `{"factoryReset":true}`.
+Prefer compact JSON serialization to stay within the device transport budget. Invalid JSON and insufficient-memory failures are reported to the client. `setConfig` wraps a configuration object and restarts the device after saving. Reset commands are `{"wifiReset":true}` and `{"factoryReset":true}`.
 
 #### Forced screens
 
@@ -60,7 +62,9 @@ The firmware also sends these WebSocket messages:
 | `liveview` | A string of six hexadecimal RGB digits per pixel, in row order from the top-left corner. A 32×8 matrix has 256 pixels and 1536 hexadecimal characters. This is RGB888, unlike the RGB565 arrays used by screen commands. |
 | `log` | An object containing `timeStamp`, `function` and `message`. Timestamps use the device's current time. |
 
-The live-view buffer is checked every 250 ms and sent when its contents change. For example, `{"liveview":"..."}` represents the message shape only; replace `...` with the complete pixel string when decoding it. Log messages are emitted as events occur.
+Liveview sends changed images; animation sampling can run faster than the normal 250 ms interval, bounded to 20 preview samples per second. Slow viewers can skip preview frames while the physical animation continues. On ESP32, preview delivery applies backpressure and disconnects failed clients so they do not block the device. The bundled WebUI pauses previews in hidden tabs and resumes with the current image. Status messages arrive separately during reconnect; clients must accept each wrapper independently. For example, `{"liveview":"..."}` represents the message shape only; replace `...` with the complete pixel string when decoding it. Log messages are emitted as events occur. See [logs and diagnostics](troubleshooting.html#logs-and-diagnostics) for fields, units and receive status codes.
+
+ESP32 advertises `sysinfo.previewControl` and `sysinfo.previewCompact`. Capable clients can pause their own preview with `{"preview":{"enabled":false}}` and resume with `true`. Adding `"compact":true` opts into `liveview64`, a Base64 string of raw RGB888 bytes in the same pixel order. The bundled WebUI expands this before rendering. Clients that do not opt in continue receiving hexadecimal `liveview`. Preview selection resets on reconnect and does not pause the physical matrix.
 
 The `telemetry` message is sent when a WebSocket client connects. The command `{"sendTelemetry":true}` resets the telemetry send timer; an upload follows when telemetry is enabled. See [Telemetry and update notifications](#telemetry-and-update-notifications).
 
@@ -76,6 +80,7 @@ The following endpoints are available:
 | `luxsensor` | Get lux sensor value | [Details](api.html#lux-sensor) |
 | `sensor` | Get sensor values | [Details](api.html#sensor) |
 | `state` | Get state (MQTT only) | [Details](api.html#state) |
+| `animationinfo` | Get playback and receive diagnostics (HTTP GET) | [Details](troubleshooting.html#logs-and-diagnostics) |
 | `matrixinfo` | Get matrix info | [Details](api.html#matrix-information) |
 | `config` | Get or set config | [Details](api.html#matrix-config) |
 | `wifireset` | WiFi reset | [Details](api.html#wifi-reset) |
@@ -278,15 +283,17 @@ Enable or disable automatic brightness control without saving the configuration.
 | Parameter | Type | Values | Description |
 | :---------- | :-------------- | :--------------------------------------------------------- | :---------------------------------------------------------- |
 | `aktiv` | `Boolean` | `true / false` |  |
-| `animation` | `String` | `fade / coloredBarWipe / zigzagWipe / bitmapWipe / random` | [bitmapWipe call example](api.html#call-bitmapwipe-example) |
+| `animation` | `String` | `fade / coloredBarWipe / zigzagWipe / bitmapWipe / curtain / pixelDissolve / slide / blinds / crt / glitch / verticalSlide / random` | [bitmapWipe call example](api.html#call-bitmapwipe-example) |
 | `data` | `Integer Array` | `RGB565 pixel values` | **Required for bitmapWipe**; provide `width × 8` RGB565 values |
 | `width` | `Integer` | `1 - 32` | **Required for bitmapWipe** height always needs to be 8 |
+
+With new screen content, `random` chooses among Fade, Colored Bar Wipe, Zigzag Wipe, Curtain, Pixel Dissolve, Slide, Blinds, CRT, Glitch and Vertical Slide. An effect-only request without new content randomly selects one of the three legacy effects: Fade, Colored Bar Wipe or Zigzag Wipe. Bitmap Wipe requires caller-supplied pixels and is excluded from random selection.
 
 ### Clock
 
 ---
 
-An object such as `{"clock": {}}` activates the device clock. The legacy `show` field is ignored in 2.6.0. Omitted clock options retain their current settings. Send text or bitmap content to replace the clock display.
+An object such as `{"clock": {}}` activates the device clock. The legacy `show` field is ignored in 3.0.0. Omitted clock options retain their current settings. Send text or bitmap content to replace the clock display.
 
 ```json
 {
@@ -460,7 +467,18 @@ When displaying multiple bitmaps, animated bitmaps, scrolling or text are not su
 
 ---
 
-Use 1–9 frames, each containing exactly 64 RGB565 values for an 8×8 image. The firmware has ten storage slots and uses an unused slot as an end marker. Do not send 32×8 frames: although `size` is read, only 64 pixels per frame are stored in 2.6.0. Avoid RGB565 value `2` as the first pixel of a frame, because it is used as the end marker. The example cycles through white, blue and red.
+Each frame contains exactly `width × height` RGB565 integers from 0 to 65535, in row order. The default size is 8×8. Set `size: {"width":32,"height":8}` for a full-display animation with 256 values per frame. Dimensions must fit the display.
+
+| Device | Maximum frames at 8×8 | Maximum frames at 32×8 | Total pixel budget |
+| :--- | ---: | ---: | ---: |
+| ESP8266 | 28 | 7 | 1,792 |
+| ESP32 | 160 | 40 | 10,240 |
+
+Both frame count and total pixels must fit. Invalid, empty or oversized animations are rejected rather than truncated. RGB565 value `2` is valid pixel data. See the complete [32×8 example](https://github.com/pixelit-project/PixelIt/blob/3.0.0/examples/animation-32x8.json).
+
+ESP8266 HTTP bodies and WebSocket commands are limited to 12,288 bytes; MQTT packets including topic and overhead must fit 11,264 bytes. ESP32 has a 65,535-byte wire limit for these transports. Metadata and available contiguous heap can limit uploads further. Send large transfers sequentially and avoid repeated uploads during playback. The WebUI uses device-advertised budgets and validates again before sending.
+
+The following example cycles through white, blue and red.
 
 ```json
 {
@@ -506,7 +524,8 @@ Use 1–9 frames, each containing exactly 64 RGB565 values for an 8×8 image. Th
 
 | Parameter | Type | Values | Description |
 | :--------------- | :------------------------ | :---------------------------------------- | :--------------------------------------------- |
-| `data` | `Array of Integer Arrays` | One array of 64 RGB565 values per frame | Exactly 64 RGB565 values per frame; see the limits above |
+| `data` | `Array of Integer Arrays` | One array of `width × height` RGB565 values per frame | See device budgets above |
+| `size` | `JSON` | `{"width":8,"height":8}` | Optional; defaults to 8×8 |
 | `animationDelay` | `Integer` | Milliseconds | **Required** Higher is a slower animation |
 | `rubberbanding` | `Boolean` | `true / false` | Should the animation run back and forth |
 | `limitLoops` | `Integer` | `0` or a positive count | `0` repeats indefinitely; a positive value limits playback |
@@ -710,7 +729,7 @@ The response has the following structure:
 
 The example below represents a DHT22 installation. Available readings depend on the detected hardware. Unsupported measurements are the string `"Not installed"`; BME680 read failures can return `"Error while reading"` instead of a number. Validate types before using values in calculations.
 
-Pressure is in hPa, BME680 gas resistance is in kΩ, humidity and battery level are percentages. Temperature uses the configured Celsius/Fahrenheit unit for DHT22, BME280, BMP280 and BME680. In firmware 2.6.0, the SHT31 path reports Celsius even when Fahrenheit is selected.
+Pressure is in hPa, BME680 gas resistance is in kΩ, humidity and battery level are percentages. Temperature uses the configured Celsius/Fahrenheit unit for DHT22, BME280, BMP280 and BME680. In firmware 3.0.0, the SHT31 path reports Celsius even when Fahrenheit is selected.
 
 ::: blue HTTP Endpoint [GET]
 /api/sensor
@@ -734,7 +753,7 @@ The response has the following structure:
 
 ### Legacy sensor aliases
 
-Firmware 2.6.0 retains `GET /api/dhtsensor` as an alias for `/api/sensor`. It also publishes the same sensor JSON on `<MasterTopic>/dhtsensor` and, when enabled, `<MasterTopic>/<hostname>/dhtsensor`. These aliases are for existing integrations; use `sensor` for new integrations. Despite the old name, their payload is not limited to DHT sensors.
+Firmware 3.0.0 retains `GET /api/dhtsensor` as an alias for `/api/sensor`. It also publishes the same sensor JSON on `<MasterTopic>/dhtsensor` and, when enabled, `<MasterTopic>/<hostname>/dhtsensor`. These aliases are for existing integrations; use `sensor` for new integrations. Despite the old name, their payload is not limited to DHT sensors.
 
 ## State
 
@@ -765,7 +784,7 @@ Example response from an ESP8266 (values vary by device):
 
 ```json
 {
-  "pixelitVersion": "2.6.0",
+  "pixelitVersion": "3.0.0",
   "note": "",
   "hostname": "PixelIt",
   "deviceID": "example-device",
@@ -849,7 +868,7 @@ Send a JSON object containing the fields you want to change. Omitted fields keep
 }
 ```
 
-Additional configuration fields available in 2.6.0:
+Additional configuration fields available in 3.0.0:
 
 | Fields | Purpose |
 | :----- | :------ |
@@ -920,15 +939,36 @@ For an analog LDR, `ldrDevice` accepts `GL5516`, `GL5528`, `GL5537_1`, `GL5537_2
 | `1` | Fade |
 | `2` | Colored bar wipe |
 | `3` | Zigzag wipe |
-| `4` | Random Wipe, which chooses among the nine effects |
+| `4` | Random Wipe, which chooses among all ten individually selectable effects |
 | `5` | Curtain |
 | `6` | Pixel Dissolve |
 | `7` | Slide |
 | `8` | Blinds |
 | `9` | CRT |
 | `10` | Glitch |
+| `11` | Vertical Slide |
 
 Select the effect in **Options → Clock → Fallback Animation** in the WebUI bundled with this firmware.
+
+`clockDateTransition` selects the clock/date transition using the same values `0`–`11`; `12` is **Auto** (the default). Auto uses Vertical Slide for small clock fonts and a slower Fade for the large clock font. Vertical Slide preserves the weekday row when applicable. Select **Clock/date transition** in Options. This setting is separate from `clockAutoFallbackAnimation`, which accepts `0`–`11`.
+
+### Startup screens
+
+`bootScreenAktiv` enables the boot animation. `bootScreenStyle` selects Gradient letters (`0`, default) or Multicolor letters (`1`, classic). `wifiScreenAktiv` independently controls the entire startup WiFi connection screen, including its moving trail and hotspot notice; it defaults to `true`. When disabled, the last startup image remains visible until startup completes. Save and restart to apply startup settings.
+
+### MQTT publishing intervals
+
+`mqttMatrixInfoInterval` controls matrix-info publications in whole seconds (`10`–`86400`, default `15`). It does not change WebSocket status timing.
+
+`mqttSensorPublish` controls sensor and lux publications. Its defaults are:
+
+```json
+{"mqttSensorPublish":{"periodic":false,"dynamic":true,"interval":60,"minInterval":0,"maxInterval":0,"temperature":0.5,"humidity":1,"pressure":1,"gas":5,"battery":1,"lux":5}}
+```
+
+`dynamic` publishes on change. Threshold units are the configured temperature unit, humidity percentage points, hPa, kΩ, battery percentage points and lx. A zero threshold means any actual change. `minInterval` limits change-driven publications; `0` adds no rate limit. `maxInterval` forces periodic publications; `0` disables them. Intervals are whole seconds up to 86400; legacy `interval` is at least 3 seconds and controls change-check cadence when `periodic` is true. When dynamic mode and a nonzero maximum interval are combined, the maximum must be at least the active minimum/check interval.
+
+In the WebUI, choose **when readings change** or **periodically**. Selecting one turns off the other; periodic mode starts at 60 seconds. Existing combined configurations remain accepted. **Use default thresholds** fills the draft; save to apply it. Forced initial/discovery publications still work. Sensor and lux delivery are tracked separately. This policy does not change sensor sampling or automatic brightness.
 
 ### Telemetry and update notifications
 
@@ -940,9 +980,9 @@ The JSON contains `uuid` (SHA-1 of the chip ID), `version`, `type`, `buildSectio
 {"sendTelemetry":false}
 ```
 
-`checkUpdateScreen` independently enables version checks through `http://pixelit.bastelbunker.de/api/lastversion` and update notifications on the matrix. Its firmware initial value is also `true`. Checks start after approximately 30.5 seconds. In 2.6.0, the interval expression evaluates to **48 minutes**, despite a source comment saying eight hours.
+`checkUpdateScreen` independently enables version checks through `http://pixelit.bastelbunker.de/api/lastversion` and update notifications on the matrix. Its firmware initial value is also `true`. Checks start after approximately 30.5 seconds. Subsequent checks run every eight hours and are deferred while animations or scrolling text are active. `includePrereleases` defaults to `false`; set it to `true` to include published beta/RC releases through the existing PixelIt.API version endpoint.
 
-Every 30 minutes, if the returned version is newer and the display is awake, the firmware sends an update screen with a five-second content lock. As with other forced screens, expiry does not itself restore prior content; a subsequent screen or clock fallback replaces it. This is a notification, not an automatic firmware installation. Disable it with `{"checkUpdateScreen":false}`. See [manual updates](webinterface.html#update).
+After discovering a newer version, the enabled matrix notification is shown for 15 seconds, then repeated every 30 minutes. Notifications wait while sleeping or while matrix update notifications are disabled. The Home Assistant read-only firmware entity receives version information independently of the matrix notification setting. This is a notification, not an automatic firmware installation. Disable it with `{"checkUpdateScreen":false}`. See [manual updates](webinterface.html#update).
 
 ## WiFi Reset
 
@@ -964,4 +1004,4 @@ These reset operations are available over HTTP POST; the firmware does not imple
 
 ## Sources
 
-These interface details were checked against the [2.6.0 stable release](https://github.com/pixelit-project/PixelIt/releases/tag/2.6.0), its [firmware implementation](https://github.com/pixelit-project/PixelIt/blob/2.6.0/src/PixelIt.ino), [live-view encoder](https://github.com/pixelit-project/PixelIt/blob/2.6.0/src/Liveview.cpp) and [daylight-saving calculation](https://github.com/pixelit-project/PixelIt/blob/2.6.0/include/Tools.h). Firmware initial values described above apply before saved settings are loaded.
+This 3.0.0 release documentation was prepared against firmware commit [`d2d7f2f`](https://github.com/pixelit-project/PixelIt/tree/d2d7f2fecf9987fddebb61bb978dc6b153a1178b), including `src/Api.cpp`, `src/ScreenContent.cpp`, `src/ScreenTransition.cpp`, `src/Configuration.cpp`, `include/AnimationLimits.h`, `include/ScreenLimits.h` and `include/SensorPublishPolicy.h`. The [3.0.0 release](https://github.com/pixelit-project/PixelIt/releases/tag/3.0.0) must contain this source. Firmware initial values apply before saved settings are loaded.

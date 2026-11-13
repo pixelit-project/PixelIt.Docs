@@ -6,7 +6,7 @@ sidebarDepth: 2
 
 The [PixelIt extension](https://flows.nodered.org/node/node-red-contrib-pixelit) creates screens and manages playlists in [Node-RED](https://nodered.org/). The playlist runs in Node-RED, which must remain running to rotate screens.
 
-These instructions describe `node-red-contrib-pixelit` 0.5.3 with PixelIt firmware 2.6.0. The package requires Node.js 22 or newer and Node-RED 2 or newer; also meet the requirements of your installed Node-RED version. The documentation site's own Node.js version is independent of this runtime requirement.
+These instructions describe `node-red-contrib-pixelit` 0.5.3 with PixelIt firmware 3.0.0. The package requires Node.js 22 or newer and Node-RED 2 or newer; also meet the requirements of your installed Node-RED version. The documentation site's own Node.js version is independent of this runtime requirement.
 
 Install the package through **Manage palette → Install**, then restart Node-RED. Command-line installation in your Node-RED user directory is also supported; see [Adding nodes](https://nodered.org/docs/user-guide/runtime/adding-nodes).
 
@@ -289,7 +289,7 @@ Switch Animation is the node to set a transition animation.
 
 - **Name**: This value can be chosen as you like.
 - **Animation active**: Enables or disables the transition animation.
-- **Animation style**: Here you can set the style of the transition animation.
+- **Animation style**: Select a transition supported by your installed node package and firmware; see [Switch Animation](api.html#switch-animation) for the 3.0.0 effects. If an older node editor does not list an effect, update the package or set `msg.switchAnimation = {aktiv: true, animation: "verticalSlide"}` in a Function node before Core.
 
 ### Text
 
@@ -338,7 +338,7 @@ Set a bitmap's pixel data or gallery ID, dimensions and position. Core resolves 
 
 ![](/bitmap_animation_node.png)
 
-Build a bitmap animation. For PixelIt 2.6.0, use 8×8 frames and at most nine frames, as described in the [firmware API](api.html#bitmap-animation). The extension can generate 32×8 animation payloads, but that does not make them compatible with the stable firmware's 64-pixel frame buffer.
+Build a bitmap animation. PixelIt 3.0.0 supports 8×8 and full-display 32×8 animation frames. Stay within the connected device's frame, pixel and transport budgets; see [Bitmap Animation](api.html#bitmap-animation). ESP8266 supports up to 28 frames at 8×8 or 7 at 32×8; ESP32 supports 160 or 40 respectively.
 
 #### Configuration
 

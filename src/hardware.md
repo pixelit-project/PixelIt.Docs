@@ -11,7 +11,7 @@ PixelIt provides firmware for the Ulanzi TC001. Select the `ESP32_ulanzi` build 
 
 | **Quantity** | **Name** | **Link** | **Notice** |
 | ------------ | ------------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 | Ulanzi TC001 Pixel Clock | [Official store](https://www.ulanzi.com/products/ulanzi-pixel-smart-clock-2882?aff=1181) | ESP32, 32×8 LED matrix, three buttons, built-in battery and light sensor. PixelIt 2.6.0 does not implement the built-in buzzer. |
+| 1 | Ulanzi TC001 Pixel Clock | [Official store](https://www.ulanzi.com/products/ulanzi-pixel-smart-clock-2882?aff=1181) | ESP32, 32×8 LED matrix, three buttons, built-in battery and light sensor. PixelIt 3.0.0 does not implement the built-in buzzer. |
 
 ## DIY components list
 
@@ -175,11 +175,11 @@ Exposes temperature, humidity, pressure and gas values via API and MQTT.
 
 ### Other supported sensors
 
-Firmware 2.6.0 also contains support for BMP280 (temperature and pressure), SHT31 (temperature and humidity), BH1750 and MAX44009 (light). It selects one environmental sensor and one light-sensor source during startup, rather than reporting every connected sensor independently.
+Firmware 3.0.0 also contains support for BMP280 (temperature and pressure), SHT31 (temperature and humidity), BH1750 and MAX44009 (light). It selects one environmental sensor and one light-sensor source during startup, rather than reporting every connected sensor independently.
 
 The light-sensor probe tries BH1750 at `0x23`, then MAX44009, then the analog LDR. The environmental probe tries SHT31 at `0x44`, then BME280 at `0x76`, BMP280 at `0x76`, BME680, then DHT22. Use sensor modules compatible with the board's 3.3 V signals and check their address configuration. Restart after wiring or configuration changes.
 
-The SHT31 driver uses its default `Wire` bus rather than the explicitly configured I²C bus in 2.6.0. Verify the default bus pins on your board and avoid conflicts with the matrix; changing `SDAPin` and `SCLPin` alone does not reconfigure that driver.
+The SHT31 driver uses its default `Wire` bus rather than the explicitly configured I²C bus in 3.0.0. Verify the default bus pins on your board and avoid conflicts with the matrix; changing `SDAPin` and `SCLPin` alone does not reconfigure that driver.
 
 ### DFPlayer Mini
 

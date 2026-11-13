@@ -2,7 +2,7 @@
 
 - [PixelIt Firmware](https://github.com/pixelit-project/PixelIt/releases/latest).
 
-Choose the firmware for your exact board. For a Wemos D1 mini (ESP8266), the 2.6.0 release provides `firmware_v2.6.0_ESP8266_d1_mini.bin` (see the [components list](hardware.html#diy-components-list)).
+Choose the firmware for your exact board. For a Wemos D1 mini (ESP8266), the 3.0.0 release provides `firmware_v3.0.0_ESP8266_d1_mini.bin` (see the [components list](hardware.html#diy-components-list)).
 
 ## Flashing (Web)
 
@@ -11,7 +11,7 @@ Select the hardware you are using and then press the connect button.
 <iframe id="dynamicFrame" title="PixelIt USB firmware installer" src="/pixelit_flasher/index.html" width="100%" height="400px" frameborder="0" ></iframe>
 
 ::: tip Flashing ESP32
-For a first installation or a full upgrade over USB, select the matching "first install" image. In GitHub release downloads, these images end in `.full-upgrade.bin`. For an OTA update through the WebUI, use the matching application image without `.full-upgrade` in its filename. For example, Ulanzi TC001 uses `firmware_v2.6.0_ESP32_ulanzi.full-upgrade.bin` for a full USB installation and `firmware_v2.6.0_ESP32_ulanzi.bin` for OTA.
+For a first installation or a full upgrade over USB, select the matching "first install" image. In GitHub release downloads, these images end in `.full-upgrade.bin`. For an OTA update through the WebUI, use the matching application image without `.full-upgrade` in its filename. For example, Ulanzi TC001 uses `firmware_v3.0.0_ESP32_ulanzi.full-upgrade.bin` for a full USB installation and `firmware_v3.0.0_ESP32_ulanzi.bin` for OTA.
 :::
 
 ## Flashing ESP8266 (Windows)
@@ -28,7 +28,7 @@ python -m esptool version
 Replace `COM3` with your board's serial port, then flash the matching ESP8266 image:
 
 ```powershell
-python -m esptool --chip esp8266 --port COM3 --baud 460800 write-flash 0x0 firmware_v2.6.0_ESP8266_d1_mini.bin
+python -m esptool --chip esp8266 --port COM3 --baud 460800 write-flash 0x0 firmware_v3.0.0_ESP8266_d1_mini.bin
 ```
 
 #### COM-Port
@@ -73,7 +73,7 @@ Replace `/dev/cu.usbserial-1337` below with the port shown for your board.
 A normal write erases the sectors it needs. To install the D1 mini image:
 
 ```sh
-python -m esptool --chip esp8266 --port /dev/cu.usbserial-1337 --baud 460800 write-flash 0x0 firmware_v2.6.0_ESP8266_d1_mini.bin
+python -m esptool --chip esp8266 --port /dev/cu.usbserial-1337 --baud 460800 write-flash 0x0 firmware_v3.0.0_ESP8266_d1_mini.bin
 ```
 
 If a clean installation is required, first erase all flash, then run the write command again. A full erase removes saved settings and WiFi credentials:
@@ -106,7 +106,7 @@ Some patterns may have no matches. Use the port belonging to your board, such as
 #### Erase and flash the firmware
 
 ```sh
-python -m esptool --chip esp8266 --port /dev/ttyUSB0 --baud 460800 write-flash 0x0 firmware_v2.6.0_ESP8266_d1_mini.bin
+python -m esptool --chip esp8266 --port /dev/ttyUSB0 --baud 460800 write-flash 0x0 firmware_v3.0.0_ESP8266_d1_mini.bin
 ```
 
 For a clean installation, erase first and then repeat the write command. This removes saved settings and WiFi credentials:

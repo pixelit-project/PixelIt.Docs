@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # ioBroker
 
-The [PixelIt adapter](https://github.com/pixelit-project/ioBroker.pixelit) sends screens from ioBroker and receives device status, button and sensor updates. This page describes published adapter version 1.1.4 with firmware 2.6.0. The adapter requires Node.js 18 or newer; also meet your ioBroker installation's runtime requirements.
+The [PixelIt adapter](https://github.com/pixelit-project/ioBroker.pixelit) sends screens from ioBroker and receives device status, button and sensor updates. The examples use adapter version 1.1.4 and the HTTP/WebSocket contracts retained in firmware 3.0.0. The adapter requires Node.js 18 or newer; also meet your ioBroker installation's runtime requirements.
 
 Install the adapter through ioBroker Admin and create an instance. Commands use HTTP port 80 and status updates use WebSocket port 81, so both ports must be reachable from the ioBroker host.
 

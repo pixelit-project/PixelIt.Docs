@@ -1,6 +1,6 @@
 # Introduction
 
-This documentation targets the stable [PixelIt 2.6.0 release](https://github.com/pixelit-project/PixelIt/releases/tag/2.6.0).
+This documentation targets the [PixelIt 3.0.0 release](https://github.com/pixelit-project/PixelIt/releases/tag/3.0.0).
 
 ![](/pixelit_pic.jpeg)
 
