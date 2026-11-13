@@ -18,7 +18,7 @@ It provides display power and brightness controls, messages, saved screens, play
 1. In HACS, add `https://github.com/pixelit-project/ha-pixelit` as a **custom repository**, with type **Integration**, and install PixelIt.
 2. Restart Home Assistant.
 3. Open **Settings > Devices & services > Add integration > PixelIt**.
-4. Enter the PixelIt IP address and matrix width and height (for example, `32` × `8`). The optional **Bitmap API UUID** is used when resolving gallery bitmap IDs.
+4. Enter the PixelIt IP address and matrix width and height (for example, `32` × `8`).
 5. Add the PixelIt card to your dashboard and select the matching Liveview sensor. With one display, the card editor preselects its sensor.
 
 Home Assistant must be able to reach PixelIt's WebSocket server on port **81**. MQTT and MQTT discovery are not required for this integration.
@@ -42,6 +42,16 @@ data:
   color: "#00FF00"
   large_font: false
 ```
+
+For an animated Gallery icon, add `icon: 42` (replace 42 with your Gallery ID).
+Under **Advanced options**, `icon_animation_delay` sets milliseconds between frames
+(default 100), `icon_rubberbanding: true` plays forwards and backwards (default
+false), and `icon_limit_loops` limits playback to a positive number of loops
+(default 0, repeating indefinitely). The loop limit accepts integers up to
+2,147,483,647. These options also work for saved screens and alerts, have no effect
+on static icons, and do not change screen or alert duration. In an advanced
+`bitmapAnimation` object, the corresponding firmware fields are `animationDelay`,
+`rubberbanding` and `limitLoops`.
 
 For a temporary notification, use `pixelit.show_alert` instead:
 
