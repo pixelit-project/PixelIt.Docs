@@ -13,6 +13,33 @@ The [PixelIt integration](https://github.com/pixelit-project/ha-pixelit) connect
 
 It provides display power and brightness controls, messages, saved screens, playlists, temporary alerts and a dashboard card mirroring the physical display. Sensor readings depend on the installed hardware; diagnostic entities are disabled initially. The liveview card receives its data through Home Assistant, so it also works through your existing remote Home Assistant access.
 
+### Automatic controls and physical buttons
+
+The custom integration provides **Automatic brightness** and **Automatic clock**
+switches plus **Clock fallback delay**, adjustable from 1 to 86400 seconds.
+The brightness switch controls ambient-light brightness adjustment at runtime.
+Clock settings are saved on the display. With stable firmware **3.0.1**, changing
+the automatic clock or its delay **restarts the display**; Home Assistant
+reconnects and resumes its managed playback. Device state feedback updates the
+controls. Clock changes also require Home Assistant to reach HTTP port **80**
+on the display. The firmware clock fallback can replace displayed content independently
+of Home Assistant playlists.
+
+Each physical button enabled in the display settings has a binary sensor for its
+pressed/released state and an event entity reporting `press` and `release`.
+Use the event entity in Home Assistant automations. Initial connection and
+reconnect snapshots do not generate events; disabled buttons are unavailable.
+No MQTT broker or button polling is required. Single-, double- and long-press
+gesture events remain MQTT-only in firmware 3.0.1; direct gesture delivery would
+require a firmware extension.
+
+The direct clock configuration endpoint and button messages were verified against
+[3.0.1 API source](https://github.com/pixelit-project/PixelIt/blob/3.0.1/src/Api.cpp),
+[configuration](https://github.com/pixelit-project/PixelIt/blob/3.0.1/src/Configuration.cpp)
+and [button handling](https://github.com/pixelit-project/PixelIt/blob/3.0.1/src/Buttons.cpp).
+These entities require an integration version containing the native controls;
+updating device firmware alone does not add them to the custom integration.
+
 ### Installation
 
 1. In HACS, add `https://github.com/pixelit-project/ha-pixelit` as a **custom repository**, with type **Integration**, and install PixelIt.
@@ -22,6 +49,20 @@ It provides display power and brightness controls, messages, saved screens, play
 5. Add the PixelIt card to your dashboard and select the matching Liveview sensor. With one display, the card editor preselects its sensor.
 
 Home Assistant must be able to reach PixelIt's WebSocket server on port **81**. MQTT and MQTT discovery are not required for this integration.
+
+The custom integration also provides an enabled **Firmware** update entity. It
+shows the installed and available firmware versions reported by the display,
+without MQTT Discovery or additional polling. The update status remains unknown
+until the display has completed its release check. The device's prerelease
+setting determines which releases it checks. Use the entity in automations if
+you want a personal notification. Installation continues through the existing
+WebUI or Webflasher workflow; the entity does not install firmware.
+
+This reporting uses fields verified in stable firmware **3.0.1**
+([source](https://github.com/pixelit-project/PixelIt/blob/3.0.1/src/Sensors.cpp)).
+The update entity belongs to the custom integration; firmware and integration
+versions are independent. Existing MQTT update entities remain separate.
+
 
 For manual installation, copy `custom_components/pixelit/` from the integration repository into Home Assistant's `config/custom_components/`, restart Home Assistant and continue with step 3.
 
