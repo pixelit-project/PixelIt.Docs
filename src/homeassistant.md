@@ -68,6 +68,52 @@ For manual installation, copy `custom_components/pixelit/` from the integration 
 
 The dashboard resource is registered automatically when resources are managed in storage mode. For YAML-managed resources, add `/pixelit/pixelit-card.js` with type `module`. New cards use `custom:pixelit-card`; see the [integration README](https://github.com/pixelit-project/ha-pixelit#configuration) for card options. To change the address or matrix dimensions later, choose **Reconfigure** on the integration entry.
 
+### Dashboard card actions and optional controls
+
+Choose the **Liveview** sensor as the card's `entity`. Under **Actions**, tap,
+hold and double-tap can each be configured independently. Tapping defaults to
+**More information** for the Liveview sensor; hold and double-tap default to
+**None**. Any gesture can be disabled by choosing **None**. Use the Home Assistant
+action selector for navigation, URLs, actions or custom events. Custom popups
+require the corresponding popup integration and its action configuration.
+
+For example, keep more information on tap, toggle the display on hold, and
+navigate to a dashboard on double-tap. Replace the entity IDs and navigation path:
+
+```yaml
+type: custom:pixelit-card
+entity: sensor.your_pixelit_liveview
+tap_action:
+  action: more-info
+hold_action:
+  action: perform-action
+  perform_action: light.toggle
+  target:
+    entity_id: light.your_pixelit_display
+double_tap_action:
+  action: navigate
+  navigation_path: /lovelace/display
+```
+
+Under **Display controls**, separately select the matching **Display** light.
+Enable **Show power control**, **Show brightness control**, or both. Both are
+hidden by default; the light selector does not replace the Liveview sensor selector.
+
+```yaml
+type: custom:pixelit-card
+entity: sensor.your_pixelit_liveview
+light_entity: light.your_pixelit_display
+show_power: true
+show_brightness: true
+```
+
+The controls use the standard Home Assistant light actions and device state
+feedback. Operating them does not trigger the Liveview's configured gestures.
+Unavailable lights and pending commands disable the controls; command errors are
+shown in the card. Brightness is sent when the slider is released, turns the
+display on, and may subsequently be adjusted by automatic brightness if enabled.
+No additional polling or firmware changes are required by these card options.
+
 ### Display control and actions
 
 Use the integration's **Display** light entity for power and brightness. In **Developer tools > Actions**, select a PixelIt action and choose your display. The action forms provide text, color and optional gallery icon controls; screen JSON is not required.
