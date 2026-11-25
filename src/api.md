@@ -203,6 +203,46 @@ The following special characters are supported:
 
 Use JSON booleans (`false` or `true`) for `text.bigFont`, without quotation marks. Configure the internal clock fonts separately using `fatFont` and `largeFont`; see [Clock](#clock).
 
+#### Gradients, rainbow and character colors
+
+::: warning Available from firmware 3.2.0-beta.0
+These options require PixelIt firmware `3.2.0-beta.0` or later.
+:::
+
+Set these optional fields inside `text` in an HTTP `POST /api/screen` request or a
+`setScreen` command over MQTT or WebSocket.
+
+```json
+{
+  "text": {
+    "textString": "PixelIt",
+    "position": {"x": 0, "y": 1},
+    "scrollText": "auto",
+    "centerText": true,
+    "hexColor": "#00AAFF",
+    "gradientEnd": "#FF0088",
+    "gradientDirection": "topToBottom",
+    "characterColors": ["#FFFFFF", null, "#FFD000"]
+  }
+}
+```
+
+The example blends blue at the top of the text into pink at the bottom.
+The **P** is white, the **x** is gold, and the **i** keeps the gradient.
+
+| Field | Description |
+| :--- | :--- |
+| `gradientEnd` | End color in `#RRGGBB` format. The gradient starts at the existing `hexColor` or RGB `color`. |
+| `rainbow` | Set to `true` to use a rainbow in place of the two-color gradient. |
+| `gradientDirection` | Sets the direction of the gradient or rainbow. With a direction, colors blend across the pixels of the text, including within letters. When omitted or unrecognized, colors advance one character at a time. |
+| `characterColors` | Array of optional `#RRGGBB` overrides for the first 64 displayed characters. Spaces count. Use `null` to keep the gradient, rainbow or base color at that position. |
+
+Use `leftToRight`, `rightToLeft`, `topToBottom`, or `bottomToTop` for straight
+directions. The diagonal values are `topLeftToBottomRight`,
+`bottomRightToTopLeft`, `topRightToBottomLeft`, and `bottomLeftToTopRight`.
+
+Colors move with the text when it scrolls.
+
 ### Sleep Mode
 
 ---
