@@ -243,6 +243,36 @@ directions. The diagonal values are `topLeftToBottomRight`,
 
 Colors move with the text when it scrolls.
 
+##### Moving gradients and rainbows
+
+::: warning Available from firmware 3.2.0-beta.1
+The `gradientCycleMs` option requires PixelIt firmware `3.2.0-beta.1` or later.
+:::
+
+Set `gradientCycleMs` to a whole number from 250 to 60000 for one color cycle
+in milliseconds. Leave it out for static colors. Use `gradientDirection` to
+set the direction of movement. The default for a moving effect is
+`leftToRight`. The color cycle runs on stationary and scrolling text.
+Character color overrides stay fixed.
+
+```json
+{
+  "text": {
+    "textString": "PixelIt",
+    "position": {"x": 0, "y": 1},
+    "centerText": true,
+    "hexColor": "#00AAFF",
+    "gradientEnd": "#FF0088",
+    "gradientDirection": "leftToRight",
+    "gradientCycleMs": 2400
+  }
+}
+```
+
+In this example a pink band moves across blue text once every 2.4 seconds.
+Use `rainbow: true` to animate a rainbow instead.
+
+
 ### Sleep Mode
 
 ---

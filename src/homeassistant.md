@@ -116,7 +116,7 @@ No additional polling or firmware changes are required by these card options.
 
 ### Display control and actions
 
-Use the integration's **Display** light entity for power and brightness. In **Developer tools > Actions**, select a PixelIt action and choose your display. The action forms provide text, color and optional gallery icon controls; screen JSON is not required.
+Use the integration's **Display** light entity for power and brightness. In **Developer tools > Actions**, select a PixelIt action and choose your display. The action forms provide text, color and optional gallery icon controls; screen JSON is not required. The upcoming integration update groups color and font settings under **Text appearance**, animation settings under **Icon animation**, and the effect and its Gallery image under **Transition**.
 
 For YAML automations, replace `light.your_pixelit_display` with the entity created by this integration. This example shows a message until another command replaces it and stops an active playlist:
 
@@ -131,7 +131,7 @@ data:
 ```
 
 For an animated Gallery icon, add `icon: 42` (replace 42 with your Gallery ID).
-Under **Advanced options**, `icon_animation_delay` sets milliseconds between frames
+In the icon animation settings, `icon_animation_delay` sets milliseconds between frames
 (default 100), `icon_rubberbanding: true` plays forwards and backwards (default
 false), and `icon_limit_loops` limits playback to a positive number of loops
 (default 0, repeating indefinitely). The loop limit accepts integers up to
@@ -139,6 +139,14 @@ false), and `icon_limit_loops` limits playback to a positive number of loops
 on static icons, and do not change screen or alert duration. In an advanced
 `bitmapAnimation` object, the corresponding firmware fields are `animationDelay`,
 `rubberbanding` and `limitLoops`.
+
+With firmware **3.2.0-beta.1 or newer** and a version of the integration that
+includes **Gradient cycle**, set it under **Text appearance** to animate a
+gradient or rainbow. In YAML, use `gradient_cycle_ms` with a whole number from
+250 to 60000. For example, add `rainbow: true`, `gradient_direction: left_to_right`
+and `gradient_cycle_ms: 2400` to the message above for a 2.4-second rainbow cycle.
+The same option is available for alerts and saved screens.
+See the [screen API reference](api.html#moving-gradients-and-rainbows).
 
 For a temporary notification, use `pixelit.show_alert` instead:
 
