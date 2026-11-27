@@ -130,6 +130,12 @@ data:
   large_font: false
 ```
 
+With an integration version that includes **Scroll speed**, set it under
+**Text appearance** for messages, saved screens and alerts. In YAML, add
+`scroll_delay: 40` to the example above. The setting accepts whole milliseconds
+per pixel step (10–10,000). Lower values scroll faster. Leave the field blank
+to use the display's default scroll speed.
+
 For an animated Gallery icon, add `icon: 42` (replace 42 with your Gallery ID).
 In the icon animation settings, `icon_animation_delay` sets milliseconds between frames
 (default 100), `icon_rubberbanding: true` plays forwards and backwards (default
